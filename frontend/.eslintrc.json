@@ -1,7 +1,8 @@
 {
   "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/prefer-stateless-function": [ 0, { "ignorePureComponents": true }]
+      "react/prefer-stateless-function": [ 0, { "ignorePureComponents": true }],
+      "no-use-before-define": ["error", { "variables": false }]
   },
   "extends": "airbnb"
 }

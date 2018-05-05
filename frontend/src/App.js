@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Header } from 'react-native-elements';
 import Logo from './components/Logo';
 
@@ -15,13 +15,20 @@ class App extends Component {
       <View>
         <Header
           rightComponent={<Logo />}
-          leftComponent={{ icon: 'home', color: '#fff', size: 30 }}
-          centerComponent={<Text style={{ color: '#fff', margin: 0 }}>Avaliador: Vitor</Text>}
+          leftComponent={{ icon: 'menu', color: '#fff', size: 30 }}
+          centerComponent={<Text style={styles.rightComponentStyle}>Avaliador: Victor</Text>}
         />
         <Text>Some text here</Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  rightComponentStyle: {
+    color: '#fff',
+    margin: 0,
+  },
+});
 
 export default App;
