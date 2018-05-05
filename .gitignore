@@ -57,3 +57,6 @@ buck-out/
 
 #VSCODE
 .vscode
+.project
+.settings
+.classpath
