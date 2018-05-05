@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Header } from 'react-native-elements';
-import Logo from './components/Logo';
+import { Logo } from './components/';
 
 /*
   using react-native-elements and react-native-vector-icons
@@ -18,7 +18,6 @@ class App extends Component {
           leftComponent={{ icon: 'menu', color: '#fff', size: 30 }}
           centerComponent={<Text style={styles.rightComponentStyle}>Avaliador: Victor</Text>}
         />
-        <Text>Some text here</Text>
       </View>
     );
   }
