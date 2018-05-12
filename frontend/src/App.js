@@ -11,6 +11,7 @@ const RootStack = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
         headerRight: <Logo />,
+        headerLeft: null,
       }),
     },
     Login: LoginScreen
