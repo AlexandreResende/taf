@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import { } from 'react-native';
 import { } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
-import { LoginScreen, HomeScreen, Logo } from './components/';
+import { LoginScreen, HomeScreen } from './components/screens'
 
 const RootStack = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: ({ navigation }) => ({
-        title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
-        headerRight: <Logo />,
-        headerLeft: null,
-      }),
-    },
+    Home: HomeScreen,
     Login: LoginScreen
   },
   {
@@ -26,3 +19,10 @@ export default class App extends Component {
     return <RootStack />;
   }
 }
+
+/*
+navigationOptions: ({ navigation }) => ({
+  title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
+  headerRight: <Logo />,
+  headerLeft: <Icon name="menu" size={30} style={{ marginLeft: 10 }} />,
+}),*/

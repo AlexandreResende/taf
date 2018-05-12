@@ -22,7 +22,7 @@ class LoginScreen extends Component {
       <View style={styles.container}>
         <Image
           style={{ width: 150, height: 150 }}
-          source={ require('../images/pm.png') }
+          source={ require('../../images/pm.png') }
         />
         <View style={styles.centerBox}>
           <TextInput
