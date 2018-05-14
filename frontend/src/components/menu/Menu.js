@@ -8,6 +8,7 @@ class Menu extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      navigation: this.props.navigation,
       drawerType: 'overlay',
       openDrawerOffset:500,
       closedDrawerOffset:0,
@@ -27,6 +28,10 @@ class Menu extends Component {
       negotiatePan: false,
       side: "left",
     };
+  }
+
+  componentDidMount(){
+    // console.log(this.props)
   }
 
   setDrawerType(type){
@@ -55,9 +60,14 @@ class Menu extends Component {
   }
 
   render() {
-    const menuPanel = <MenuPanel closeDrawer={() => {
+    const menuPanel = <MenuPanel 
+      closeDrawer={() => {
         this.drawer.close();
-      }} />
+      }}
+      navigation={ 
+        this.state.navigation
+      } 
+      />
 
     const drawerStyles = {
       drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
