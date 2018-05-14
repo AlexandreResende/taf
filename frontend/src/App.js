@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Header } from 'react-native-elements';
-import { Logo } from './components/';
+import { } from 'react-native';
+import { } from 'react-native-elements';
+import { createStackNavigator } from 'react-navigation';
+import { LoginScreen, HomeScreen, TwelveMinutesRunScreen } from './components/screens'
 
-/*
-  using react-native-elements and react-native-vector-icons
-  https://github.com/react-native-training/react-native-elements
-  https://github.com/oblador/react-native-vector-icons
-*/
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Login: LoginScreen,
+    TwelveMinutesRun: TwelveMinutesRunScreen
+  },
+  {
+    initialRouteName: 'Login',
+  },
+);
 
-class App extends Component {
+export default class App extends Component {
   render() {
-    return (
-      <View>
-        <Header
-          rightComponent={<Logo />}
-          leftComponent={{ icon: 'menu', color: '#fff', size: 30 }}
-          centerComponent={<Text style={styles.rightComponentStyle}>Avaliador: Victor</Text>}
-        />
-      </View>
-    );
+    return <RootStack />;
   }
 }
 
-const styles = StyleSheet.create({
-  rightComponentStyle: {
-    color: '#fff',
-    margin: 0,
-  },
-});
-
-export default App;
+/*
+navigationOptions: ({ navigation }) => ({
+  title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
+  headerRight: <Logo />,
+  headerLeft: <Icon name="menu" size={30} style={{ marginLeft: 10 }} />,
+}),*/
