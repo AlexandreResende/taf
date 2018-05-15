@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { Signature } from '../common';
 
 class TwelveMinutesRun extends Component {
   render() {
     return (
-      <Text>
-        12 Minutos
-      </Text>
+      <View style={{width: 600}}>
+        <Signature/>
+      </View>
     )
   }
 }
 
-export default TwelveMinutesRun;
+export { TwelveMinutesRun };

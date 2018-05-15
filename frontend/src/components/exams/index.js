@@ -1,1 +1,1 @@
-export { default as TwelveMinutesRun } from './TwelveMinutesRun';
+export * from './TwelveMinutesRun';

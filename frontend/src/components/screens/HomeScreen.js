@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, Button, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 // import Icon from 'react-native-vector-icons/Entypo';
 // import Menu from '../menu/Menu';
-import Logo from '../Logo';
+import { Logo } from '../common';
 
 class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -65,7 +65,7 @@ var styles = StyleSheet.create({
   }
 })
 
-export default HomeScreen;
+export { HomeScreen };
 
 /*
 <Menu component={<Text>Home</Text>} navigation={this.props.navigation}/>

@@ -1,3 +1,4 @@
 rootProject.name = 'taf'
 
-include ':app'
+include ':reactnativesignaturecapture',':app'
+project(':reactnativesignaturecapture').projectDir = new File(settingsDir, '../node_modules/react-native-signature-capture/android')
