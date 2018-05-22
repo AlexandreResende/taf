@@ -28,7 +28,15 @@ class HomeScreen extends Component {
               <Text style={styles.title}>Prova dos 12 Minutos</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.child, {backgroundColor: '#339966'} ]} ></TouchableOpacity>
+          <TouchableOpacity style={[styles.child, {backgroundColor: '#339966'} ]} 
+            onPress={ () => {
+              this.props.navigation.navigate('HeightExam')
+            }}
+          >
+            <View style={styles.container}>
+              <Text style={styles.title}>Prova de Altura</Text>
+            </View>
+          </TouchableOpacity>
           <TouchableOpacity style={[styles.child, {backgroundColor: '#996633'} ]} ></TouchableOpacity>
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} ></TouchableOpacity>
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} ></TouchableOpacity>
