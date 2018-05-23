@@ -7,6 +7,7 @@ import { HeightExam } from '../exams';
 
 class HeightExamScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
+    title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
     headerRight: <Logo />
   });
 

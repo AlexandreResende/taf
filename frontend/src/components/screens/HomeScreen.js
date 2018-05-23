@@ -30,7 +30,9 @@ class HomeScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.child, {backgroundColor: '#339966'} ]} 
             onPress={ () => {
-              this.props.navigation.navigate('HeightExam')
+              this.props.navigation.navigate('HeightExam', {
+                name: this.props.navigation.getParam('name', 'Invalid Name')
+              })
             }}
           >
             <View style={styles.container}>
