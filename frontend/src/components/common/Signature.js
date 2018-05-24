@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
 import SignatureCapture from 'react-native-signature-capture';
 
 class Signature extends Component {
@@ -9,13 +9,34 @@ class Signature extends Component {
         <View style={{ flex: 1, flexDirection: "column" }}>
           <SignatureCapture
               style={[styles.signature]}
-              onSaveEvent={this._onSaveEvent}
+              ref="sign"
+              onSaveEvent={ (result) => { this.props.onSave(result) } }
               onDragEvent={this._onDragEvent}
-              showNativeButtons={true}
+              showNativeButtons={false}
             />
+
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <TouchableHighlight style={styles.buttonStyle}
+                onPress={() => { this.saveSign() } } >
+                <Text>Salvar</Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight style={styles.buttonStyle}
+                onPress={() => { this.resetSign() } } >
+                <Text>Limpar</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </View>
     )
+  }
+
+  saveSign() {
+    this.refs["sign"].saveImage();
+  }
+
+  resetSign() {
+    this.refs["sign"].resetImage();
   }
 
   _onSaveEvent(result) {
@@ -39,6 +60,11 @@ const styles = StyleSheet.create({
   signature: {
       height: 200,
   },
+  buttonStyle: {
+    flex: 1, justifyContent: "center", alignItems: "center", height: 50,
+    backgroundColor: "#eeeeee",
+    margin: 10
+  }
 });
 
 export { Signature };
