@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
 import { Signature } from '../common';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card } from './TwelveMinutesRun/index';
@@ -8,15 +8,23 @@ class TwelveMinutesRun extends Component {
 
   componentWillMount() {
     this.setState({
-      arr: []
+      arr: [],
+      number: ''
   })
   }
 
-  addToArr(temp) {
-    this.state.arr.push(temp)
+  addToArr() {
+    if(!this.state.number || this.state.number.length == 0)
+      return;
+    this.state.arr.push(this.state.number)
     this.setState({
-        arr: this.state.arr
+        arr: this.state.arr,
+        number: ''
     })
+  }
+
+  _onChangeText(text) {
+    this.setState({ number : text});
   }
 
   render() {
@@ -30,8 +38,15 @@ class TwelveMinutesRun extends Component {
           <View style={styles.card}>
             <TouchableOpacity  
               style={{height: '100%',width:'100%', justifyContent: 'center', alignItems: 'center'}}
-              onPress={  () => this.addToArr(122) }
+              onPress={  () => this.addToArr() }
             >
+              <TextInput
+                style={{ color: 'white', width: 90}}
+                onChangeText={(text) => this.setState({ number : text}) }
+                maxLength={3}
+                keyboardType='numeric'
+                value={this.state.number}
+              />
               <Icon name="plus-circle" size={70} color="white" />
             </TouchableOpacity>
           </View>
