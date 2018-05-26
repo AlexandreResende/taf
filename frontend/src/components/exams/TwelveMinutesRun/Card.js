@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import CardView from 'react-native-cardview';
+import { Button } from 'react-native-elements'
 
 class Card extends Component {
+  constructor(props){
+    super(props);
+
+  }
+  
   render() {
     return (
       <CardView
@@ -12,27 +18,31 @@ class Card extends Component {
         style={styles.card}>
         <View>
           <View>
-            <Text>
-                Test Card
+            <Text style={styles.text}>
+                Numero do candidato: <Text style={styles.number}>{this.props.candidateNumber}</Text>
             </Text>
-            <Text >
-                Number: 12
+            <Text style={styles.text}>
+                Voltas: 0
             </Text>
-            <Text >
-                CardCard
+            <Text style={styles.text}>
+                Metros: 200M
             </Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-            <View style={styles.button}>
-              <Button
-                title="-1 Volta"
-                color='red' 
+            <View style={styles.buttonContainer}>
+            <Button
+                title="Subtrair"
+                backgroundColor='red'
+                icon={{name: 'minus-circle', type: 'font-awesome', size: 20}}
+                borderRadius={15}
               />
             </View>
-            <View style={styles.button}>
+            <View style={styles.buttonContainer}>
               <Button
-                title="+1 Volta"
-                color='green'
+                title="Adicionar"
+                backgroundColor='green'
+                icon={{name: 'plus-circle', type: 'font-awesome', size: 20}}
+                borderRadius={15}
               />
             </View>
           </View>
@@ -49,10 +59,18 @@ const styles = StyleSheet.create({
     padding: 20,
     width: 300
   },
-  button: {
-    width: '30%',
+  buttonContainer: {
+    // width: '30%',
     height: 40,
     margin: 5
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  number: {
+    fontSize: 30,
+    color: 'black'
   }
 });
 
