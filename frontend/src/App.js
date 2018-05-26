@@ -21,10 +21,3 @@ export default class App extends Component {
     return <RootStack />;
   }
 }
-
-/*
-navigationOptions: ({ navigation }) => ({
-  title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
-  headerRight: <Logo />,
-  headerLeft: <Icon name="menu" size={30} style={{ marginLeft: 10 }} />,
-}),*/
