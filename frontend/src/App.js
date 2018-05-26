@@ -12,7 +12,7 @@ const RootStack = createStackNavigator(
     HeightExam: HeightExamScreen
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'TwelveMinutesRun',
   },
 );
 

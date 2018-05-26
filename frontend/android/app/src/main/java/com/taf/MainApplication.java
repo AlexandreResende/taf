@@ -3,6 +3,7 @@ package com.taf;
 import android.app.Application;
 
 import com.rssignaturecapture.RSSignatureCapturePackage;
+import com.kishanjvaghela.cardview.RNCardViewPackage;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -25,7 +26,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new RSSignatureCapturePackage()
+          new RSSignatureCapturePackage(),
+          new RNCardViewPackage()
       );
     }
 
