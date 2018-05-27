@@ -28,6 +28,7 @@ class HomeScreen extends Component {
               <Text style={styles.title}>Prova dos 12 Minutos</Text>
             </View>
           </TouchableOpacity>
+          
           <TouchableOpacity style={[styles.child, {backgroundColor: '#339966'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('HeightExam', {
@@ -39,8 +40,33 @@ class HomeScreen extends Component {
               <Text style={styles.title}>Prova de Altura</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.child, {backgroundColor: '#996633'} ]} ></TouchableOpacity>
-          <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} ></TouchableOpacity>
+
+          <TouchableOpacity style={[styles.child, {backgroundColor: '#996633'} ]} 
+            style={[styles.child, {backgroundColor: '#996666'} ]} 
+            onPress={ () => {
+              this.props.navigation.navigate('AbdominalExam', {
+                name: this.props.navigation.getParam('name', 'Invalid Name')
+              })
+            }}
+          >
+            <View style={styles.container}>
+              <Text style={styles.title}>Prova das Flexões</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} 
+            style={[styles.child, {backgroundColor: '#996666'} ]} 
+            onPress={ () => {
+              this.props.navigation.navigate('PushUpsExam', {
+                name: this.props.navigation.getParam('name', 'Invalid Name')
+              })
+            }}
+          >
+            <View style={styles.container}>
+              <Text style={styles.title}>Prova dos Abdominais</Text>
+            </View>
+          </TouchableOpacity>
+
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} ></TouchableOpacity>
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} ></TouchableOpacity>
        </View>
@@ -72,6 +98,9 @@ var styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   }
 })
 
