@@ -42,10 +42,13 @@ class HeightExam extends Component {
   render() {
     return (
       <View style={styles.heightExamContainer}>
+        <View style={styles.examNameContainer}>
+          <Text style={styles.formatText}>Teste da altura</Text>
+        </View>
         <View style={styles.evaluatedPersonContainer}>
-          <Text style={styles.evaluatedPersonText}>Número do Avaliado:</Text>
+          <Text style={styles.formatText}>Número do Avaliado:</Text>
           <TextInput 
-            style={styles.evaluatedPersonNumber} 
+            style={[styles.evaluatedPersonNumber, styles.formatText]} 
             value={this.state.evaluatedPersonNumber} 
             onChangeText={this.onChangeEvaluatedPersonNumber}
             keyboardType='numeric'>
@@ -53,11 +56,11 @@ class HeightExam extends Component {
         </View>
         <View style={styles.examDataContainer}>
           <TextInput
-            style={styles.formatHeightValue}
+            style={[styles.formatHeightValue, styles.formatText]}
             value={this.state.heigthValue}
             onChangeText={this.onChangeHeightValue}
             keyboardType='numeric'></TextInput>
-          <Text style={styles.formatHeightText} >centímetros</Text>
+          <Text style={styles.formatText} >centímetros</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button color={'green'} title='Salvar' onPress={() => {return null;}}></Button>
@@ -75,21 +78,22 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'column',
   },
-  evaluatedPersonContainer: {
+  examNameContainer: {
     flex: 1,
-    marginTop: -30,
+    marginTop: -20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  evaluatedPersonText: {
-    color: 'black',
-    fontSize: 18,
+  evaluatedPersonContainer: {
+    flex: 1,
+    marginTop: -50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   evaluatedPersonNumber: {
     width: '5%',
-    color: 'black',
-    fontSize: 18,
     justifyContent: 'center',
     textAlign: 'center',
   },
@@ -103,13 +107,7 @@ const styles = StyleSheet.create({
   formatHeightValue: {
     width: '7%',
     borderColor: 'black',
-    color: 'black',
-    fontSize: 18,
     textAlign: 'center',
-  },
-  formatHeightText: {
-    color: 'black',
-    fontSize: 18,
   },
   buttonContainer: {
     marginTop: -40,
@@ -121,6 +119,10 @@ const styles = StyleSheet.create({
   },
   marginBetweenButtons: {
     flex: 0.2,
+  },
+  formatText: {
+    color: 'black',
+    fontSize: 18,
   }
 });
 
