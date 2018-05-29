@@ -10,11 +10,11 @@ class TwelveMinutesRun extends Component {
     this.setState({
       arr: [],
       number: ''
-  })
+    })
   }
 
   addToArr() {
-    if(!this.state.number || this.state.number.length == 0)
+    if(!this.state.number || this.state.number.length == 0 || this.state.arr.indexOf(this.state.number) != -1)
       return;
     this.state.arr.push(this.state.number)
     this.setState({
@@ -28,21 +28,21 @@ class TwelveMinutesRun extends Component {
   }
 
   render() {
-    let Arr = this.state.arr.map((element) => {
-      return <Card candidateNumber={element}/>                            
+    let Arr = this.state.arr.map((element, i) => {
+      return <Card candidateNumber={element} key={i}/>                            
     })
     return (
       <ScrollView style={styles.container}>
-        <View style={{ flexDirection:'row' ,flexWrap: 'wrap'}}>
+        <View style={styles.buttonContainer}>
           { Arr }
           <View style={styles.card}>
             <TouchableOpacity  
-              style={{height: '100%',width:'100%', justifyContent: 'center', alignItems: 'center'}}
+              style={styles.addButton}
               onPress={  () => this.addToArr() }
             >
             <Text style={styles.formatText}>Número do Avaliado:</Text>
               <TextInput
-                style={{ color: 'white', width: 90}}
+                style={styles.inputCandidateNumber}
                 onChangeText={(text) => this.setState({ number : text}) }
                 maxLength={3}
                 keyboardType='numeric'
@@ -73,6 +73,20 @@ const styles = StyleSheet.create({
   formatText: {
     color: 'white',
     fontSize: 18,
+  },
+  buttonContainer: {
+    flexDirection:'row',
+    flexWrap: 'wrap'
+  },
+  addButton: {
+    height: '100%',
+    width:'100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  inputCandidateNumber: {
+    color: 'white',
+    width: 90
   }
 });
 
