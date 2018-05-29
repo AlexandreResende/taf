@@ -40,6 +40,7 @@ class TwelveMinutesRun extends Component {
               style={{height: '100%',width:'100%', justifyContent: 'center', alignItems: 'center'}}
               onPress={  () => this.addToArr() }
             >
+            <Text style={styles.formatText}>Número do Avaliado:</Text>
               <TextInput
                 style={{ color: 'white', width: 90}}
                 onChangeText={(text) => this.setState({ number : text}) }
@@ -68,6 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15
+  },
+  formatText: {
+    color: 'white',
+    fontSize: 18,
   }
 });
 

@@ -3,15 +3,17 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { AbdominalPushUpsComponent } from './AbdominalPushUpsComponent/AbdominalPushUpsComponent';
 
-class AbdominalExam extends Component {
+class AbdominalExam extends Component 
+{
   constructor(props) {
     super(props);
   }
 
-  render() {
+  render() 
+  {
     return (
       <AbdominalPushUpsComponent 
-        examName={'Flexão'}
+        examName={'Abdominal'}
       />
     );
   }
