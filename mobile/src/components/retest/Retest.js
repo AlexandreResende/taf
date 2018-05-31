@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { CheckBox } from 'react-native';
+import { CheckBox, StyleSheet, View } from 'react-native';
 
 class Retest extends Component {
   constructor(props) {

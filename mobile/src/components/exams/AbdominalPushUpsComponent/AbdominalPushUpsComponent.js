@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Retest } from '../../retest';
 
 class AbdominalPushUpsComponent extends Component {
   constructor(props) {
@@ -53,11 +54,11 @@ class AbdominalPushUpsComponent extends Component {
 
   render() {
     return (
-      <View style={styles.AbdominalPushUpsExamContainer}>
-        <View style={styles.examNameContainer}>
+      <View style={[styles.AbdominalPushUpsExamContainer]}>
+        <View style={[styles.containers, styles.examNameContainer]}>
           <Text style={styles.formatText}>{this.state.examName}</Text>
         </View>
-        <View style={styles.evaluatedPersonContainer}>
+        <View style={[styles.containers, styles.evaluatedPersonContainer]}>
           <Text style={styles.formatText}>Número do Avaliado:</Text>
           <TextInput 
             style={[styles.evaluatedPersonNumber, styles.formatText]} 
@@ -66,7 +67,7 @@ class AbdominalPushUpsComponent extends Component {
             keyboardType='numeric'>
           </TextInput>
         </View>
-        <View style={styles.examDataContainer}>
+        <View style={[styles.containers, styles.examDataContainer]}>
         <Button color={'red'} title='-' onPress={this.decrementCounter}></Button>
           <View style={styles.marginBetweenButtons} />
           <Text
@@ -75,7 +76,11 @@ class AbdominalPushUpsComponent extends Component {
           <View style={styles.marginBetweenButtons} />
           <Button color={'green'} title='+' onPress={this.incrementCounter}></Button>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={[styles.containers, styles.retestContainer]}>
+          <Retest></Retest>
+          <Text>Reteste</Text>
+        </View>
+        <View style={[styles.containers, styles.buttonContainer]}>
           <Button color={'green'} title='Salvar' onPress={() => {return null;}}></Button>
           <View style={styles.marginBetweenButtons} />
           <Button title='Limpar' onPress={this.clearFields}></Button>
@@ -86,6 +91,10 @@ class AbdominalPushUpsComponent extends Component {
 }
 
 const styles = StyleSheet.create({
+  containers: {
+    marginTop: 40,
+    marginBottom: 20,
+  },
   AbdominalPushUpsExamContainer: {
     flex: 1,
     width: '100%',
@@ -93,14 +102,14 @@ const styles = StyleSheet.create({
   },
   examNameContainer: {
     flex: 1,
-    marginTop: -20,
+    //marginTop: -20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   evaluatedPersonContainer: {
     flex: 1,
-    marginTop: -70,
+    //marginTop: -70,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   examDataContainer: {
-    marginTop: -100,
+    //marginBottom: 200,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -122,8 +131,15 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     textAlign: 'center',
   },
+  retestContainer: {
+    flex: 1,
+    //marginBottom: 140,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   buttonContainer: {
-    marginTop: -40,
+    //marginTop: -200,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
