@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TAF</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  web-ui
-</body>
+<html ng-app="taf">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TAF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="assets/css/sb-admin.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+
+    <!-- Jquery -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- js ( bootstrap ) -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/jquery.easing/jquery.easing.min.js"></script>
+
+    <!-- AnguarJS dependencies -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+
+    <!-- Modules -->
+    <script src="app/app.js"></script>
+    <script src="app/components/navigation/navigation.module.js"></script>
+    <script src="app/components/home/home.module.js"></script>
+    <script src="app/components/results/results.module.js"></script>
+
+    <!-- Config -->
+    <script src="app/app.routes.js"></script>
+
+    <!-- Components -->
+    <script src="app/components/navigation/navigation.component.js"></script>
+    <script src="app/components/home/home.component.js"></script>
+    <script src="app/components/results/results.component.js"></script>
+
+    <!-- Controllers -->
+    <script src="app/components/navigation/navigation.controller.js"></script>
+    <script src="app/components/home/home.controller.js"></script>
+    <script src="app/components/results/results.controller.js"></script>
+
+  </head>
+  <body class="fixed-nav bg-dark" id="page-top">
+    <navigation></navigation>
+  </body>
 </html>
