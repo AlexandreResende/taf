@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { CheckBox, StyleSheet, View } from 'react-native';
+import { CheckBox, StyleSheet, View, Text } from 'react-native';
 
 class Retest extends Component {
   constructor(props) {
@@ -10,8 +10,8 @@ class Retest extends Component {
     };
   }
 
-  changeCheckboxStatus = () => {
-    this.setStatus({
+  changeCheckboxStatus = (val) => {
+    this.setState({
       checked: !this.state.checked,
     });
   }
@@ -24,7 +24,8 @@ class Retest extends Component {
           center
           checkedIcon='dot-circle-o'
           uncheckedIcon='dot-circle'
-          onPress={ this.changeCheckboxStatus }  
+          value={this.state.checked}
+          onChange={ this.changeCheckboxStatus }
         />
       </View>
     );
