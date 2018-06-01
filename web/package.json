@@ -11,10 +11,16 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.12",
     "angular": "^1.6.7",
+    "angular-animate": "^1.7.0",
+    "angular-aria": "^1.7.0",
+    "angular-material": "^1.1.9",
+    "angular-messages": "^1.7.0",
+    "angular-ui-mask": "^1.8.7",
     "bootstrap": "^4.0.0",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
-    "jquery.easing": "^1.4.1"
+    "jquery.easing": "^1.4.1",
+    "moment": "^2.22.1"
   }
 }

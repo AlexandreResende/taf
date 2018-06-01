@@ -1,0 +1,70 @@
+<div class="card mb-3" ng-cloak>
+  <div class="card-header">
+    <i class="fa fa-area-chart"></i> Cadastrar Novo Candidato
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-12 offset-md-3 col-md-6">
+
+        <form name="newCandidateForm"  ng-submit="submit()">
+
+          <md-input-container class="md-block">
+            <label>Nome do Candidato</label>
+            <input required tabindex="1" name="candidateName" ng-model="form.candidateName" ng-minlength="3" ng-maxlength="50" ng-pattern="/^[A-Za-z\u00C0-\u00FF\s]*$/" autocomplete="off">
+            <div ng-messages="newCandidateForm.candidateName.$error">
+              <div ng-message="required">Nome deve ser preenchido</div>
+              <div ng-message="minlength">Nome deve ter pelo menos 3 caracteres</div>
+              <div ng-message="maxlength">Nome não deve exceder 50 caracteres</div>
+              <div ng-message="pattern">Nome não pode conter números</div>
+            </div>
+          </md-input-container>
+
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>CPF</label>
+              <input required tabindex="2" name="candidateCPF" ng-model="form.candidateCPF" ui-mask="999.999.999-99" ng-pattern="/^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}))$/" autocomplete="off">
+              <div ng-messages="newCandidateForm.candidateCPF.$error">
+                <div ng-message="required">CPF deve ser preenchido</div>
+                <div ng-message="pattern">Formato: ###.###.###-##</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container flex="50">
+              <label>Numero do Candidato</label>
+              <input required tabindex="3" name="candidateNumber" ng-model="form.candidateNumber" autocomplete="off" type="number" min="0" max="999">
+              <div ng-messages="newCandidateForm.candidateNumber.$error">
+                <div ng-message="required">Numero deve ser preenchido</div>
+                <div ng-message="max">Minimo: 0</div>
+                <div ng-message="max">Maximo: 999</div>
+              </div>
+            </md-input-container>
+          </div>
+          
+          <div layout="row" layout-align="center center">
+            <md-radio-group ng-model="form.candidateSex" layout="row">
+              <md-radio-button value="men" class="md-primary">Homem</md-radio-button>
+              <md-radio-button value="woman"> Mulher </md-radio-button>
+            </md-radio-group>
+          </div>
+          <br>
+          <div layout="row" layout-align="center center">
+            <span>Data da prova:</span>
+            <md-datepicker ng-model="form.examDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+          </div>
+          <br>
+          <div layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary" type="submit">Cadastrar</md-button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa-area-chart"></i> Candidatos Cadastrados</div>
+  <div class="card-body">
+    <h2>Table</h2>    
+  </div>
+</div>

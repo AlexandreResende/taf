@@ -1,3 +1,5 @@
 angular.module('taf',[
-  'ui.router','navigation','home','results'
+  'ui.router','ngMaterial', 'ngMessages','ui.mask',
+  
+  'navigation','home','results','register'
 ]);

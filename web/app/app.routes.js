@@ -13,5 +13,9 @@ angular
         url: "/home/results",
         component: "results"
       })
+      .state('register',{
+        url: "/home/register",
+        component: "register"
+      })
   }
 );
