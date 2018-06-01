@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { addCandidates } = require('./candidates-controller');
+const { getCandidates, addCandidate } = require('./candidates-controller');
 
-router.get('/candidates', getCandidates);
+router.get('/candidates/:day/:month/:year', getCandidates);
 
-router.post('/candidates', addCandidates);
+router.post('/candidates', addCandidate);
 
 module.exports = router;
