@@ -12,6 +12,11 @@ app
   .use(helmet())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
+  .use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  })
   .use(candidateRoutes)
   .listen(port, () => {
     console.log(`Server running on port ${port}`);
