@@ -12,7 +12,7 @@ module.exports.getCandidates = (req, res) => {
   Promise.all([getCandidatesResult])
     .then((candidates) => {
       res.status(200).send({
-        result: candidates,
+        result: candidates[0],
         error: null,
       });
     })
