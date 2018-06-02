@@ -1,18 +1,12 @@
-function resultsController($scope, api) {
-
-  function formatDate(date){
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-  }
+function resultsController($scope, api, date) {
 
   $scope.changeViewDate = function() {
-    $scope.updateTable(formatDate($scope.viewDate));
+    // console.log(date.formatDate($scope.viewDate));
+    $scope.updateTable(date.formatDate($scope.viewDate));
   }
 
   $scope.updateTable = function(date) {
-
+    
   }
  
   $scope.options = {
@@ -33,7 +27,10 @@ function resultsController($scope, api) {
       "gender":"Masculino",
       "cpf":"123.123.123-12",
       "points":400,
-      "exam1": 50,
+      "exams": [{
+        "exam1":10,
+        "reteste":true
+      }],
       "exam2":"100",
       "exam3":"100",
       "exam4":"100"
@@ -44,6 +41,10 @@ function resultsController($scope, api) {
       "gender":"Masculino",
       "cpf":"123.123.123-12",
       "points":201,
+      "exams": [{
+        "exam1":20,
+        "reteste":false
+      }],
       "exam1":"100",
       "exam2":"100",
       "exam3":"100",
@@ -54,6 +55,10 @@ function resultsController($scope, api) {
       "name":"Guilherme",
       "gender":"Masculino",
       "cpf":"123.123.123-12",
+      "exams": [{
+        "exam1":30,
+        "reteste":false
+      }],
       "exam1":"100",
       "exam2":"100",
       "exam3":"100",
@@ -105,12 +110,13 @@ function resultsController($scope, api) {
     },
     {
       id: 'Prova 4',
-      key: 'exam4'
+      key: 'exams',
+      template: '<p>{{ row.exams[0].exam1 }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
       id: 'points',
       key: 'points',
-      template: '<p class="' + "{{ row.points > 200 ? 'green-font' : 'red-font'}}" + '">' + '{{row.points}}</p>'
+      template: '<span class="' + "{{ row.points > 200 ? 'green-font' : 'red-font'}}" + '">' + '{{row.points}}</span>' + " <span class='badge badge-success'>{{ row.points > 200 ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
     }
   ];
 

@@ -1,4 +1,4 @@
-function registerController($scope, $mdToast, api, focus) {
+function registerController($scope, $mdToast, api, focus, date) {
 
   // Initializing the radial buttons, so they wont start empty.
   $scope.form = {
@@ -8,16 +8,8 @@ function registerController($scope, $mdToast, api, focus) {
 
   $scope.viewDate = new Date();
 
-  function formatDate(date){
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    // console.log((day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year)
-    return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-  }
-
   $scope.changeViewDate = function() {
-    $scope.updateTable(formatDate($scope.viewDate));
+    $scope.updateTable(date.formatDate($scope.viewDate));
   }
 
   /*
@@ -57,14 +49,14 @@ function registerController($scope, $mdToast, api, focus) {
       gender: $scope.form.candidateSex,
       cpf: $scope.form.candidateCPF,
       number: $scope.form.candidateNumber,
-      examDate: formatDate($scope.form.examDate),
+      examDate: date.formatDate($scope.form.examDate),
       exams: []
     }
 
     api.addCandidate(data).then(function(response){
       $scope.toastMessage('success','Cadastro Realizado com sucesso');
       $scope.clearForm();
-      $scope.updateTable(formatDate($scope.viewDate));
+      $scope.updateTable(date.formatDate($scope.viewDate));
       focus('focusMe');
     }, function(error){
       $scope.toastMessage('error','Erro ao cadastrar candidato');
@@ -135,7 +127,7 @@ function registerController($scope, $mdToast, api, focus) {
     }
   ];
 
-  $scope.updateTable(formatDate($scope.viewDate));
+  $scope.updateTable(date.formatDate($scope.viewDate));
 
 }
 

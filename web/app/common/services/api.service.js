@@ -2,10 +2,12 @@ angular
   .module('taf')
   .factory('api', function($http){
 
+    var backendHost = 'http://localhost:3000';
+
     function addCandidate(data) {
       return $http({
           method: 'POST',
-          url: 'http://localhost:3000/candidates',
+          url: backendHost + '/candidates',
           data: data
       })
     }
@@ -13,7 +15,7 @@ angular
     function getCandidates(date) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/candidates/' + date
+          url: backendHost + '/candidates/' + date
       })
     }
 
