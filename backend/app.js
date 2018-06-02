@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 const candidateRoutes = require('./src/candidates/candidates-routes');
+const examRoutes = require('./src/exams/exams-routes');
 
 app
   .use(helmet())
@@ -18,6 +19,7 @@ app
     next();
   })
   .use(candidateRoutes)
+  .use(examRoutes)
   .listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
