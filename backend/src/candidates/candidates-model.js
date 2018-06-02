@@ -2,8 +2,20 @@
 const models = require('../models');
 
 class Candidates {
+  static getCandidate(examDate, number) {
+    return new Promise((resolve, reject) => {
+      models.Candidates.find({
+        where: {
+          examDate,
+          number,
+        }
+      })
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
   static getCandidates(examDate) {
-    console.log(examDate);
     return new Promise((resolve, reject) => {
       models.Candidates.findAll({
         where: {
