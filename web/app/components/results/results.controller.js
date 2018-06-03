@@ -1,16 +1,16 @@
 function resultsController($scope, api, date) {
 
-  $scope.changeViewDate = function() {
+  $scope.changeViewDate = function () {
     // console.log(date.formatDate($scope.viewDate));
     $scope.updateTable(date.formatDate($scope.viewDate));
   }
 
-  $scope.updateTable = function(date) {
-    
+  $scope.updateTable = function (date) {
+
   }
- 
+
   $scope.options = {
-    pagingStrategy:"SCROLL",
+    pagingStrategy: "SCROLL",
     bodyHeight: 1000,
     initialSorts: [
       {
@@ -19,51 +19,51 @@ function resultsController($scope, api, date) {
       }
     ]
   }
- 
-  $scope.rows=[
+
+  $scope.rows = [
     {
       "number": 1,
-      "name":"Guilherme",
-      "gender":"Masculino",
-      "cpf":"123.123.123-12",
-      "points":400,
+      "name": "Guilherme",
+      "gender": "Masculino",
+      "cpf": "123.123.123-12",
+      "points": 400,
       "exams": [{
-        "exam1":10,
-        "reteste":true
+        "exam1": 10,
+        "reteste": true
       }],
-      "exam2":"100",
-      "exam3":"100",
-      "exam4":"100"
+      "exam2": "100",
+      "exam3": "100",
+      "exam4": "100"
     },
     {
       "number": 2,
-      "name":"Guilherme",
-      "gender":"Masculino",
-      "cpf":"123.123.123-12",
-      "points":201,
+      "name": "Guilherme",
+      "gender": "Masculino",
+      "cpf": "123.123.123-12",
+      "points": 201,
       "exams": [{
-        "exam1":20,
-        "reteste":false
+        "exam1": 20,
+        "reteste": false
       }],
-      "exam1":"100",
-      "exam2":"100",
-      "exam3":"100",
-      "exam4":"100"
+      "exam1": "100",
+      "exam2": "100",
+      "exam3": "100",
+      "exam4": "100"
     },
     {
       "number": 3,
-      "name":"Guilherme",
-      "gender":"Masculino",
-      "cpf":"123.123.123-12",
+      "name": "Guilherme",
+      "gender": "Masculino",
+      "cpf": "123.123.123-12",
       "exams": [{
-        "exam1":30,
-        "reteste":false
+        "exam1": 30,
+        "reteste": false
       }],
-      "exam1":"100",
-      "exam2":"100",
-      "exam3":"100",
-      "exam4":"100",
-      "points":200
+      "exam1": "100",
+      "exam2": "100",
+      "exam3": "100",
+      "exam4": "100",
+      "points": 200
     }
   ]
 

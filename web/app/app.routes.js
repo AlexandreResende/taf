@@ -17,5 +17,9 @@ angular
         url: "/home/register",
         component: "register"
       })
+      .state('printResults',{
+        url: "/home/printResults",
+        component: "printResults"
+      })
   }
 );

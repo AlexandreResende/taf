@@ -1,0 +1,72 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa-area-chart"></i>Imprimir Resultados</div>
+  <div class="card-body">
+    <div layout="row" layout-align="center center">
+      <span>Data da prova:</span>
+      <md-datepicker ng-model="viewDate" ng-change="changeViewDate()" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+    </div>
+    <button ng-click="exportPDF()">Export</button>
+    <br>
+
+    <div id="exportthis">
+      <div class="row">
+        <div class="offset-sm-1 col-sm-5">
+          <div class="card mb-3">
+            <div class="card-header">
+              Mulheres X Homens
+            </div>
+            <div class="card-body">
+              <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="card mb-3">
+            <div class="card-header">
+              Mulheres X Homens
+            </div>
+            <div class="card-body">
+              <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <ap-mesa options="options" id="row0"  columns="columns" rows="rows[0]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row1" ng-show="rows[1].length > 0" columns="columns" rows="rows[1]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row2" ng-show="rows[2].length > 0" columns="columns" rows="rows[2]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row3" ng-show="rows[3].length > 0" columns="columns" rows="rows[3]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row4" ng-show="rows[4].length > 0" columns="columns" rows="rows[4]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row5" ng-show="rows[5].length > 0" columns="columns" rows="rows[5]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row6" ng-show="rows[6].length > 0" columns="columns" rows="rows[6]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row7" ng-show="rows[7].length > 0" columns="columns" rows="rows[7]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row8" ng-show="rows[8].length > 0" columns="columns" rows="rows[8]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row9" ng-show="rows[9].length > 0" columns="columns" rows="rows[9]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row10" ng-show="rows[10].length > 0" columns="columns" rows="rows[10]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row11" ng-show="rows[11].length > 0" columns="columns" rows="rows[11]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row12" ng-show="rows[12].length > 0" columns="columns" rows="rows[12]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row13" ng-show="rows[13].length > 0" columns="columns" rows="rows[13]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row14" ng-show="rows[14].length > 0" columns="columns" rows="rows[14]" table-class="table"></ap-mesa>
+    <br>
+    <ap-mesa options="options" id="row15" ng-show="rows[15].length > 0" columns="columns" rows="rows[15]" table-class="table"></ap-mesa>
+
+  </div>
+</div>
+</div>
