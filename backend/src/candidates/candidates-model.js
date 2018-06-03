@@ -1,7 +1,9 @@
 
 const models = require('../models');
-const abdominalPushUpsScore = require('../helper/abdominalPushUpsScore');
+
+const heightScore = require('../helper/heightScore');
 const runningScore = require('../helper/runningScore');
+const abdominalPushUpsScore = require('../helper/abdominalPushUpsScore');
 
 class Candidates {
   static getCandidate(examDate, number) {
@@ -38,12 +40,14 @@ class Candidates {
         .then((candidates) => {
           for (candidate of candidates) {
             const { gender, exams } = candidate;
+            const height = exams.filter((exam) => exam.name === 'Altura');
             const pushups = exams.filter((exam) => exam.name === 'Flexão');
             const abdominal = exams.filter((exam) => exam.name === 'Abdominal');
             const fiftyMetersRunning = exams.filter((exam) => exam.name === 'Corrida de 50 metros');
             const twelveMinutesRunning = exams.filter((exam) => exam.name === 'Corrida de 12 minutos');
 
             candidate.punctuation = {
+              height: heightScore('altura', gender, height),
               pushups: abdominalPushUpsScore('flexao', gender, pushups),
               abdominal: abdominalPushUpsScore('abdominal', gender, abdominal),
               fiftyMetersRunning: abdominalPushUpsScore('50m', gender, fiftyMetersRunning),
