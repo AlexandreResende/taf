@@ -43,6 +43,26 @@ module.exports.getCandidates = (req, res) => {
     });
 };
 
+module.exports.score = (req, res) => {
+  const { day, month, year } = req.params;
+  const candidatesScore = Candidates.score(`${day}/${month}/${year}`);
+
+  Promise
+    .all([candidatesScore])
+    .then((candidatesScore) => {
+      res.status(200).send({
+        result: candidatesScore[0],
+        error: null,
+      });
+    })
+    .catch((err) => {
+      res.status(400).send({
+        result: null,
+        error: err,
+      });
+    });
+};
+
 module.exports.addCandidate = (req, res) => {
   const addCandidateResult = Candidates.addCandidate(req.body);
 
