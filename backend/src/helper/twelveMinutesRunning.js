@@ -2,7 +2,7 @@
 const { gender } = require('./enums');
 const punctuation = require('../candidates/punctuation.json');
 
-const runningScore = (examName, candidateGender, testArray) => {
+const twelveMinutesRunning = (examName, candidateGender, testArray) => {
   let examObject;
   let candidateResult;
   const minScore = 0;
@@ -17,12 +17,8 @@ const runningScore = (examName, candidateGender, testArray) => {
   }
 
   candidateResult = examObject.result;
-  console.log();
-  console.log(scoreTableKeys);
+
   for (let counter = scoreTableKeys.length - 1; counter >= 0; counter--) {
-    console.log();
-    console.log(candidateResult);
-    console.log(scoreTableKeys[counter]);
     if (candidateResult >= scoreTableKeys[counter]) {
       return scoreTable[scoreTableKeys[counter]];
     }
@@ -31,4 +27,4 @@ const runningScore = (examName, candidateGender, testArray) => {
   return minScore;
 };
 
-module.exports = runningScore;
+module.exports = twelveMinutesRunning;

@@ -2,7 +2,8 @@
 const models = require('../models');
 
 const heightScore = require('../helper/heightScore');
-const runningScore = require('../helper/runningScore');
+const fiftyMeterScore = require('../helper/fiftyMeterScore');
+const twelveMinutesRunnings = require('../helper/twelveMinutesRunning');
 const abdominalPushUpsScore = require('../helper/abdominalPushUpsScore');
 
 class Candidates {
@@ -52,8 +53,8 @@ class Candidates {
               height: heightScore('altura', gender, height),
               pushups: abdominalPushUpsScore('flexao', gender, pushups),
               abdominal: abdominalPushUpsScore('abdominal', gender, abdominal),
-              fiftyMetersRunning: runningScore('50m', gender, fiftyMetersRunning),
-              twelveMinutesRunning: runningScore('12min', gender, twelveMinutesRunning),
+              fiftyMetersRunning: fiftyMeterScore('50m', gender, fiftyMetersRunning),
+              twelveMinutesRunning: twelveMinutesRunnings('12min', gender, twelveMinutesRunning),
             };
 
             candidatesArrayResponse.push(candidateInformation);
