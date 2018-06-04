@@ -38,26 +38,34 @@ class Candidates {
       Promise
         .all([allCandidates])
         .then((candidates) => {
-          for (candidate of candidates) {
-            const { gender, exams } = candidate;
+          const candidatesArrayResponse = [];
+          for (let candidate of candidates[0]) {
+            const candidateInformation = Object.assign({ }, candidate.dataValues);
+            const { gender, exams } = candidateInformation;
             const height = exams.filter((exam) => exam.name === 'Altura');
             const pushups = exams.filter((exam) => exam.name === 'Flexão');
             const abdominal = exams.filter((exam) => exam.name === 'Abdominal');
             const fiftyMetersRunning = exams.filter((exam) => exam.name === 'Corrida de 50 metros');
             const twelveMinutesRunning = exams.filter((exam) => exam.name === 'Corrida de 12 minutos');
 
-            candidate.punctuation = {
+            candidateInformation.punctuation = {
               height: heightScore('altura', gender, height),
               pushups: abdominalPushUpsScore('flexao', gender, pushups),
               abdominal: abdominalPushUpsScore('abdominal', gender, abdominal),
-              fiftyMetersRunning: abdominalPushUpsScore('50m', gender, fiftyMetersRunning),
-              twelveMinutesRunning: abdominalPushUpsScore('12min', gender, twelveMinutesRunning),
+              fiftyMetersRunning: runningScore('50m', gender, fiftyMetersRunning),
+              twelveMinutesRunning: runningScore('12min', gender, twelveMinutesRunning),
             };
+
+            candidatesArrayResponse.push(candidateInformation);
           }
+          console.log(candidatesArrayResponse);
           
-          resolve(candidates);
+          resolve(candidatesArrayResponse);
         })
-        .catch(reject);
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
       });
   }
 

@@ -1,11 +1,12 @@
 
 const { gender } = require('./enums');
+const punctuation = require('../candidates/punctuation.json');
 
 const heightScore = (examName, candidateGender, testArray) => {
   let examObject;
   let candidateResult;
   const genderSpecific = gender[candidateGender];
-  const minimunHeight = exams[genderSpecific][examName];
+  const minimunHeight = punctuation[genderSpecific][examName];
 
   if (testArray.length == 2) {
     examObject = testArray.filter((exam) => exam.retest === true)[0];
