@@ -1,61 +1,32 @@
 function printResultsController($scope, api, date, $http) {
 
+  //initializing date and getting the score to the actual date
+  $scope.viewDate = new Date();
+  getScore(date.formatDate($scope.viewDate));
+
+  //------------------------------------- Table -----------------------------------------------
   $scope.changeViewDate = function () {
-    // console.log(date.formatDate($scope.viewDate));
-    $scope.updateTable(date.formatDate($scope.viewDate));
+    getScore(date.formatDate($scope.viewDate))
   }
 
-  $scope.updateTable = function (date) {
-
+  //get the score from APi
+  function getScore(date){
+    api.getScore(date).then(function(response){
+      response.data.result.length > 0 ? splitArray(response.data.result) : clearTable();
+    }, function(error){
+      clearTable();
+      console.log(error)
+    }); 
   }
 
-  $scope.chart = {
-    legend: {
-      display: true,
-      position: 'right'
+  //Clear all arrays inside the $scope.rows
+  function clearTable(){
+    for(var i = 0; i < 16 ; i++){
+      $scope.rows[i] = [];
     }
   }
 
-  $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-  $scope.data = [300, 500, 100];
-
-  $scope.exportPDF = function () {
-    var docDefinition = {
-      content : []
-    }
-
-    for(var i = 0 ; i < $scope.rows.length; i++){
-      var temp = "row" + i;
-      var height = $scope.rows[i].length * 20;
-      getTablesCanvas(temp.toString(), height)
-    }
-
-    function uploadPDF(){
-      if(docDefinition.content.length == $scope.rows.length)
-        pdfMake.createPdf(docDefinition).download("resultados.pdf");
-    }
-
-    function getTablesCanvas(id,height){
-      html2canvas(document.getElementById(id)).then(function(canvas) {
-        var data = canvas.toDataURL();
-        docDefinition.content.push({image: data,width: 500,height: height})
-        uploadPDF();
-      });
-    }  
-    
-  }
-
-  $scope.options = {
-    pagingStrategy: "SCROLL",
-    bodyHeight: 30000,
-    initialSorts: [
-      {
-        id: 'number',
-        dir: '+'
-      }
-    ]
-  }
- 
+  //Split the response into multiples array of 35 elements
   function splitArray(array){
     var arraySplited = []
     var aux = [];
@@ -71,13 +42,19 @@ function printResultsController($scope, api, date, $http) {
     $scope.rows = arraySplited;
   }
 
-  $http.get('app/components/printResults/test.json').then(function(response){
-    splitArray(response.data);
-  }, function(error){
-    console.log(error)
-  }); 
-  
+  //table options
+  $scope.options = {
+    pagingStrategy: "SCROLL",
+    bodyHeight: 30000,
+    initialSorts: [
+      {
+        id: 'number',
+        dir: '+'
+      }
+    ]
+  }
 
+  //Column definitions
   $scope.columns = [
     {
       id: 'number',
@@ -102,34 +79,34 @@ function printResultsController($scope, api, date, $http) {
       label: 'CPF'
     },
     {
-      id: 'Prova 1',
-      key: 'exam1',
+      id: 'height',
+      key: 'height',
       label: 'Altura',
-      template: '<p>{{ row.exams[0].exam1 }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<span class="' + "{{ row.punctuation.height ? 'green-font' : 'red-font'}}" + '">' + '{{row.points}}</span>' + " <span class='badge badge-success'>{{ row.punctuation.height ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
     },
     {
-      id: 'Prova 2',
-      key: 'exam2',
+      id: 'pushups',
+      key: 'pushups',
       label: 'Flexão',
-      template: '<p>{{ row.exams[0].exam1 }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.pushups }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
-      id: 'Prova 5',
-      key: 'exam5',
+      id: 'abdominal',
+      key: 'abdominal',
       label: 'Abdominais',
-      template: '<p>{{ row.exams[0].exam1 }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.abdominal }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
-      id: 'Prova 3',
-      key: 'exam3',
+      id: 'fiftyMetersRunning',
+      key: 'fiftyMetersRunning',
       label: '50 Metros',
-      template: '<p>{{ row.exams[0].exam1 }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.fiftyMetersRunning }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
-      id: 'Prova 4',
-      key: 'exams',
+      id: 'twelveMinutesRunning',
+      key: 'twelveMinutesRunning',
       label: '12 Minutos',
-      template: '<p>{{ row.exams[0].exam1 }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.twelveMinutesRunning }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
       id: 'points',
@@ -138,6 +115,74 @@ function printResultsController($scope, api, date, $http) {
       template: '<span class="' + "{{ row.points > 200 ? 'green-font' : 'red-font'}}" + '">' + '{{row.points}}</span>' + " <span class='badge badge-success'>{{ row.points > 200 ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
     }
   ];
+
+
+//------------------------------------- END of Table -----------------------------------------------
+
+//------------------------------------- CHARTs -----------------------------------------------
+
+  // TODO
+
+  $scope.chart = {
+    legend: {
+      display: true,
+      position: 'right'
+    }
+  }
+
+  $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+  $scope.data = [300, 500, 100];
+
+
+//------------------------------------- END of CHARTs -----------------------------------------------
+
+//------------------------------------- PDF Export -----------------------------------------------
+  $scope.exportPDF = function () {
+    var docDefinition = {
+      content : []
+    }
+
+    // TO DO
+    // CHARTS
+    html2canvas(document.getElementById('exportthis')).then(function(canvas) {
+      var data = canvas.toDataURL();
+      docDefinition.content.push({image: data,width: 500})
+    });
+
+    for(var i = 0 ; i < $scope.rows.length; i++){
+      var temp = "row" + i;
+      var height = $scope.rows[i].length * 20;
+      getTablesCanvas(temp.toString(), height)
+    }
+
+    // get the content from all tables and set the height to each one
+    // each row will fill 20px 
+    function getTablesCanvas(id,height){
+      html2canvas(document.getElementById(id)).then(function(canvas) {
+        var data = canvas.toDataURL();
+        docDefinition.content.push({image: data,width: 500,height: height})
+        uploadPDF();
+      });
+    }
+    
+    // create the PDF
+    function uploadPDF(){
+      if(docDefinition.content.length == ($scope.rows.length + 1))
+        pdfMake.createPdf(docDefinition).download("resultados.pdf");
+    }
+    
+  }
+
+//------------------------------------- END of pdf EXPORT -----------------------------------------------
+
+  
+
+  //TESTS
+  // $http.get('app/components/printResults/test.json').then(function(response){
+  //   splitArray(response.data);
+  // }, function(error){
+  //   console.log(error)
+  // }); 
 
 }
 

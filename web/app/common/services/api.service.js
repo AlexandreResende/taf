@@ -19,9 +19,17 @@ angular
       })
     }
 
+    function getScore(date){
+      return $http({
+        method: 'GET',
+        url: backendHost + '/score/' + date
+      })
+    }
+
     return {
       addCandidate: addCandidate,
-      getCandidates: getCandidates
+      getCandidates: getCandidates,
+      getScore: getScore
     };    
 
   }
