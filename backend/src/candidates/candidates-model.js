@@ -59,14 +59,10 @@ class Candidates {
 
             candidatesArrayResponse.push(candidateInformation);
           }
-          console.log(candidatesArrayResponse);
           
           resolve(candidatesArrayResponse);
         })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        });
+        .catch(reject);
       });
   }
 
