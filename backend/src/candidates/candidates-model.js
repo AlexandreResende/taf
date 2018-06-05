@@ -64,6 +64,7 @@ class Candidates {
           resolve(candidatesArrayResponse);
         })
         .catch((err) => {
+          console.log(err);
           reject(err);
         });
       });
