@@ -4,7 +4,7 @@ const punctuation = require('../candidates/punctuation.json');
 
 const pushUpsScore = (examName, candidateGender, testArray) => {
   let examObject;
-  let candidateResult;
+  let candidateScore = 0;
   const genderSpecific = gender[candidateGender];
   const scoreTable = punctuation[genderSpecific][examName];
   const scoreTableKeys = Object.keys(scoreTable);
@@ -14,16 +14,21 @@ const pushUpsScore = (examName, candidateGender, testArray) => {
   } else {
     examObject = testArray[0];
   }
+  const { result, retest } = examObject;
 
-  candidateResult = examObject.result;
-
-  if (candidateResult < scoreTableKeys[0]) {
-    return 0;
-  } else if (candidateResult > scoreTableKeys[scoreTableKeys.length - 1]) {
-    return 100;
+  if (result < scoreTableKeys[0]) {
+    candidateScore = 0;
+  } else if (result > scoreTableKeys[scoreTableKeys.length - 1]) {
+    candidateScore = 100;
+  } else {
+    candidateScore = scoreTableKeys[result];
   }
 
-  return scoreTableKeys[candidateResult];
+  return {
+    result,
+    retest,
+    candidateScore,
+  };
 };
 
 module.exports = pushUpsScore;

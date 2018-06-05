@@ -41,8 +41,9 @@ class Candidates {
         .then((candidates) => {
           const candidatesArrayResponse = [];
           for (let candidate of candidates[0]) {
-            const candidateInformation = Object.assign({ }, candidate.dataValues);
-            const { gender, exams } = candidateInformation;
+            const { id, name, cpf, number, gender, examDate } = candidate.dataValues;
+            const candidateInformation = Object.assign({ }, { id, name, cpf, number, gender, examDate });
+            const { exams } = candidate.dataValues;
             const height = exams.filter((exam) => exam.name === 'Altura');
             const pushups = exams.filter((exam) => exam.name === 'Flexão');
             const abdominal = exams.filter((exam) => exam.name === 'Abdominal');
@@ -62,7 +63,9 @@ class Candidates {
           
           resolve(candidatesArrayResponse);
         })
-        .catch(reject);
+        .catch((err) => {
+          reject(err);
+        });
       });
   }
 

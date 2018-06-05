@@ -4,7 +4,7 @@ const punctuation = require('../candidates/punctuation.json');
 
 const heightScore = (examName, candidateGender, testArray) => {
   let examObject;
-  let candidateResult;
+  let candidateScore = false;
   const genderSpecific = gender[candidateGender];
   const minimunHeight = punctuation[genderSpecific][examName];
 
@@ -14,9 +14,14 @@ const heightScore = (examName, candidateGender, testArray) => {
     examObject = testArray[0];
   }
 
-  candidateResult = examObject.result;
+  const { result, retest } = examObject;
+  candidateScore = (result < minimunHeight) ? false : true;
 
-  return (candidateResult < minimunHeight) ? false : true;
+  return {
+    result,
+    retest,
+    candidateScore,
+  };
 };
 
 module.exports = heightScore;
