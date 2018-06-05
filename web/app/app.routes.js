@@ -10,16 +10,20 @@ angular
         component: 'home'
       })
       .state('results',{
-        url: "/home/results",
+        url: "/results",
         component: "results"
       })
       .state('register',{
-        url: "/home/register",
+        url: "/register",
         component: "register"
       })
       .state('printResults',{
-        url: "/home/printResults",
+        url: "/printResults",
         component: "printResults"
+      })
+      .state('detail',{
+        url: "/detail/:day/:month/:year/:number",
+        component: 'detail'
       })
   }
 );

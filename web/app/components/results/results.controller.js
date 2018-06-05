@@ -2,10 +2,14 @@ function resultsController($scope, api, date, $http) {
 
     //initializing date and getting the score to the actual date
     $scope.viewDate = new Date();
-    getScore(date.formatDate($scope.viewDate));
-
+    var selectedDate = date.formatDate($scope.viewDate);
+    var dateArray = selectedDate.split("/")
+    getScore(selectedDate);
+  
     $scope.changeViewDate = function () {
-      getScore(date.formatDate($scope.viewDate))
+      selectedDate = date.formatDate($scope.viewDate);
+      dateArray = selectedDate.split("/")
+      getScore(selectedDate);
     }
   
     //get the score from APi
@@ -35,7 +39,7 @@ function resultsController($scope, api, date, $http) {
   //   $scope.rows = response.data;
   // }, function(error){
   //   console.log(error)
-  // }); 
+  // });   dateArray
 
   $scope.columns = [
     {
@@ -52,7 +56,12 @@ function resultsController($scope, api, date, $http) {
       sort: 'string',
       label: 'Nome',
       filter: 'like',
-      filterPlaceholder: 'Digite um nome'
+      filterPlaceholder: 'Digite um nome',
+      template: '<a ui-sref="' + "detail({ day:'" + dateArray[0] 
+        + "', month:'" + dateArray[1] 
+        + "', year:'" + dateArray[2]
+        + "', number:'{{ row.number }}'" 
+        + '})">{{ row.name }}</a>'
     },
     {
       id: 'gender',
@@ -70,31 +79,31 @@ function resultsController($scope, api, date, $http) {
       id: 'height',
       key: 'height',
       label: 'Altura',
-      template: '<span class="' + "{{ row.punctuation.height ? 'green-font' : 'red-font'}}" + '">' + '{{row.points}}</span>' + " <span class='badge badge-success'>{{ row.punctuation.height ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
+      template: " <span class='badge badge-success'>{{ row.punctuation.height.candidateScore ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore ? 'Reprovado' : '' }}</span>" + "<span class='badge badge-warning'>{{ row.punctuation.height.retest ? 'Reteste' : '' }}</span>"
     },
     {
       id: 'pushups',
       key: 'pushups',
       label: 'Flexão',
-      template: '<p>{{ row.punctuation.pushups }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.pushups.candidateScore }}' + "  <span class='badge badge-warning'>{{ row.punctuation.pushups.retest ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
       id: 'abdominal',
       key: 'abdominal',
       label: 'Abdominais',
-      template: '<p>{{ row.punctuation.abdominal }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.abdominal.candidateScore }}' + "  <span class='badge badge-warning'>{{ row.punctuation.abdominal.retest ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
       id: 'fiftyMetersRunning',
       key: 'fiftyMetersRunning',
       label: '50 Metros',
-      template: '<p>{{ row.punctuation.fiftyMetersRunning }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.fiftyMetersRunning.candidateScore }}' + "  <span class='badge badge-warning'>{{ rrow.punctuation.fiftyMetersRunning.retest ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
       id: 'twelveMinutesRunning',
       key: 'twelveMinutesRunning',
       label: '12 Minutos',
-      template: '<p>{{ row.punctuation.twelveMinutesRunning }}' + "  <span class='badge badge-warning'>{{ row.exams[0].reteste ? 'Reteste' : '' }}</span>" + '</p>'
+      template: '<p>{{ row.punctuation.twelveMinutesRunning.candidateScore }}' + "  <span class='badge badge-warning'>{{ row.punctuation.twelveMinutesRunning.retest ? 'Reteste' : '' }}</span>" + '</p>'
     },
     {
       id: 'points',
