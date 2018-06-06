@@ -4,7 +4,7 @@ const getMostRecentTest = require('./getMostRecentTest');
 const punctuation = require('../candidates/punctuation.json');
 
 const fiftyMeterScore = (examName, candidateGender, testArray) => {
-  if (testArray.length === 0) {
+  if (testArray.length !== 0) {
     let candidateScore = 0;
     const examObject = getMostRecentTest(testArray);
     const genderSpecific = gender[candidateGender];

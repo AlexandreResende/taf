@@ -3,7 +3,7 @@ const { gender } = require('./enums');
 const punctuation = require('../candidates/punctuation.json');
 
 const twelveMinutesRunning = (examName, candidateGender, testArray) => {
-  if (testArray.length === 0) {
+  if (testArray.length !== 0) {
     let candidateScore = 0;
     const examObject = testArray[0];
     const genderSpecific = gender[candidateGender];
