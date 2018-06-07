@@ -1,5 +1,6 @@
 
 const { gender } = require('./enums');
+const noTestResponse = require('./noTestResponse');
 const getMostRecentTest = require('./getMostRecentTest');
 const punctuation = require('../candidates/punctuation.json');
 
@@ -24,11 +25,7 @@ const fiftyMeterScore = (examName, candidateGender, testArray) => {
       candidateScore,
     };
   }
-  return {
-    result: '-',
-    retest: '-',
-    candidateScore: '-',
-  };
+  return noTestResponse;
 };
 
 module.exports = fiftyMeterScore;

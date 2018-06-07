@@ -1,5 +1,6 @@
 
 const { gender } = require('./enums');
+const noTestResponse = require('./noTestResponse');
 const punctuation = require('../candidates/punctuation.json');
 
 const twelveMinutesRunning = (examName, candidateGender, testArray) => {
@@ -24,11 +25,7 @@ const twelveMinutesRunning = (examName, candidateGender, testArray) => {
       candidateScore,
     };
   }
-  return {
-    result: '-',
-    retest: '-',
-    candidateScore: '-',
-  };
+  return noTestResponse;
 };
 
 module.exports = twelveMinutesRunning;

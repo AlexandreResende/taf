@@ -1,5 +1,6 @@
 
 const { gender } = require('./enums');
+const noTestResponse = require('./noTestResponse');
 const getMostRecentTest = require('./getMostRecentTest');
 const punctuation = require('../candidates/punctuation.json');
 
@@ -19,11 +20,7 @@ const heightScore = (examName, candidateGender, testArray) => {
       candidateScore,
     };
   }
-  return {
-    result: '-',
-    retest: '-',
-    candidateScore: '-',
-  };
+  return noTestResponse;
 };
 
 module.exports = heightScore;
