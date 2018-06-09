@@ -1,5 +1,6 @@
 
 const models = require('../models');
+const generateStatistics = require('../helper/statistics');
 
 const heightScore = require('../helper/heightScore');
 const fiftyMeterScore = require('../helper/fiftyMeterScore');
@@ -57,10 +58,13 @@ class Candidates {
               fiftyMetersRunning: fiftyMeterScore('50m', gender, fiftyMetersRunning),
               twelveMinutesRunning: twelveMinutesRunnings('12min', gender, twelveMinutesRunning),
             };
+
             candidatesArrayResponse.push(candidateInformation);
           }
 
-          resolve(candidatesArrayResponse);
+          const statistics = generateStatistics(candidatesArrayResponse);
+
+          resolve({ candidatesArrayResponse, statistics });
         })
         .catch((err) => {
           console.log(err);
