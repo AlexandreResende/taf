@@ -34,16 +34,9 @@ function resultsController($scope, api, date, $http) {
     ]
   }
 
-  //Tests
-  // $http.get('app/components/printResults/test.json').then(function(response){
-  //   $scope.rows = response.data;
-  // }, function(error){
-  //   console.log(error)
-  // });   dateArray
-
   $scope.columns = [
     {
-      id: 'number',
+      id: 'num',
       key: 'number',
       sort: 'number',
       label: 'Numero',
@@ -58,11 +51,7 @@ function resultsController($scope, api, date, $http) {
       label: 'Nome',
       filter: 'like',
       filterPlaceholder: 'Digite um nome',
-      template: '<a ui-sref="' + "detail({ day:'" + dateArray[0] 
-        + "', month:'" + dateArray[1] 
-        + "', year:'" + dateArray[2]
-        + "', number:'{{ row.number }}'" 
-        + '})">{{ row.name }}</a>'
+      template: '<a href=\"#/detail/' + dateArray[0] + '/' + dateArray[1] + '/' + dateArray[2] + '/' + '{{row.number}}\">{{row.name}}</a> '
     },
     {
       id: 'gender',

@@ -1,12 +1,14 @@
 angular
   .module('taf')
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     
-    $urlRouterProvider.otherwise("/home")
+    $locationProvider.hashPrefix('');
+
+    $urlRouterProvider.otherwise("/");
 
     $stateProvider
       .state('home', {
-        url: "/home",
+        url: "/",
         component: 'home'
       })
       .state('results',{

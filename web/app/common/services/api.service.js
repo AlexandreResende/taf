@@ -19,6 +19,13 @@ angular
       })
     }
 
+    function getCandidateDetail(date,number) {
+      return $http({
+          method: 'GET',
+          url: backendHost + '/candidate/' + date + '/' + number
+      })
+    }
+
     function getScore(date){
       return $http({
         method: 'GET',
@@ -29,6 +36,7 @@ angular
     return {
       addCandidate: addCandidate,
       getCandidates: getCandidates,
+      getCandidateDetail: getCandidateDetail,
       getScore: getScore
     };    
 

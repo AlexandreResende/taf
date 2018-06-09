@@ -1,0 +1,132 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-area-chart"></i>Detalhes de um candidato</div>
+    <div class="card-body">
+        <button ng-click="exportPDF()">Export</button>
+        <div class="row">
+            <div class="offset-sm-1 col-sm-10">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        {{ candidate.name }}
+                    </div>
+                    <div class="card-body">
+                        <div id="page1">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Nome:</th>
+                                        <td>{{ candidate.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CPF: </th>
+                                        <td>{{ candidate.cpf }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Data do Exame: </th>
+                                        <td>{{ candidate.examDate }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Genero: </th>
+                                        <td>{{ candidate.gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Numero: </th>
+                                        <td>{{ candidate.number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CPF: </th>
+                                        <td>{{ candidate.cpf }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <h3>Provas:</h3>
+                            <div class="row">
+                                <div class="col-sm-6" ng-repeat="exam in exams[0]">
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            {{ exam.name }}
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Resultado:</th>
+                                                        <td>{{ exam.result }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Reteste: </th>
+                                                        <td>{{ exam.retest ? 'Sim' : 'Não' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Nome do avaliador: </th>
+                                                        <td>{{ exam.appraiserName }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Assinatura do candidato: </th>
+                                                        <td>
+                                                            <img class="img-thumbnail img-fluid" src="{{ exam.candidateSignature }}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Assinatura do avaliador: </th>
+                                                        <td>
+                                                            <img class="img-thumbnail img-fluid" src="{{ exam.appraiserSignature }}" />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PAGE 1 END -->
+                        <!-- PAGE 2 -->
+                        <div class="row" id='page2'>
+                            <div class="col-sm-6" ng-repeat="exam in exams[1]">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        {{ exam.name }}
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Resultado:</th>
+                                                    <td>{{ exam.result }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Reteste: </th>
+                                                    <td>{{ exam.retest ? 'Sim' : 'Não' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Nome do avaliador: </th>
+                                                    <td>{{ exam.appraiserName }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Assinatura do candidato: </th>
+                                                    <td>
+                                                        <img class="img-thumbnail img-fluid" src="{{ exam.candidateSignature }}" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Assinatura do avaliador: </th>
+                                                    <td>
+                                                        <img class="img-thumbnail img-fluid" src="{{ exam.appraiserSignature }}" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- page 2 END -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
