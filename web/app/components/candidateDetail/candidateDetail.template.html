@@ -2,7 +2,10 @@
     <div class="card-header">
         <i class="fa fa-area-chart"></i>Detalhes de um candidato</div>
     <div class="card-body">
-        <button ng-click="exportPDF()">Export</button>
+        <div layout="row" layout-align="center center">
+            <md-button ng-click="exportPDF()" class="md-raised md-primary">Gerar PDF</md-button>
+        </div>
+        <br>
         <div class="row">
             <div class="offset-sm-1 col-sm-10">
                 <div class="card mb-3">

@@ -61,14 +61,12 @@ function printResultsController($scope, api, date, $http) {
     {
       id: 'number',
       key: 'number',
-      sort: 'number',
       label: 'Numero',
       width: '100px'
     },
     {
       id: 'name',
       key: 'name',
-      sort: 'string',
       label: 'Nome'
     },
     {
