@@ -148,7 +148,7 @@ body.fixed-nav {
 
 @media (min-width: 992px) {
   #mainNav .navbar-brand {
-    width: 250px;
+    /* width: 250px; */
   }
   #mainNav .navbar-collapse {
     overflow: visible;

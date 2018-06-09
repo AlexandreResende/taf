@@ -12,7 +12,9 @@ function printResultsController($scope, api, date, $http) {
   //get the score from APi
   function getScore(date){
     api.getScore(date).then(function(response){
-      response.data.result.length > 0 ? splitArray(response.data.result) : clearTable();
+      response.data.result.candidatesArrayResponse.length > 0 ? splitArray(response.data.result.candidatesArrayResponse) : clearTable();
+      $scope.statistics = response.data.result.statistics;
+      buildCharts();
     }, function(error){
       clearTable();
       console.log(error)
@@ -146,8 +148,6 @@ function printResultsController($scope, api, date, $http) {
 
 //------------------------------------- CHARTs -----------------------------------------------
 
-  // TODO
-
   $scope.chart = {
     legend: {
       display: true,
@@ -155,8 +155,64 @@ function printResultsController($scope, api, date, $http) {
     }
   }
 
-  $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-  $scope.data = [300, 500, 100];
+  function buildCharts(){
+    chartGender();
+    abdominal();
+    pushUps();
+    fiftyMeters();
+    twelveMinutes();
+  }
+
+  // Men x Women 
+  function chartGender(){
+    $scope.labelsMenXWomen = [ $scope.statistics.gender.men +  " Homens" , $scope.statistics.gender.women + " Mulheres"];
+    $scope.dataMenXWomen = [$scope.statistics.gender.men , $scope.statistics.gender.women];
+    $scope.colorsMenXWomen = ['#485cf2','#ce16ff']
+  }
+  
+  function abdominal() {
+    $scope.abdominalColors = ['#0fb012','#b00f0f'];
+    $scope.abdominalLabels = ['Homens', 'Mulheres'];
+    $scope.abdominalSeries = ['Aprovados','Reprovados'];
+    $scope.abdominalOptions = {legend: {display: true}};
+    $scope.abdominalData = [
+      [$scope.statistics.abdominalExam.male.approved, $scope.statistics.abdominalExam.female.approved],
+      [ $scope.statistics.abdominalExam.male.reproved, $scope.statistics.abdominalExam.female.reproved]
+    ];
+  }
+
+  function pushUps(){
+    $scope.pushUpsColors = ['#0fb012','#b00f0f'];
+    $scope.pushUpsLabels = ['Homens', 'Mulheres'];
+    $scope.pushUpsSeries = ['Aprovados','Reprovados'];
+    $scope.pushUpslOptions = {legend: {display: true}};
+    $scope.pushUpslData = [
+      [$scope.statistics.pushUpsExam.male.approved, $scope.statistics.pushUpsExam.female.approved],
+      [ $scope.statistics.pushUpsExam.male.reproved, $scope.statistics.pushUpsExam.female.reproved]
+    ];
+  }
+
+  function fiftyMeters(){
+    $scope.fiftyMetersColors = ['#0fb012','#b00f0f'];
+    $scope.fiftyMetersLabels = ['Homens', 'Mulheres'];
+    $scope.fiftyMetersSeries = ['Aprovados','Reprovados'];
+    $scope.fiftyMetersOptions = {legend: {display: true}};
+    $scope.fiftyMetersData = [
+      [$scope.statistics.fiftyMetersExam.male.approved, $scope.statistics.fiftyMetersExam.female.approved],
+      [ $scope.statistics.fiftyMetersExam.male.reproved, $scope.statistics.fiftyMetersExam.female.reproved]
+    ];
+  }
+
+  function twelveMinutes(){
+    $scope.twelveMinutesColors = ['#0fb012','#b00f0f'];
+    $scope.twelveMinutesLabels = ['Homens', 'Mulheres'];
+    $scope.twelveMinutesSeries = ['Aprovados','Reprovados'];
+    $scope.twelveMinutesOptions = {legend: {display: true}};
+    $scope.twelveMinutesData = [
+      [$scope.statistics.twelveMinutesRunning.male.approved, $scope.statistics.twelveMinutesRunning.female.approved],
+      [ $scope.statistics.twelveMinutesRunning.male.reproved, $scope.statistics.twelveMinutesRunning.female.reproved]
+    ];
+  }
 
 
 //------------------------------------- END of CHARTs -----------------------------------------------

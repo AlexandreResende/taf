@@ -15,7 +15,7 @@ function resultsController($scope, api, date, $http) {
     //get the score from APi
     function getScore(date){
       api.getScore(date).then(function(response){
-        $scope.rows = response.data.result;
+        $scope.rows = response.data.result.candidatesArrayResponse;
       }, function(error){
         $scope.rows = [];
         console.log(error)
