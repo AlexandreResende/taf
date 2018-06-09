@@ -57,10 +57,9 @@ class Candidates {
               fiftyMetersRunning: fiftyMeterScore('50m', gender, fiftyMetersRunning),
               twelveMinutesRunning: twelveMinutesRunnings('12min', gender, twelveMinutesRunning),
             };
-
             candidatesArrayResponse.push(candidateInformation);
           }
-          
+
           resolve(candidatesArrayResponse);
         })
         .catch((err) => {

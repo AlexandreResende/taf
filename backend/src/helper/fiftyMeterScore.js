@@ -13,9 +13,10 @@ const fiftyMeterScore = (examName, candidateGender, testArray) => {
     const scoreTableKeys = Object.keys(scoreTable);
     const { result, retest } = examObject;
 
-    for (let counter = scoreTableKeys.length - 1; counter >= 0; counter--) {
-      if (result <= scoreTable[counter]) {
-        candidateScore = scoreTable[scoreTable[counter]];
+    for (let counter = 0; counter < scoreTableKeys.length; counter++) {
+      if (result <= scoreTableKeys[counter]) {
+        candidateScore = scoreTable[scoreTableKeys[counter]];
+        break;
       }
     }
 
