@@ -32,7 +32,7 @@ function printResultsController($scope, api, date, $http) {
     var aux = [];
     for(var i = 0; i < array.length; i ++){
       aux.push(array[i]);
-      if( (i + 1) % 35 == 0 ){
+      if( (i + 1) % 30 == 0 ){
         arraySplited.push(aux);
         aux = [];
       }
@@ -55,64 +55,89 @@ function printResultsController($scope, api, date, $http) {
   }
 
   //Column definitions
-  $scope.columns = [
+  $scope.columns =[
     {
       id: 'number',
       key: 'number',
       sort: 'number',
-      label: 'Numero'
+      label: 'Numero',
+      width: '100px'
     },
     {
       id: 'name',
       key: 'name',
       sort: 'string',
-      label: 'Nome',
+      label: 'Nome'
     },
     {
       id: 'gender',
       key: 'gender',
-      label: 'Genero'
+      label: 'Genero',
+      width: '80px',
+      template: '{{ row.gender == "Masculino" ? "M" : "F" }}'
     },
     {
       id: 'cpf',
       key: 'cpf',
-      label: 'CPF'
+      label: 'CPF',
+      width: '150px',
     },
     {
       id: 'height',
       key: 'height',
       label: 'Altura',
-      template: " <span class='badge badge-success'>{{ row.punctuation.height.candidateScore ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore ? 'Reprovado' : '' }}</span>" + "<span class='badge badge-warning'>{{ row.punctuation.height.retest ? 'Reteste' : '' }}</span>"
+      width: '150px',
+      template: " {{ row.punctuation.height.result }} m <span class='badge badge-success'>{{ row.punctuation.height.candidateScore ? 'Aprovado' : '' }}</span>" 
+      + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore ? 'Reprovado' : '' }}</span>" 
+      + "<span class='badge badge-warning'>{{ row.punctuation.height.retest ? 'Reteste' : '' }}</span>"
     },
     {
       id: 'pushups',
       key: 'pushups',
       label: 'Flexão',
-      template: '<p>{{ row.punctuation.pushups.candidateScore }}' + "  <span class='badge badge-warning'>{{ row.punctuation.pushups.retest ? 'Reteste' : '' }}</span>" + '</p>'
+      width: '175px',
+      template: 'Flexões: {{ row.punctuation.pushups.result }}<p>Pontos: {{ row.punctuation.pushups.candidateScore }}' 
+        + "  <span class='badge badge-warning'>{{ row.punctuation.pushups.retest ? 'Reteste' : '' }}</span>" 
+        + '</p>'
     },
     {
       id: 'abdominal',
       key: 'abdominal',
       label: 'Abdominais',
-      template: '<p>{{ row.punctuation.abdominal.candidateScore }}' + "  <span class='badge badge-warning'>{{ row.punctuation.abdominal.retest ? 'Reteste' : '' }}</span>" + '</p>'
+      width: '175px',
+      template: 'Abdominais: {{ row.punctuation.abdominal.result }}<p>Pontos: {{ row.punctuation.abdominal.candidateScore }}' 
+        + "  <span class='badge badge-warning'>{{ row.punctuation.abdominal.retest ? 'Reteste' : '' }}</span>" 
+        + '</p>'
     },
     {
       id: 'fiftyMetersRunning',
       key: 'fiftyMetersRunning',
       label: '50 Metros',
-      template: '<p>{{ row.punctuation.fiftyMetersRunning.candidateScore }}' + "  <span class='badge badge-warning'>{{ rrow.punctuation.fiftyMetersRunning.retest ? 'Reteste' : '' }}</span>" + '</p>'
+      width: '175px',
+      template: 'Tempo: {{ row.punctuation.fiftyMetersRunning.result }}<p>Pontos: {{ row.punctuation.fiftyMetersRunning.candidateScore }}' 
+        + "  <span class='badge badge-warning'>{{ row.punctuation.fiftyMetersRunning.retest ? 'Reteste' : '' }}</span>" 
+        + '</p>'
     },
     {
       id: 'twelveMinutesRunning',
       key: 'twelveMinutesRunning',
       label: '12 Minutos',
-      template: '<p>{{ row.punctuation.twelveMinutesRunning.candidateScore }}' + "  <span class='badge badge-warning'>{{ row.punctuation.twelveMinutesRunning.retest ? 'Reteste' : '' }}</span>" + '</p>'
+      width: '175px',
+      template: 'Metros: {{ row.punctuation.twelveMinutesRunning.result }}<p>Pontos: {{ row.punctuation.twelveMinutesRunning.candidateScore }}' 
+        + "  <span class='badge badge-warning'>{{ row.punctuation.twelveMinutesRunning.retest ? 'Reteste' : '' }}</span>" 
+        + '</p>'
     },
     {
       id: 'points',
       key: 'Total',
       label: "Resultado",
-      template: '<span class="' + "{{ row.points > 200 ? 'green-font' : 'red-font'}}" + '">' + '{{row.points}}</span>' + " <span class='badge badge-success'>{{ row.points > 200 ? 'Aprovado' : '' }}</span>" + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
+      width: '100px',
+      template: '<span class="' 
+        + "{{ row.points > 200 ? 'green-font' : 'red-font'}}" 
+        + '">' 
+        + '{{row.points}}</span>' 
+        + " <span class='badge badge-success'>{{ row.points > 200 ? 'Aprovado' : '' }}</span>" 
+        + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
     }
   ];
 
@@ -151,7 +176,7 @@ function printResultsController($scope, api, date, $http) {
 
     for(var i = 0 ; i < $scope.rows.length; i++){
       var temp = "row" + i;
-      var height = $scope.rows[i].length * 20;
+      var height = $scope.rows[i].length * 23;
       getTablesCanvas(temp.toString(), height)
     }
 
