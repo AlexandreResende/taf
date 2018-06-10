@@ -1,6 +1,7 @@
 
 const groupByGender = require('./statistics/groupByGender');
 const candidatesStatistics = require('./statistics/candidatesStatistics');
+const heightCandidatesStatistics = require('./statistics/heightCandidatesStatistics');
 
 const statistics = (candidatesArray) => {
   const male = candidatesArray.filter((candidate) => candidate.gender === 'Masculino');
@@ -9,8 +10,8 @@ const statistics = (candidatesArray) => {
   return {
     gender: groupByGender(candidatesArray),
     heightExam: {
-      male: 1,
-      female: 1,
+      male: heightCandidatesStatistics(male, 'Masculino'),
+      female: heightCandidatesStatistics(female, 'Feminino'),
     },
     abdominalExam: {
       male: candidatesStatistics(male, 'abdominal'),
