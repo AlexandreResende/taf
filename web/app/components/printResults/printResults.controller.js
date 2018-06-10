@@ -62,6 +62,7 @@ function printResultsController($scope, api, date, $http) {
       id: 'number',
       key: 'number',
       label: 'Numero',
+      sort: 'number',
       width: '100px'
     },
     {
@@ -155,6 +156,7 @@ function printResultsController($scope, api, date, $http) {
 
   function buildCharts(){
     chartGender();
+    height();
     abdominal();
     pushUps();
     fiftyMeters();
@@ -168,6 +170,17 @@ function printResultsController($scope, api, date, $http) {
     $scope.colorsMenXWomen = ['#485cf2','#ce16ff']
   }
   
+  function height() {
+    $scope.heightColors = ['#0fb012','#b00f0f'];
+    $scope.heightLabels = ['Homens', 'Mulheres'];
+    $scope.heightSeries = ['Aprovados','Reprovados'];
+    $scope.heightOptions = {legend: {display: true}};
+    $scope.heightData = [
+      [$scope.statistics.heightExam.male.approved, $scope.statistics.heightExam.female.approved],
+      [ $scope.statistics.heightExam.male.reproved, $scope.statistics.heightExam.female.reproved]
+    ];
+  }
+
   function abdominal() {
     $scope.abdominalColors = ['#0fb012','#b00f0f'];
     $scope.abdominalLabels = ['Homens', 'Mulheres'];

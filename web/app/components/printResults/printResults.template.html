@@ -33,8 +33,8 @@
               Altura ( Número de candidatos )
             </div>
             <div class="card-body">
-              <canvas id="bar" class="chart chart-bar" chart-colors="abdominalColors" chart-data="abdominalData" chart-labels="abdominalLabels"
-                chart-series="abdominalSeries" chart-options="abdominalOptions"></canvas>
+              <canvas id="bar" class="chart chart-bar" chart-colors="heightColors" chart-data="heightData" chart-labels="heightLabels"
+                chart-series="heightSeries" chart-options="heightOptions"></canvas>
               <hr>
               <table class="table table-bordered">
                 <thead>
@@ -48,20 +48,20 @@
                 <tbody>
                   <tr>
                     <th scope="row">Homens</th>
-                    <td>{{ statistics.abdominalExam.male.approved }}</td>
-                    <td>{{ statistics.abdominalExam.male.reproved }}</td>
-                    <td>{{ statistics.abdominalExam.male.total }}</td>
+                    <td>{{ statistics.heightExam.male.approved }}</td>
+                    <td>{{ statistics.heightExam.male.reproved }}</td>
+                    <td>{{ statistics.heightExam.male.total }}</td>
                   </tr>
                   <tr>
                     <th scope="row">Mulheres</th>
-                    <td>{{ statistics.abdominalExam.female.approved }}</td>
-                    <td>{{ statistics.abdominalExam.female.reproved }}</td>
-                    <td>{{ statistics.abdominalExam.female.total }}</td>
+                    <td>{{ statistics.heightExam.female.approved }}</td>
+                    <td>{{ statistics.heightExam.female.reproved }}</td>
+                    <td>{{ statistics.heightExam.female.total }}</td>
                   </tr>
                   <tr>
                     <th scope="row">Total</th>
                     <td colspan="2"></td>
-                    <td>{{ statistics.abdominalExam.female.total + statistics.abdominalExam.male.total }}</td>
+                    <td>{{ statistics.heightExam.female.total + statistics.heightExam.male.total }}</td>
                   </tr>
                 </tbody>
               </table>

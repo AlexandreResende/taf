@@ -36,7 +36,7 @@ function resultsController($scope, api, date, $http) {
 
   $scope.columns = [
     {
-      id: 'num',
+      id: 'number',
       key: 'number',
       sort: 'number',
       label: 'Numero',
@@ -51,7 +51,7 @@ function resultsController($scope, api, date, $http) {
       label: 'Nome',
       filter: 'like',
       filterPlaceholder: 'Digite um nome',
-      template: '<a href=\"#/detail/' + dateArray[0] + '/' + dateArray[1] + '/' + dateArray[2] + '/' + '{{row.number}}\">{{row.name}}</a> '
+      template: '<a href=\"#/detail/' + '{{row.examDate}}' + '/' + '{{row.number}}\">{{row.name}}</a> '
     },
     {
       id: 'gender',
