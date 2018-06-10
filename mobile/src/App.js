@@ -9,6 +9,7 @@ import {
   HeightExamScreen,
   PushUpsExamScreen,
   AbdominalExamScreen,
+  FiftyMetersRunScreen,
 } from './components/screens'
 
 const RootStack = createStackNavigator(
@@ -19,6 +20,7 @@ const RootStack = createStackNavigator(
     HeightExam: HeightExamScreen,
     PushUpsExam: PushUpsExamScreen,
     AbdominalExam: AbdominalExamScreen,
+    FiftyMetersRun: FiftyMetersRunScreen,
   },
   {
     initialRouteName: 'Login',

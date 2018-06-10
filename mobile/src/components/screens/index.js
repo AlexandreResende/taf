@@ -4,3 +4,4 @@ export * from './HeightExamScreen';
 export * from './TwelveMinutesRunScreen';
 export * from './AbdominalExamScreen';
 export * from './PushUpsExamScreen';
+export * from './FiftyMetersRunScreen';

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Easing, StyleSheet, Button } from 'react-native';
-// import Icon from 'react-native-vector-icons/Entypo';
-// import Menu from '../menu/Menu';
 import { Logo } from '../common';
-import { FiftyMinutesRunScreen } from '../exams';
+import { FiftyMetersRun } from '../exams';
 
-class FiftyMinutesRunScreen extends Component {
+class FiftyMetersRunScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
     headerRight: <Logo />
@@ -13,9 +11,9 @@ class FiftyMinutesRunScreen extends Component {
 
   render (){
     return (
-      <FiftyMinutesRun />
+      <FiftyMetersRun/>
     );
   }
 }
 
-export { FiftyMinutesRunScreen };
+export { FiftyMetersRunScreen };

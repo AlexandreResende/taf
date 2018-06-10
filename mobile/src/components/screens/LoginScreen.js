@@ -9,7 +9,7 @@ class LoginScreen extends Component {
   }
 
   loginValidator(image) {
-    if(this.state.name.length > 0 && image != null){
+    if(this.state.name.length > 0 /*&& image != null*/){
       this.props.navigation.navigate('Home', {
         name: this.state.name,
         appraiserSignature: image.encoded
@@ -52,7 +52,7 @@ class LoginScreen extends Component {
 
           <Button
             title="Entrar"
-            onPress={ this.saveImage.bind(this) }
+            onPress={ () => this.loginValidator(this.refs.signature) }
           />
         </View>
       </View>
@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '70%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   centerBox: {
     borderWidth: 1,

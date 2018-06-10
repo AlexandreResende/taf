@@ -13,6 +13,7 @@
     "react-native-cardview": "^1.1.5",
     "react-native-drawer": "^2.5.0",
     "react-native-elements": "^0.19.1",
+    "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-signature-capture": "^0.4.9",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.0.1"
