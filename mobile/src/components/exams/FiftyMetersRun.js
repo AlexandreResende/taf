@@ -13,7 +13,55 @@ class FiftyMetersRun extends Component {
     this.state = {
       isDateTimePickerVisible: false,
       evaluatedPersonNumber: '',
+      minutes: '00',
+      seconds: '00',
+      miliseconds: '00',
     };
+  }
+
+  zeroFill( number, width )
+  {
+    width -= number.toString().length;
+    if ( width > 0 )
+    {
+      return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+    }
+    return number + ""; // always return a string
+  }
+
+  incrementCounter(type)
+  {
+    var timerCounter = Object.freeze({"minutes":1, "seconds":2, "miliseconds":3});
+    switch(type)
+    {
+      case timerCounter.minutes:
+      this.setState((prevState) => {
+        return {
+          ...this.state,
+          minutes: this.zeroFill((Number(this.state.minutes) + 1),2),
+        }
+      });
+      break;
+      case timerCounter.seconds:
+      this.setState((prevState) => {
+        return {
+          ...this.state,
+          seconds: this.zeroFill((Number(this.state.seconds) + 1),2),
+        }
+      });
+      break;
+      case timerCounter.miliseconds:
+      this.setState((prevState) => {
+        return {
+          ...this.state,
+          miliseconds: this.zeroFill((Number(this.state.miliseconds) + 1),2),
+        }
+      });
+      break;
+      default:
+      console.log('erro');
+      break;
+    }
   }
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -38,7 +86,7 @@ class FiftyMetersRun extends Component {
   {
     return (
       <View style={styles.container}>
-            <View style={{flexDirection:'row'}}>
+            <View style={[styles.container, {flexDirection:'row'}]}>
               <Text>
                   Numero do candidato:
               </Text>
@@ -49,18 +97,32 @@ class FiftyMetersRun extends Component {
                 keyboardType='numeric'>
               </TextInput>            
             </View>
-            <View>
-                <DateTimePicker
-                  isVisible={this.state.isDateTimePickerVisible}
-                  onConfirm={this._handleDatePicked}
-                  onCancel={this._hideDateTimePicker}
-                  mode='time'
-                />
+            <Text> (MINUTOS : SEGUNDOS : MILISSEGUNDOS)</Text>
+            <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection:'column'}}>
+                <Button title=' + ' onPress={ () => {this.incrementCounter(1)} }/>
+                <TextInput value={this.state.minutes} style={{width:50}} keyboardType='numeric' />
+                <Button title=' - ' />
               </View>
-              <TouchableOpacity
-                onPress={() => {this._showDateTimePicker()}}>
-                <TextInput editable={false}/>
-              </TouchableOpacity>
+              <View style={{flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={styles.formatText}> : </Text>
+              </View>
+              <View style={{flexDirection:'column'}}>
+                <Button title=' + ' onPress={ () => {this.incrementCounter(2)} }/>
+                <TextInput value={this.state.seconds} style={{width:50}} keyboardType='numeric'/>
+                <Button title=' - ' />
+              </View>
+              <View style={{flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={styles.formatText}> : </Text>
+              </View>
+              <View style={{flexDirection:'column'}}>
+                <Button title=' + ' onPress={ () => {this.incrementCounter(3)} }/>
+                <TextInput value={this.state.miliseconds} style={{width:50}} keyboardType='numeric'/>
+                <Button title=' - ' />
+              </View>
+            </View>
+            
+
               <View style={[styles.retestContainer]}>
                 <Retest></Retest>
                 <Text>Reteste</Text>
@@ -73,12 +135,9 @@ class FiftyMetersRun extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '60%',
 
   },
   retestContainer: {
@@ -104,7 +163,7 @@ const styles = StyleSheet.create({
   },
   inputCandidateNumber: {
     color: 'black',
-    width: 90
+    width: 65
   }
 });
 

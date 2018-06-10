@@ -52,7 +52,7 @@ class LoginScreen extends Component {
 
           <Button
             title="Entrar"
-            onPress={ () => this.loginValidator(this.refs.signature) }
+            onPress={ this.loginValidator(this.refs.signature) }
           />
         </View>
       </View>
