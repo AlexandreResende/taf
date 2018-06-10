@@ -1,10 +1,14 @@
 
 const candidatesStatistics = (candidatesArray, examName) => {
-  const total = candidatesArray.length;
-  const approved = candidatesArray
-    .filter((candidate) => {return candidate.punctuation[examName].candidateScore >= 60}).length;
+  const approvedScore = 60;
+  const validCandidates = candidatesArray.filter((candidate) => {
+    return Object.keys(candidate.punctuation).indexOf(examName) !== -1;
+  });
+  const total = validCandidates.length;
+  const approved = validCandidates
+    .filter((candidate) => {return candidate.punctuation[examName].candidateScore >= approvedScore}).length;
   const reproved = total - approved;
-  const average = candidatesArray.reduce((acc, candidate) => acc + candidate.punctuation[examName].result, 0);
+  const average = validCandidates.reduce((acc, candidate) => acc + parseInt(candidate.punctuation[examName].result), 0) / (total | 1);
 
   return {
     approved,
