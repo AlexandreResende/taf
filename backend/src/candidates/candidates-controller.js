@@ -15,6 +15,7 @@ module.exports.getCandidate = (req, res) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).send({
         result: null,
         error: err,
