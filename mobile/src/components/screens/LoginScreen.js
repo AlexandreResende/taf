@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, StyleSheet, TextInput, Alert, Image } from 'react-native';
+import { Signature } from '../common';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -7,14 +8,27 @@ class LoginScreen extends Component {
     this.state = { name: '' };
   }
 
-  loginValidator() {
-    if(this.state.name.length > 0){
+  loginValidator(image) {
+    if(this.state.name.length > 0 && image != null){
       this.props.navigation.navigate('Home', {
         name: this.state.name,
+        appraiserSignature: image.encoded
       })
     } else {
-      Alert.alert("Nome nao pode ser vazio")
+      Alert.alert("Nome e assinatura devem ser preenchidos")
     }
+  }
+
+  onSave(result){
+    this.loginValidator(result);
+  }
+
+  saveImage() {
+    this.refs.signature.saveSign();
+  }
+
+  resetImage(){
+    this.refs.signature.resetSign();
   }
 
   render() {
@@ -29,9 +43,16 @@ class LoginScreen extends Component {
             placeholder="Nome"
             onChangeText={(text) => { this.setState({ name: text }); }}
           />
+          <Signature ref='signature' onSave={this.onSave.bind(this)} />
+          <Button 
+            style={styles.button}
+            onPress={ () => this.resetImage() } 
+            title="Limpar Assinatura"
+          />
+
           <Button
             title="Entrar"
-            onPress={ this.loginValidator.bind(this) }
+            onPress={ this.saveImage.bind(this) }
           />
         </View>
       </View>
@@ -48,9 +69,12 @@ const styles = StyleSheet.create({
   centerBox: {
     borderWidth: 1,
     borderRadius: 10,
-    width: 300,
-    height: 100,
+    width: 700,
+    height: 300,
   },
+  button: {
+    width: 100
+  }
 });
 
 export { LoginScreen };

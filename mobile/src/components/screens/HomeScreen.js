@@ -12,6 +12,7 @@ class HomeScreen extends Component {
   });
 
   render (){
+    console.log('Appraiser Signature: ' + this.props.navigation.getParam('appraiserSignature'));
     return (
       <ScrollView>
         <View style={[styles.parent]}>

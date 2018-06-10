@@ -7,6 +7,12 @@ class Signature extends Component {
     super(props);    
   }
   
+  componentDidMount(){
+    this.setState({
+      touched: false
+    })
+  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -15,7 +21,7 @@ class Signature extends Component {
               style={[styles.signature]}
               ref="sign"
               onSaveEvent={this._onSaveEvent.bind(this)}
-              onDragEvent={this._onDragEvent}
+              onDragEvent={this._onDragEvent.bind(this)}
               showNativeButtons={false}
             />
         </View>
@@ -29,16 +35,22 @@ class Signature extends Component {
 
   resetSign() {
     this.refs["sign"].resetImage();
+    this.setState({
+      touched: false
+    })
   }
 
   _onSaveEvent(result) {
-    this.props.onSave && this.props.onSave(result);
+    if(this.state.touched)
+      this.props.onSave(result);
+    else
+      this.props.onSave(null);
   }
 
   _onDragEvent() {     
-    // TODO if necessary
-
-    console.log("dragged");
+    this.setState({
+      touched: true
+    })
   }
 }
 
