@@ -2,22 +2,23 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Retest } from '../../retest';
+import Storage from '../../../helper/storage/localMongodb';
 
 class AbdominalPushUpsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      examName: this.props.examName,
-      evaluatedPersonNumber: '',
-      counter: 0,
+      name: this.props.examName,
+      number: '',
+      result: 0,
     };
   }
 
-  onChangeEvaluatedPersonNumber = (val) => {
+  onChangenumber = (val) => {
     this.setState((prevState) => {
       return {
         ...this.state,
-        evaluatedPersonNumber: val,
+        number: val,
       }
     });
   }
@@ -26,62 +27,74 @@ class AbdominalPushUpsComponent extends Component {
     this.setState((prevState) => {
       return {
         ...this.state,
-        evaluatedPersonNumber: '',
-        counter: 0,
+        number: '',
+        result: 0,
       }
     });
   }
 
-  incrementCounter = () => {
-    console.log(this.state.counter);
+  incrementResult = () => {
     this.setState((prevState) => {
       return {
         ...this.state,
-        counter: this.state.counter + 1,
+        result: this.state.result + 1,
       }
     });
   };
 
-  decrementCounter = () => {
-    console.log(this.state.counter);
+  decrementResult = () => {
     this.setState((prevState) => {
       return {
         ...this.state,
-        counter: (this.state.counter - 1 < 0) ? 0 : this.state.counter - 1,
+        result: (this.state.result - 1 < 0) ? 0 : this.state.result - 1,
       }
     });
   };
+
+  saveCandidateExamData = () => {
+    const storage = new Storage();
+    const { name, number, result } = this.state;
+
+    storage.saveOnLocalStorage({ name, number, result });
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        number: '',
+        result: 0,
+      }
+    });
+  }
 
   render() {
     return (
       <View style={[styles.AbdominalPushUpsExamContainer]}>
-        <View style={[styles.containers, styles.examNameContainer]}>
-          <Text style={styles.formatText}>{this.state.examName}</Text>
+        <View style={[styles.containers, styles.nameContainer]}>
+          <Text style={styles.formatText}>{this.state.name}</Text>
         </View>
         <View style={[styles.containers, styles.evaluatedPersonContainer]}>
           <Text style={styles.formatText}>Número do Avaliado:</Text>
           <TextInput 
-            style={[styles.evaluatedPersonNumber, styles.formatText]} 
-            value={this.state.evaluatedPersonNumber} 
-            onChangeText={this.onChangeEvaluatedPersonNumber}
+            style={[styles.number, styles.formatText]} 
+            value={this.state.number} 
+            onChangeText={this.onChangenumber}
             keyboardType='numeric'>
           </TextInput>
         </View>
         <View style={[styles.containers, styles.examDataContainer]}>
-        <Button color={'red'} title='-' onPress={this.decrementCounter}></Button>
+        <Button color={'red'} title='-' onPress={this.decrementresult}></Button>
           <View style={styles.marginBetweenButtons} />
           <Text
             style={[styles.formatHeightValue, styles.formatText]}
-            >{this.state.counter}</Text>
+            >{this.state.result}</Text>
           <View style={styles.marginBetweenButtons} />
-          <Button color={'green'} title='+' onPress={this.incrementCounter}></Button>
+          <Button color={'green'} title='+' onPress={this.incrementresult}></Button>
         </View>
         <View style={[styles.containers, styles.retestContainer]}>
           <Retest></Retest>
           <Text>Reteste</Text>
         </View>
         <View style={[styles.containers, styles.buttonContainer]}>
-          <Button color={'green'} title='Salvar' onPress={() => {return null;}}></Button>
+          <Button color={'green'} title='Salvar' onPress={this.saveCandidateExamData}></Button>
           <View style={styles.marginBetweenButtons} />
           <Button title='Limpar' onPress={this.clearFields}></Button>
         </View>
@@ -100,7 +113,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'column',
   },
-  examNameContainer: {
+  nameContainer: {
     flex: 1,
     //marginTop: -20,
     flexDirection: 'row',
@@ -114,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  evaluatedPersonNumber: {
+  number: {
     width: '5%',
     justifyContent: 'center',
     textAlign: 'center',
