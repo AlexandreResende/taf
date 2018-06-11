@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
-import { Signature } from '../common';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card } from './TwelveMinutesRun/index';
 
@@ -9,7 +8,8 @@ class TwelveMinutesRun extends Component {
   componentWillMount() {
     this.setState({
       arr: [],
-      number: ''
+      number: '',
+      results: []
     })
   }
 
@@ -27,12 +27,40 @@ class TwelveMinutesRun extends Component {
     this.setState({ number : text});
   }
 
+  endExam(){
+    this.props.navigation.navigate('TwelveMinutesRunEnd', {
+      results: this.state.results,
+      name: this.props.navigation.getParam('name', 'Invalid Name')
+    })
+  }
+
+  saveData(number,laps,meters){
+    let exam = {
+      number: number,
+      laps: laps,
+      meters: meters
+    }
+    let replaced = false;
+    for(var index = 0 ; index < this.state.results.length ; index++){
+      if(this.state.results[index].number == number){
+        this.state.results[index] = exam;
+        replaced = true;
+      }
+    }
+    if( !replaced ) 
+      this.state.results.push(exam);
+  }
+
   render() {
     let Arr = this.state.arr.map((element, i) => {
-      return <Card candidateNumber={element} key={i}/>                            
+      return <Card candidateNumber={element} key={i} saveData={this.saveData.bind(this)}/>                            
     })
     return (
       <ScrollView style={styles.container}>
+        <Button
+          title="Finalizar"
+          onPress={ this.endExam.bind(this) }
+        />
         <View style={styles.buttonContainer}>
           { Arr }
           <View style={styles.card}>

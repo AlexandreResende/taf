@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { View, Text, Easing, StyleSheet, Button } from 'react-native';
-// import Icon from 'react-native-vector-icons/Entypo';
-// import Menu from '../menu/Menu';
 import { Logo } from '../common';
 import { TwelveMinutesRun } from '../exams';
 
@@ -13,7 +10,7 @@ class TwelveMinutesRunScreen extends Component {
 
   render (){
     return (
-      <TwelveMinutesRun />
+      <TwelveMinutesRun navigation={this.props.navigation} />
     );
   }
 }

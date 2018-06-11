@@ -63,7 +63,7 @@ class LoginScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     width: '70%',
     marginLeft: 'auto',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   centerBox: {
     borderWidth: 1,
     borderRadius: 10,
-    width: 700,
+    width: 600,
     height: 300,
   },
   button: {
