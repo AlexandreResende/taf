@@ -45,7 +45,6 @@ class HomeScreen extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.child, {backgroundColor: '#996633'} ]} 
-            style={[styles.child, {backgroundColor: '#996666'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('AbdominalExam', {
                 name: this.props.navigation.getParam('name', 'Invalid Name'),
@@ -59,7 +58,6 @@ class HomeScreen extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} 
-            style={[styles.child, {backgroundColor: '#996666'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('PushUpsExam', {
                 name: this.props.navigation.getParam('name', 'Invalid Name'),
@@ -103,6 +101,7 @@ var styles = StyleSheet.create({
       marginTop: '2%',
       marginBottom: '1%',
       borderRadius: 10,
+      elevation: 5,
       
   },
   container: {
@@ -115,6 +114,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
+    color: 'white'
   }
 })
 
