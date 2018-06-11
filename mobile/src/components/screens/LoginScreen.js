@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
   centerBox: {
     borderWidth: 1,
     borderRadius: 10,
-    width: 600,
-    height: 300,
+    width: 550,
+    height: 250,
   },
   button: {
     width: 100
