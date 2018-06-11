@@ -81,13 +81,13 @@ class AbdominalPushUpsComponent extends Component {
           </TextInput>
         </View>
         <View style={[styles.containers, styles.examDataContainer]}>
-        <Button color={'red'} title='-' onPress={this.decrementresult}></Button>
+        <Button color={'red'} title='-' onPress={this.decrementResult}></Button>
           <View style={styles.marginBetweenButtons} />
           <Text
             style={[styles.formatHeightValue, styles.formatText]}
             >{this.state.result}</Text>
           <View style={styles.marginBetweenButtons} />
-          <Button color={'green'} title='+' onPress={this.incrementresult}></Button>
+          <Button color={'green'} title='+' onPress={this.incrementResult}></Button>
         </View>
         <View style={[styles.containers, styles.retestContainer]}>
           <Retest></Retest>
