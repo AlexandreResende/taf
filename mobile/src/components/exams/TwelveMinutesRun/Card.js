@@ -12,25 +12,35 @@ class Card extends Component {
     this.setState({
       laps: 0,
       meters: 0
-    });
+    }, () => this.saveData() );
   }
 
   increaseNumberOfLaps() {
     this.setState({
       laps: this.state.laps + 1
-    })
+    }, () => this.saveData() );
   }
 
   decreaseNumberOfLaps() {
     this.setState({
       laps: (this.state.laps == 0) ? 0 : this.state.laps - 1
-    })
+    }, () => this.saveData() );
   }
 
   clearIfZero() {
     this.setState({
       meters:( this.state.meters == 0) ? '' : this.state.meters
     })
+  }
+
+  changeText(text){
+    this.setState({
+      meters: text
+    }, () => this.saveData() );
+  }
+
+  saveData(){
+    this.props.saveData(this.props.candidateNumber,this.state.laps,this.state.meters);
   }
   
   render() {
@@ -54,7 +64,7 @@ class Card extends Component {
               </Text>
               <TextInput
                 style={{ width: 40 }}
-                onChangeText={(text) => this.setState({ meters : text}) }
+                onChangeText={(text) => this.changeText(text) }
                 maxLength={4}
                 keyboardType='numeric'
                 value={this.state.meters.toString()}

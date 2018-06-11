@@ -10,6 +10,7 @@ import {
   PushUpsExamScreen,
   AbdominalExamScreen,
   FiftyMetersRunScreen,
+  TwelveMinutesRunEndScreen
 } from './components/screens'
 
 const RootStack = createStackNavigator(
@@ -17,6 +18,7 @@ const RootStack = createStackNavigator(
     Home: HomeScreen,
     Login: LoginScreen,
     TwelveMinutesRun: TwelveMinutesRunScreen,
+    TwelveMinutesRunEnd: TwelveMinutesRunEndScreen,
     HeightExam: HeightExamScreen,
     PushUpsExam: PushUpsExamScreen,
     AbdominalExam: AbdominalExamScreen,
