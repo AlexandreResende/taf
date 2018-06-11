@@ -13,9 +13,8 @@ class FiftyMetersRun extends Component {
     this.state = {
       isDateTimePickerVisible: false,
       evaluatedPersonNumber: '',
-      minutes: '00',
-      seconds: '00',
-      miliseconds: '00',
+      seconds: '0',
+      miliseconds: '0',
     };
   }
 
@@ -31,22 +30,14 @@ class FiftyMetersRun extends Component {
 
   incrementCounter(type)
   {
-    var timerCounter = Object.freeze({"minutes":1, "seconds":2, "miliseconds":3});
+    var timerCounter = Object.freeze({"seconds":2, "miliseconds":3});
     switch(type)
     {
-      case timerCounter.minutes:
-      this.setState((prevState) => {
-        return {
-          ...this.state,
-          minutes: this.zeroFill((Number(this.state.minutes) + 1),2),
-        }
-      });
-      break;
       case timerCounter.seconds:
       this.setState((prevState) => {
         return {
           ...this.state,
-          seconds: this.zeroFill((Number(this.state.seconds) + 1),2),
+          seconds: (Number(this.state.seconds) + 1).toString(),
         }
       });
       break;
@@ -54,7 +45,35 @@ class FiftyMetersRun extends Component {
       this.setState((prevState) => {
         return {
           ...this.state,
-          miliseconds: this.zeroFill((Number(this.state.miliseconds) + 1),2),
+          miliseconds: (Number(this.state.miliseconds) + 1).toString(),
+        }
+      });
+      break;
+      default:
+      console.log('erro');
+      break;
+    }
+  }
+
+  decrementCounter(type)
+  {
+    var timerCounter = Object.freeze({"seconds":2, "miliseconds":3});
+    switch(type)
+    {
+      case timerCounter.seconds:
+      this.setState((prevState) => {
+        return {
+          ...this.state,
+          seconds: ((Number(this.state.seconds) - 1) < 0 ? 0 : Number(this.state.seconds) - 1).toString(),
+        }
+
+      });
+      break;
+      case timerCounter.miliseconds:
+      this.setState((prevState) => {
+        return {
+          ...this.state,
+          miliseconds: ((Number(this.state.miliseconds) - 1) <= 0 ? 0 : Number(this.state.miliseconds) - 1).toString(),
         }
       });
       break;
@@ -82,10 +101,45 @@ class FiftyMetersRun extends Component {
     this._hideDateTimePicker();
   };
 
+  formatSecondsValue = () => {
+    this.setState((prevState) =>
+    {
+      return{
+        ...this.state,
+        seconds: val,
+      }
+    });
+  }
+  
+
+  onChangeSecondsValue = (val) => {
+    this.setState((prevState) =>
+    {
+      return{
+        ...this.state,
+        seconds: val,
+      }
+    });
+  }  
+
+  onChangeMilisecondsValue = (val) => {
+    this.setState((prevState) =>
+    {
+      return{
+        ...this.state,
+        miliseconds: val,
+      }
+    });
+  } 
+
+
   render()
   {
     return (
       <View style={styles.container}>
+        <View style={styles.examNameContainer}>
+          <Text style={styles.formatText}>Prova dos 50 metros</Text>
+        </View>
             <View style={[styles.container, {flexDirection:'row'}]}>
               <Text>
                   Numero do candidato:
@@ -97,28 +151,23 @@ class FiftyMetersRun extends Component {
                 keyboardType='numeric'>
               </TextInput>            
             </View>
-            <Text> (MINUTOS : SEGUNDOS : MILISSEGUNDOS)</Text>
+            <Text> Tempo da corrida</Text>
+            <Text> (SEGUNDOS : MILISSEGUNDOS)</Text>
             <View style={{flexDirection:'row'}}>
               <View style={{flexDirection:'column'}}>
-                <Button title=' + ' onPress={ () => {this.incrementCounter(1)} }/>
-                <TextInput value={this.state.minutes} style={{width:50}} keyboardType='numeric' />
-                <Button title=' - ' />
-              </View>
-              <View style={{flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={styles.formatText}> : </Text>
-              </View>
-              <View style={{flexDirection:'column'}}>
                 <Button title=' + ' onPress={ () => {this.incrementCounter(2)} }/>
-                <TextInput value={this.state.seconds} style={{width:50}} keyboardType='numeric'/>
-                <Button title=' - ' />
+                <TextInput  value={this.state.seconds} style={{width:50, textAlign:'center'}} keyboardType='numeric'
+                  onChangeText={this.onChangeSecondsValue}/>
+                <Button title=' - ' onPress={ () => {this.decrementCounter(2)} }/>
               </View>
               <View style={{flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={styles.formatText}> : </Text>
               </View>
               <View style={{flexDirection:'column'}}>
                 <Button title=' + ' onPress={ () => {this.incrementCounter(3)} }/>
-                <TextInput value={this.state.miliseconds} style={{width:50}} keyboardType='numeric'/>
-                <Button title=' - ' />
+                <TextInput value={this.state.miliseconds} style={{width:50, textAlign:'center'}} keyboardType='numeric'
+                  onChangeText={this.onChangeMilisecondsValue}/>
+                <Button title=' - ' onPress={ () => {this.decrementCounter(3)} }/>
               </View>
             </View>
             
@@ -126,6 +175,7 @@ class FiftyMetersRun extends Component {
               <View style={[styles.retestContainer]}>
                 <Retest></Retest>
                 <Text>Reteste</Text>
+                <Button style={{marginLeft:20} } title='Salvar'/>
               </View>
           </View>
     )
@@ -135,10 +185,16 @@ class FiftyMetersRun extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
 
+  },
+  examNameContainer: {
+    flex: 1,
+    marginTop: -20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   retestContainer: {
     flex: 1,
