@@ -47,7 +47,9 @@ class Signature extends Component {
       this.props.onSave(null);
   }
 
-  _onDragEvent() {     
+  _onDragEvent() {
+    if(this.props.saveOnDrag)
+      this.saveSign();
     this.setState({
       touched: true
     })

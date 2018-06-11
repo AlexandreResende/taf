@@ -119,11 +119,11 @@ function resultsController($scope, api, date, $http) {
       label: "Resultado",
       width: '100px',
       template: '<span class="' 
-        + "{{ row.points > 200 ? 'green-font' : 'red-font'}}" 
+        + "{{ (row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore) > 200 ? 'green-font' : 'red-font'}}" 
         + '">' 
-        + '{{row.points}}</span>' 
-        + " <span class='badge badge-success'>{{ row.points > 200 ? 'Aprovado' : '' }}</span>" 
-        + " <span class='badge badge-danger'>{{ row.points  <= 200 ? 'Reprovado' : '' }}</span>"
+        + '{{row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore}}</span>' 
+        + " <span class='badge badge-success'>{{ ( row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore ) > 200 ? 'Aprovado' : '' }}</span>" 
+        + " <span class='badge badge-danger'>{{ ( row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore )  <= 200 ? 'Reprovado' : '' }}</span>"
     }
   ];
 

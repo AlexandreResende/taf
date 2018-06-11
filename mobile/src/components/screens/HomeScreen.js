@@ -12,7 +12,7 @@ class HomeScreen extends Component {
   });
 
   render (){
-    console.log('Appraiser Signature: ' + this.props.navigation.getParam('appraiserSignature'));
+    // console.log('Appraiser Signature: ' + this.props.navigation.getParam('appraiserSignature'));
     return (
       <ScrollView>
         <View style={[styles.parent]}>
@@ -20,7 +20,8 @@ class HomeScreen extends Component {
             style={[styles.child, {backgroundColor: '#996666'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('TwelveMinutesRun',{
-                name: this.props.navigation.getParam('name', 'Invalid Name')
+                name: this.props.navigation.getParam('name', 'Invalid Name'),
+                appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
               })
             }}
           >
@@ -33,7 +34,8 @@ class HomeScreen extends Component {
           <TouchableOpacity style={[styles.child, {backgroundColor: '#339966'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('HeightExam', {
-                name: this.props.navigation.getParam('name', 'Invalid Name')
+                name: this.props.navigation.getParam('name', 'Invalid Name'),
+                appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
               })
             }}
           >
@@ -46,7 +48,8 @@ class HomeScreen extends Component {
             style={[styles.child, {backgroundColor: '#996666'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('AbdominalExam', {
-                name: this.props.navigation.getParam('name', 'Invalid Name')
+                name: this.props.navigation.getParam('name', 'Invalid Name'),
+                appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
               })
             }}
           >
@@ -59,7 +62,8 @@ class HomeScreen extends Component {
             style={[styles.child, {backgroundColor: '#996666'} ]} 
             onPress={ () => {
               this.props.navigation.navigate('PushUpsExam', {
-                name: this.props.navigation.getParam('name', 'Invalid Name')
+                name: this.props.navigation.getParam('name', 'Invalid Name'),
+                appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
               })
             }}
           >
@@ -69,7 +73,10 @@ class HomeScreen extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} 
-            onPress={() => { this.props.navigation.navigate('FiftyMetersRun', { name: this.props.navigation.getParam('name', 'Invalid Name') })
+            onPress={() => { this.props.navigation.navigate('FiftyMetersRun', { 
+              name: this.props.navigation.getParam('name', 'Invalid Name'),
+              appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
+            })        
           }}>
             <View style={styles.container}>
               <Text style={styles.title}>Prova dos 50 metros</Text>
