@@ -21,13 +21,9 @@ const pushUpsScore = (examName, candidateGender, testArray) => {
       candidateScore = scoreTableKeys[result];
     }
 
-    return {
-      result,
-      retest,
-      candidateScore,
-    };
+    return noTestResponse(result, retest, candidateScore);
   }
-  return noTestResponse;
+  return noTestResponse();
 };
 
 module.exports = pushUpsScore;

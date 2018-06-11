@@ -14,13 +14,9 @@ const heightScore = (examName, candidateGender, testArray) => {
     
     candidateScore = (result < minimunHeight) ? false : true;
 
-    return {
-      result,
-      retest,
-      candidateScore,
-    };
+    return noTestResponse(result, retest, candidateScore);
   }
-  return noTestResponse;
+  return noTestResponse();
 };
 
 module.exports = heightScore;

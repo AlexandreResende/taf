@@ -19,13 +19,9 @@ const twelveMinutesRunning = (examName, candidateGender, testArray) => {
       }
     }
 
-    return {
-      result,
-      retest,
-      candidateScore,
-    };
+    return noTestResponse(result, retest, candidateScore);
   }
-  return noTestResponse;
+  return noTestResponse();
 };
 
 module.exports = twelveMinutesRunning;
