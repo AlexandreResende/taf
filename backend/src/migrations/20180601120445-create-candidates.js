@@ -14,6 +14,9 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING
       },
+      classNumber: {
+        type: Sequelize.INTEGER
+      },
       number: {
         type: Sequelize.INTEGER
       },
