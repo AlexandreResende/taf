@@ -8,11 +8,11 @@ const twelveMinutesRunnings = require('../helper/twelveMinutesRunning');
 const abdominalPushUpsScore = require('../helper/abdominalPushUpsScore');
 
 class Candidates {
-  static getCandidate(examDate, number) {
+  static getCandidate(classNumber, number) {
     return new Promise((resolve, reject) => {
       models.Candidates.find({
         where: {
-          examDate,
+          classNumber,
           number,
         }
       })
@@ -42,11 +42,11 @@ class Candidates {
     });
   }
 
-  static getCandidates(examDate) {
+  static getCandidates(classNumber) {
     return new Promise((resolve, reject) => {
       models.Candidates.findAll({
         where: {
-          examDate,
+          classNumber,
         }
       })
         .then(resolve)
@@ -54,9 +54,9 @@ class Candidates {
     });
   }
 
-  static score(examDate) {
+  static score(classNumber) {
     return new Promise((resolve, reject) => {
-      const allCandidates = this.getCandidates(examDate);
+      const allCandidates = this.getCandidates(classNumber);
 
       Promise
         .all([allCandidates])

@@ -4,8 +4,8 @@ const queryString = require('querystring');
 const Candidates = require('./candidates-model');
 
 module.exports.getCandidate = (req, res) => {
-  const { day, month, year, number } = req.params;
-  const getCandidatesResult = Candidates.getCandidate(`${day}/${month}/${year}`, number);
+  const { classNumber, number } = req.params;
+  const getCandidatesResult = Candidates.getCandidate(classNumber, number);
 
   Promise.all([getCandidatesResult])
     .then((candidate) => {
@@ -24,10 +24,7 @@ module.exports.getCandidate = (req, res) => {
 };
 
 module.exports.getCandidates = (req, res) => {
-  const day = req.params.day;
-  const month = req.params.month;
-  const year = req.params.year;
-  const getCandidatesResult = Candidates.getCandidates(`${day}/${month}/${year}`);
+  const getCandidatesResult = Candidates.getCandidates(req.params.classNumber);
 
   Promise.all([getCandidatesResult])
     .then((candidates) => {
@@ -45,8 +42,8 @@ module.exports.getCandidates = (req, res) => {
 };
 
 module.exports.score = (req, res) => {
-  const { day, month, year } = req.params;
-  const candidatesScore = Candidates.score(`${day}/${month}/${year}`);
+  const { classNumber } = req.params;
+  const candidatesScore = Candidates.score(classNumber);
 
   Promise
     .all([candidatesScore])
