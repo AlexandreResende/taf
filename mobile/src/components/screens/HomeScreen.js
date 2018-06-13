@@ -80,7 +80,19 @@ class HomeScreen extends Component {
               <Text style={styles.title}>Prova dos 50 metros</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} ></TouchableOpacity>
+
+          <TouchableOpacity 
+            style={[styles.child, {backgroundColor: '#996666'} ]} 
+            onPress={ () => {
+              this.props.navigation.navigate('ListCandidatesInfo',{
+                name: this.props.navigation.getParam('name', 'Invalid Name'),
+              })
+            }}
+          >
+            <View style={styles.container}>
+              <Text style={styles.title}>Ver Dados</Text>
+            </View>
+          </TouchableOpacity>
        </View>
       </ScrollView>
     );

@@ -10,7 +10,8 @@ import {
   PushUpsExamScreen,
   AbdominalExamScreen,
   FiftyMetersRunScreen,
-  TwelveMinutesRunEndScreen
+  TwelveMinutesRunEndScreen,
+  ListCandidatesInfoScreen
 } from './components/screens'
 
 const RootStack = createStackNavigator(
@@ -23,6 +24,7 @@ const RootStack = createStackNavigator(
     PushUpsExam: PushUpsExamScreen,
     AbdominalExam: AbdominalExamScreen,
     FiftyMetersRun: FiftyMetersRunScreen,
+    ListCandidatesInfo: ListCandidatesInfoScreen,
   },
   {
     initialRouteName: 'Login',

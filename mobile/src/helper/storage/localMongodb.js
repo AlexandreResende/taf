@@ -12,11 +12,10 @@ class Storage {
     });
   }
 
-  loadFromLocalStorage() {
-    const candidates = [];
-    db.find({}, (err, docs) => {
-      console.log(docs);
-    });
+  async loadFromLocalStorage() {
+    const docs = await db.find({});
+
+    return docs;
   }
 
   removeFromLocalStorage() {

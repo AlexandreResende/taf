@@ -6,3 +6,4 @@ export * from './TwelveMinutesRunEndScreen';
 export * from './AbdominalExamScreen';
 export * from './PushUpsExamScreen';
 export * from './FiftyMetersRunScreen';
+export * from './ListCandidatesInfoScreen';
