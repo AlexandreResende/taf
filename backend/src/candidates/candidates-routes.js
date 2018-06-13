@@ -4,11 +4,11 @@ const router = express.Router();
 
 const { getCandidates, addCandidate, getCandidate, score } = require('./candidates-controller');
 
-router.get('/candidate/:classNumber/:number', getCandidate);
+router.get('/candidate/:day/:month/:year/:classNumber/:number', getCandidate);
 
-router.get('/candidates/:classNumber', getCandidates);
+router.get('/candidates/:day/:month/:year/:classNumber', getCandidates);
 
-router.get('/score/:classNumber', score);
+router.get('/score/:day/:month/:year/:classNumber', score);
 
 router.post('/candidates', addCandidate);
 
