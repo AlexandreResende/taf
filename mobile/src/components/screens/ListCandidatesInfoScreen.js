@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Table, Row } from 'react-native-table-component';
 import { Logo } from '../common';
-import Storage from '../../helper/storage/localMongodb';
+import { Storage } from '../../helper/storage/localMongodb';
 const Datastore = require('react-native-local-mongodb');
 const db = new Datastore({ filename: 'asyncStorageKey', autoload: true });
 
@@ -20,24 +20,38 @@ class ListCandidatesInfoScreen extends Component {
     headerRight: <Logo />
   });
 
-  renderRows = async () => {
-    /* const examsInfo = [];
-    await db.find({}, (err, docs) => {
-      if (err) {
-        throw err;
-      }
+  renderRows = () => {
+    const result = db.find({}, (err, docs) => {
+      const docsArray = []
       for (let doc of docs) {
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        console.log('aki');
         console.log(doc);
-        examsInfo.push(<Row key={Math.random()} data={[doc.name, doc.number, doc.result]}></Row>);
+        const { name, number, result } = doc;
+        docsArray.concat(<Row data={[name, number, result]}></Row>)
       }
+      return docsArray;
     });
-    console.log(examsInfo);
-    return examsInfo; */
-    return [];
+    console.log(result);
+    return result;
+    /* const content = [];
+    const storage = new Storage();
+    const docs = storage.loadFromLocalStorage();
+    console.log(docs);
+
+    return Promise
+      .all([docs])
+      .then((documents) => {
+        for (let doc of documents) {
+          this.setState({
+            ...this.state,
+            tableRows: this.state.tableRows.push([doc[0].name, doc[0].number, doc[0].result]),
+          });
+        }
+      })
+      .catch(console.log); */
   }
 
-  render (){
+  render() {
     return (
       <ScrollView>
         <View>
@@ -47,7 +61,7 @@ class ListCandidatesInfoScreen extends Component {
         </View>
         <ScrollView>
           <Table>
-            {this.renderRows}
+            {this.renderRows()}
           </Table>
         </ScrollView>
       </ScrollView>

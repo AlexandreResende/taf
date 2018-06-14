@@ -12,10 +12,15 @@ class Storage {
     });
   }
 
-  async loadFromLocalStorage() {
-    const docs = await db.find({});
-
-    return docs;
+  loadFromLocalStorage() {
+    return new Promise((resolve, reject) => {
+      db.find({}, (err, docs) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(docs);
+      });
+    });
   }
 
   removeFromLocalStorage() {
@@ -23,4 +28,4 @@ class Storage {
   }
 }
 
-module.exports = Storage;
+export { Storage };
