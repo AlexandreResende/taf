@@ -7,3 +7,4 @@ export * from './AbdominalExamScreen';
 export * from './PushUpsExamScreen';
 export * from './FiftyMetersRunScreen';
 export * from './ListCandidatesInfoScreen';
+export * from './SynchronizeDataScreen';

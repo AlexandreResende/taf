@@ -11,7 +11,8 @@ import {
   AbdominalExamScreen,
   FiftyMetersRunScreen,
   TwelveMinutesRunEndScreen,
-  ListCandidatesInfoScreen
+  ListCandidatesInfoScreen,
+  SynchronizeDataScreen,
 } from './components/screens'
 
 const RootStack = createStackNavigator(
@@ -25,6 +26,7 @@ const RootStack = createStackNavigator(
     AbdominalExam: AbdominalExamScreen,
     FiftyMetersRun: FiftyMetersRunScreen,
     ListCandidatesInfo: ListCandidatesInfoScreen,
+    SynchronizeData: SynchronizeDataScreen,
   },
   {
     initialRouteName: 'Login',
