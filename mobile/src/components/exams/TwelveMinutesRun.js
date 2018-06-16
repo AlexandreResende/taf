@@ -42,6 +42,7 @@ class TwelveMinutesRun extends Component {
 
   saveData(number,laps,meters,candidateSignature,appraiserSignature,appraiserName){
     let exam = {
+      name: "Corrida de 12 minutos",
       number: number,
       result: (parseInt(laps) * 400) + parseInt(meters),
       candidateSignature: candidateSignature,
@@ -50,7 +51,6 @@ class TwelveMinutesRun extends Component {
       retest: false,
       examDate: this.state.examDate
     }
-    console.log(exam)
     let replaced = false;
     for(var index = 0 ; index < this.state.results.length ; index++){
       if(this.state.results[index].number == number){

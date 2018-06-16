@@ -13,7 +13,16 @@ class AbdominalPushUpsComponent extends Component {
       number: '',
       result: 0,
       retest: false,
+      examDate: this.getDate()
     };
+  }
+
+  getDate =() =>{
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
   }
 
   onChangenumber = (val) => {
