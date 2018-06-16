@@ -98,8 +98,8 @@ function printResultsController($scope, api, date, $http) {
       key: 'height',
       label: 'Altura',
       width: '150px',
-      template: " {{ row.punctuation.height.result }} m <span class='badge badge-success'>{{ row.punctuation.height.candidateScore != '-' ? 'Aprovado' : '' }}</span>" 
-      + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore == '-' ? 'Reprovado' : '' }}</span>" 
+      template: " {{ row.punctuation.height.result }} m <span class='badge badge-success'>{{ (row.punctuation.height.candidateScore != '-' && row.punctuation.height.candidateScore == true) ? 'Aprovado' : '' }}</span>" 
+      + " <span class='badge badge-danger'>{{ (row.punctuation.height.candidateScore != '-' && row.punctuation.height.candidateScore == false) ? 'Reprovado' : '' }}</span>"  
     },
     {
       id: 'pushups',
@@ -144,6 +144,7 @@ function printResultsController($scope, api, date, $http) {
       + '{{row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore}}</span>' 
       + " <span class='badge badge-success'>{{ ( row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore ) > 200 ? 'Aprovado' : '' }}</span>" 
       + " <span class='badge badge-danger'>{{ ( row.punctuation.twelveMinutesRunning.candidateScore + row.punctuation.fiftyMetersRunning.candidateScore + row.punctuation.abdominal.candidateScore + row.punctuation.pushups.candidateScore )  <= 200 ? 'Reprovado' : '' }}</span>"
+      + " <span class='badge badge-danger'>{{ (row.punctuation.height.candidateScore == '-') ? 'Ausente' : '' }}</span>"
     }
   ];
 
