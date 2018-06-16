@@ -56,6 +56,10 @@ function printResultsController($scope, api, date, $http) {
     ]
   }
 
+  $scope.format = function(value){
+    return value.substr(0,value.length -2) + "." + value.substr(value.length -2, value.length);
+  }
+
   //Column definitions
   $scope.columns =[
     {
@@ -90,42 +94,37 @@ function printResultsController($scope, api, date, $http) {
       width: '150px',
       template: " {{ row.punctuation.height.result }} m <span class='badge badge-success'>{{ row.punctuation.height.candidateScore ? 'Aprovado' : '' }}</span>" 
       + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore ? 'Reprovado' : '' }}</span>" 
-      + "<span class='badge badge-warning'>{{ row.punctuation.height.retest ? 'Reteste' : '' }}</span>"
     },
     {
       id: 'pushups',
       key: 'pushups',
       label: 'Flexão',
-      width: '175px',
+      width: '150px',
       template: 'Flexões: {{ row.punctuation.pushups.result }}<p>Pontos: {{ row.punctuation.pushups.candidateScore }}' 
-        + "  <span class='badge badge-warning'>{{ row.punctuation.pushups.retest ? 'Reteste' : '' }}</span>" 
         + '</p>'
     },
     {
       id: 'abdominal',
       key: 'abdominal',
       label: 'Abdominais',
-      width: '175px',
+      width: '150px',
       template: 'Abdominais: {{ row.punctuation.abdominal.result }}<p>Pontos: {{ row.punctuation.abdominal.candidateScore }}' 
-        + "  <span class='badge badge-warning'>{{ row.punctuation.abdominal.retest ? 'Reteste' : '' }}</span>" 
         + '</p>'
     },
     {
       id: 'fiftyMetersRunning',
       key: 'fiftyMetersRunning',
       label: '50 Metros',
-      width: '175px',
-      template: 'Tempo: {{ row.punctuation.fiftyMetersRunning.result }}<p>Pontos: {{ row.punctuation.fiftyMetersRunning.candidateScore }}' 
-        + "  <span class='badge badge-warning'>{{ row.punctuation.fiftyMetersRunning.retest ? 'Reteste' : '' }}</span>" 
+      width: '200px',
+      template: 'Tempo: {{ row.punctuation.fiftyMetersRunning.result }} segundos<p>Pontos: {{ row.punctuation.fiftyMetersRunning.candidateScore }}' 
         + '</p>'
     },
     {
       id: 'twelveMinutesRunning',
       key: 'twelveMinutesRunning',
       label: '12 Minutos',
-      width: '175px',
+      width: '150px',
       template: 'Metros: {{ row.punctuation.twelveMinutesRunning.result }}<p>Pontos: {{ row.punctuation.twelveMinutesRunning.candidateScore }}' 
-        + "  <span class='badge badge-warning'>{{ row.punctuation.twelveMinutesRunning.retest ? 'Reteste' : '' }}</span>" 
         + '</p>'
     },
     {
