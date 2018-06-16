@@ -28,17 +28,15 @@ class TwelveMinutesRun extends Component {
   }
 
   endExam(){
-    this.props.navigation.navigate('TwelveMinutesRunEnd', {
-      results: this.state.results,
-      name: this.props.navigation.getParam('name', 'Invalid Name')
-    })
+    console.log(this.state)
   }
 
-  saveData(number,laps,meters){
+  saveData(number,laps,meters,candidateSignature){
     let exam = {
       number: number,
       laps: laps,
-      meters: meters
+      meters: meters,
+      candidateSignature: candidateSignature
     }
     let replaced = false;
     for(var index = 0 ; index < this.state.results.length ; index++){
