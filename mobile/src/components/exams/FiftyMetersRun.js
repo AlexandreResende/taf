@@ -3,7 +3,6 @@ import { Modal, View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, Te
 import { Signature } from '../common';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Retest} from '../retest';
-import { SignatureWindow } from '../common/SignatureWindow';
 
 class FiftyMetersRun extends Component {
 

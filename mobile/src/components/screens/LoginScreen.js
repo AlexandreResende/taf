@@ -20,14 +20,12 @@ class LoginScreen extends Component {
         name: this.state.name,
         appraiserSignature: image.encoded
       })
-      Alert.alert("Trocar pagina")
     } else {
       Alert.alert("Nome e assinatura devem ser preenchidos")
     }
   }
 
   onSave(result){
-    Alert.alert("onSave");
     this.setState((prevState) => {
       return { showSignatureWindow: false }
     });
