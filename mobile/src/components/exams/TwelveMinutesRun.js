@@ -90,6 +90,13 @@ class TwelveMinutesRun extends Component {
                 keyboardType='numeric'
                 value={this.state.number}
               />
+            <Text style={styles.formatText}>Turma do Avaliado:</Text>
+              <TextInput
+                style={styles.inputCandidateNumber}
+                onChangeText={(text) => this.setState({ classNumber : text}) }
+                keyboardType='numeric'
+                value={this.state.classNumber}
+              />
               <Icon name="plus-circle" size={70} color="white" />
             </TouchableOpacity>
           </View>
@@ -107,7 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     margin: 10,
     width: 300,
-    height: 200,
+    height: 220,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15
