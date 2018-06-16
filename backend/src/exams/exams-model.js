@@ -2,10 +2,11 @@
 const models = require('../models');
 
 class Exams {
-  static addExam(examDate, number, candidateExam) {
+  static addExam(classNumber, examDate, number, candidateExam) {
     return new Promise((resolve, reject) => {
       models.Candidates.find({
         where: {
+          classNumber,
           examDate,
           number,
         }

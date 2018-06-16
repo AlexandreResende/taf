@@ -3,8 +3,8 @@ const Exams = require('./exams-model');
 
 module.exports.addExams = (req, res) => {
   let examDate, number, rest;
-  ({ examDate, number, ...rest } = req.body);
-  const examsEditResult = Exams.addExam(examDate, number, rest);
+  ({ classNumber, examDate, number, ...rest } = req.body);
+  const examsEditResult = Exams.addExam(classNumber, examDate, number, rest);
 
   Promise
     .all([examsEditResult])
