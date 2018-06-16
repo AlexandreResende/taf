@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet, TextInput, Alert, Image } from 'react-native';
+import { View, StyleSheet, TextInput, Alert, Image } from 'react-native';
 import { Signature } from '../common';
+import { Button } from 'react-native-elements';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -44,17 +45,27 @@ class LoginScreen extends Component {
             onChangeText={(text) => { this.setState({ name: text }); }}
           />
           <Signature ref='signature' onSave={this.onSave.bind(this)} />
-          <Button 
-            style={styles.button}
-            onPress={ () => this.resetImage() } 
-            title="Limpar Assinatura"
-          />
-
-          <Button
-            title="Entrar"
-            onPress={ this.saveImage.bind(this) }
-          />
+          <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <Button 
+              style={styles.button}
+              borderRadius={15}
+              backgroundColor='blue'
+              onPress={ () => this.resetImage() } 
+              title="Limpar Assinatura"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Entrar"
+              borderRadius={15}
+              backgroundColor='blue'
+              onPress={ this.saveImage.bind(this) }
+            />
+          </View>
         </View>
+        </View>
+        
       </View>
     );
   }
@@ -70,13 +81,27 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
   },
   centerBox: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
     width: 550,
-    height: 250,
+    height: 310,
   },
   button: {
     width: 100
+  },
+  buttonContainer: {
+    height: 40,
+    margin: 5
+  },
+  buttonContainer: {
+    flexDirection:'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+    marginLeft: 5
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 });
 
