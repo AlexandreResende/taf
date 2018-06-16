@@ -71,10 +71,14 @@ class TwelveMinutesRun extends Component {
     })
     return (
       <ScrollView style={styles.container}>
-        <Button
-          title="Finalizar"
-          onPress={ this.endExam.bind(this) }
-        />
+        <View style={styles.finishButtonContainer}>
+          <View style={styles.finishButton}>
+            <Button
+              title="Finalizar Prova"
+              onPress={ this.endExam.bind(this) }
+            />
+          </View>
+        </View>
         <View style={styles.buttonContainer}>
           { Arr }
           <View style={styles.card}>
@@ -136,6 +140,13 @@ const styles = StyleSheet.create({
   inputCandidateNumber: {
     color: 'white',
     width: 90
+  },
+  finishButtonContainer:{
+    alignItems: 'center',
+    margin: 5
+  },
+  finishButton: {
+    width: 200
   }
 });
 
