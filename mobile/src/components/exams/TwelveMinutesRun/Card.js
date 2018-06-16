@@ -16,6 +16,8 @@ class Card extends Component {
       showModalWindow: false,
       candidateSignature: "",
       signed: "Não",
+      appraiserSignature: this.props.appraiserSignature,
+      appraiserName: this.props.appraiserName,
     }, () => this.saveData() );
   }
 
@@ -44,7 +46,7 @@ class Card extends Component {
   }
 
   saveData(){
-    this.props.saveData(this.props.candidateNumber,this.state.laps,this.state.meters,this.state.candidateSignature);
+    this.props.saveData(this.props.candidateNumber,this.state.laps,this.state.meters,this.state.candidateSignature,this.props.appraiserSignature,this.props.appraiserName);
   }
 
   onSave(result){

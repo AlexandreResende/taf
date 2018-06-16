@@ -31,12 +31,14 @@ class TwelveMinutesRun extends Component {
     console.log(this.state)
   }
 
-  saveData(number,laps,meters,candidateSignature){
+  saveData(number,laps,meters,candidateSignature,appraiserSignature,appraiserName){
     let exam = {
       number: number,
       laps: laps,
       meters: meters,
-      candidateSignature: candidateSignature
+      candidateSignature: candidateSignature,
+      appraiserSignature: appraiserSignature,
+      appraiserName: appraiserName
     }
     let replaced = false;
     for(var index = 0 ; index < this.state.results.length ; index++){
@@ -51,7 +53,10 @@ class TwelveMinutesRun extends Component {
 
   render() {
     let Arr = this.state.arr.map((element, i) => {
-      return <Card candidateNumber={element} key={i} saveData={this.saveData.bind(this)}/>                            
+      return <Card candidateNumber={element} 
+                   appraiserSignature={this.props.navigation.getParam('appraiserSignature', '')} 
+                   appraiserName={this.props.navigation.getParam('name', '')}  key={i} saveData={this.saveData.bind(this)}
+              />                            
     })
     return (
       <ScrollView style={styles.container}>
