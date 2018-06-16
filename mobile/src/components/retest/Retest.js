@@ -10,9 +10,15 @@ class Retest extends Component {
     };
   }
 
-  changeCheckboxStatus = (val) => {
-    this.setState({
-      checked: !this.state.checked,
+  changeCheckboxStatus = () => {
+    const newChecked = !this.state.checked;
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        checked: newChecked,
+      }
+    }, () => {
+      this.props.changeRestestValue(this.state.checked);
     });
   }
 
@@ -24,7 +30,7 @@ class Retest extends Component {
           center
           checkedIcon='dot-circle-o'
           uncheckedIcon='dot-circle'
-          value={this.state.checked}
+          value={ this.state.checked }
           onChange={ this.changeCheckboxStatus }
         />
       </View>
@@ -32,8 +38,6 @@ class Retest extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({ });
 
 export { Retest };

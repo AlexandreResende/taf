@@ -2,15 +2,17 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Retest } from '../../retest';
-import Storage from '../../../helper/storage/localMongodb';
+import { Storage } from '../../../helper/storage/localMongodb';
 
 class AbdominalPushUpsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.examName,
+      classNumber: '',
       number: '',
       result: 0,
+      retest: false,
     };
   }
 
@@ -23,10 +25,20 @@ class AbdominalPushUpsComponent extends Component {
     });
   }
 
+  onChangeClassNumber = (val) => {
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        classNumber: val,
+      }
+    });
+  }
+
   clearFields = () => {
     this.setState((prevState) => {
       return {
         ...this.state,
+        classNumber: '',
         number: '',
         result: 0,
       }
@@ -51,14 +63,25 @@ class AbdominalPushUpsComponent extends Component {
     });
   };
 
-  saveCandidateExamData = () => {
-    const storage = new Storage();
-    const { name, number, result } = this.state;
-
-    storage.saveOnLocalStorage({ name, number, result });
+  setRetestValue = (val) => {
     this.setState((prevState) => {
       return {
         ...this.state,
+        retest: val,
+      };
+    });
+  }
+
+  saveCandidateExamData = () => {
+    const storage = new Storage();
+    const { name, classNumber, number, result, retest } = this.state;
+    console.log({ name, classNumber, number, result, retest });
+
+    storage.saveOnLocalStorage({ name, classNumber, number, result, retest });
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        classNumber: '',
         number: '',
         result: 0,
       }
@@ -72,6 +95,13 @@ class AbdominalPushUpsComponent extends Component {
           <Text style={styles.formatText}>{this.state.name}</Text>
         </View>
         <View style={[styles.containers, styles.evaluatedPersonContainer]}>
+          <Text style={styles.formatText}>Turma do Avaliado:</Text>
+          <TextInput 
+            style={[styles.number, styles.formatText]} 
+            value={this.state.classNumber} 
+            onChangeText={this.onChangeClassNumber}
+            keyboardType='numeric'>
+          </TextInput>
           <Text style={styles.formatText}>Número do Avaliado:</Text>
           <TextInput 
             style={[styles.number, styles.formatText]} 
@@ -90,7 +120,7 @@ class AbdominalPushUpsComponent extends Component {
           <Button color={'green'} title='+' onPress={this.incrementResult}></Button>
         </View>
         <View style={[styles.containers, styles.retestContainer]}>
-          <Retest></Retest>
+          <Retest changeRestestValue={this.setRetestValue}></Retest>
           <Text>Reteste</Text>
         </View>
         <View style={[styles.containers, styles.buttonContainer]}>
@@ -104,10 +134,7 @@ class AbdominalPushUpsComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-  containers: {
-    marginTop: 40,
-    marginBottom: 20,
-  },
+  containers: { },
   AbdominalPushUpsExamContainer: {
     flex: 1,
     width: '100%',
@@ -115,14 +142,14 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     flex: 1,
-    //marginTop: -20,
+    marginTop: -20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   evaluatedPersonContainer: {
     flex: 1,
-    //marginTop: -70,
+    paddingRight: 30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
