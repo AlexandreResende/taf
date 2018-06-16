@@ -9,8 +9,17 @@ class TwelveMinutesRun extends Component {
     this.setState({
       arr: [],
       number: '',
-      results: []
+      results: [],
+      examDate: this.getDate()
     })
+  }
+
+  getDate(){
+    let date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
   }
 
   addToArr() {
@@ -34,12 +43,14 @@ class TwelveMinutesRun extends Component {
   saveData(number,laps,meters,candidateSignature,appraiserSignature,appraiserName){
     let exam = {
       number: number,
-      laps: laps,
-      meters: meters,
+      result: (parseInt(laps) * 400) + parseInt(meters),
       candidateSignature: candidateSignature,
       appraiserSignature: appraiserSignature,
-      appraiserName: appraiserName
+      appraiserName: appraiserName,
+      retest: false,
+      examDate: this.state.examDate
     }
+    console.log(exam)
     let replaced = false;
     for(var index = 0 ; index < this.state.results.length ; index++){
       if(this.state.results[index].number == number){
