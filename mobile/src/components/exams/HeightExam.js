@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Retest } from '../retest';
 
 class HeightExam extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class HeightExam extends Component {
     this.state = {
       evaluatedPersonNumber: '',
       heigthValue: '',
+      retest: false,
     };
   }
 
@@ -39,6 +41,15 @@ class HeightExam extends Component {
     });
   }
 
+  setRetestValue = (val) => {
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        retest: val,
+      };
+    });
+  }
+
   render() {
     return (
       <View style={styles.heightExamContainer}>
@@ -61,6 +72,10 @@ class HeightExam extends Component {
             onChangeText={this.onChangeHeightValue}
             keyboardType='numeric'></TextInput>
           <Text style={styles.formatText} >centímetros</Text>
+        </View>
+        <View style={[styles.retestContainer]}>
+          <Retest changeRestestValue={this.setRetestValue} />
+          <Text>Retest</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button color={'green'} title='Salvar' onPress={() => {return null;}}></Button>
@@ -116,6 +131,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingRight: 10,
+  },
+  retestContainer: {
+    flex: 1,
+    //marginBottom: 140,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   marginBetweenButtons: {
     flex: 0.2,
