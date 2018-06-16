@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, Te
 import { Signature } from '../common';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Retest} from '../retest';
+import { SignatureWindow } from '../common/SignatureWindow';
 
 class FiftyMetersRun extends Component {
 
@@ -14,7 +15,7 @@ class FiftyMetersRun extends Component {
       evaluatedPersonNumber: '',
       seconds: '0',
       miliseconds: '0',
-      showModalWindow: false,
+      showSignatureWindow: false,
     };
   }
 
@@ -119,6 +120,19 @@ class FiftyMetersRun extends Component {
     }
   }
 
+  onSignatureClose(){
+    this.setState((prevState) =>
+    {
+      return{
+        ...this.state,
+        showSignatureWindow:false,
+      }
+    }
+    );
+    alert('Modal has been closed.');
+
+  }
+
   render()
   {
     return (
@@ -137,46 +151,48 @@ class FiftyMetersRun extends Component {
             keyboardType='numeric'>
           </TextInput>            
         </View>
-        <Modal visible={this.state.showModalWindow} animationType="slide" 
+        <View>
+        <Modal visible={this.state.showSignatureWindow} animationType="slide"
           transparent={false}
-          onRequestClose={() => { alert('Modal has been closed.'); }}>
-          <View style={[styles.container, {marginTop:20, marginLeft:'auto', marginRight:'auto'}]}>
+          onRequestClose={() => { this.onSignatureClose }}>
+          <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
             <Text style={styles.formatText}>Assinatura do candidato</Text>
-            <View style={styles.signatureBox}> 
+            <View style={styles.signatureBox}>
               <Signature ref='signature' onSave={this.onSave.bind(this)} />
             </View>
             <View style={styles.buttonContainer}>
-              <Button title='Limpar' onPress={() => { this.refs.signature.resetSign(); }}/>
-              <View style={{width:20}}/>
-              <Button title='Salvar' onPress={() => { this.setState((prevState) => { return { showModalWindow: false }}); }}/>
+              <Button title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
+              <View style={{ width: 20 }} />
+              <Button title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
             </View>
           </View>
         </Modal>
+        </View>
         <Text> Tempo da corrida</Text>
         <Text> (SEGUNDOS : MILISSEGUNDOS)</Text>
-        <View style={{flexDirection:'row'}}>
-          <View style={{flexDirection:'column'}}>
-            <Button title=' + ' onPress={ () => {this.incrementCounter(2)} }/>
-            <TextInput  value={this.state.seconds} style={{width:50, textAlign:'center'}} keyboardType='numeric'
-              onChangeText={this.onChangeSecondsValue}/>
-            <Button title=' - ' onPress={ () => {this.decrementCounter(2)} }/>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'column' }}>
+            <Button title=' + ' onPress={() => { this.incrementCounter(2) }} />
+            <TextInput value={this.state.seconds} style={{ width: 50, textAlign: 'center' }} keyboardType='numeric'
+              onChangeText={this.onChangeSecondsValue} />
+            <Button title=' - ' onPress={() => { this.decrementCounter(2) }} />
           </View>
-          <View style={{flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.formatText}> : </Text>
           </View>
-          <View style={{flexDirection:'column'}}>
-            <Button title=' + ' onPress={ () => {this.incrementCounter(3)} }/>
-            <TextInput value={this.state.miliseconds} style={{width:50, textAlign:'center'}} keyboardType='numeric'
-              onChangeText={this.onChangeMilisecondsValue}/>
-            <Button title=' - ' onPress={ () => {this.decrementCounter(3)} }/>
+          <View style={{ flexDirection: 'column' }}>
+            <Button title=' + ' onPress={() => { this.incrementCounter(3) }} />
+            <TextInput value={this.state.miliseconds} style={{ width: 50, textAlign: 'center' }} keyboardType='numeric'
+              onChangeText={this.onChangeMilisecondsValue} />
+            <Button title=' - ' onPress={() => { this.decrementCounter(3) }} />
           </View>
-        </View>           
+        </View>
         <View style={[styles.retestContainer]}>
           <Retest></Retest>
           <Text>Reteste</Text>
-          <View style={{width:20}}/>
-          <Button 
-            onPress={() => { this.setState((prevState) => { return { showModalWindow: true } } ) }}  title='Salvar'/>
+          <View style={{ width: 20 }} />
+          <Button title='Salvar'
+            onPress={() => { this.setState((prevState) => { return { showSignatureWindow: true } }) }} />
         </View>
       </View>
     )

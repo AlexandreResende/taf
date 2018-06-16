@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Modal, View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Retest } from '../../retest';
 import { Storage } from '../../../helper/storage/localMongodb';
+import { Signature } from '../../common';
 
 class AbdominalPushUpsComponent extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class AbdominalPushUpsComponent extends Component {
       number: '',
       result: 0,
       retest: false,
+      showSignatureWindow: false,
       examDate: this.getDate()
     };
   }
@@ -93,13 +95,50 @@ class AbdominalPushUpsComponent extends Component {
         classNumber: '',
         number: '',
         result: 0,
+        showSignatureWindow: true,
       }
     });
+  }
+
+  onSave(result){
+    if(result != null)
+    {
+
+    }
+  }
+
+  onSignatureClose(){
+    this.setState((prevState) =>
+    {
+      return{
+        ...this.state,
+        showSignatureWindow:false,
+      }
+    }
+    );
+    alert('Modal has been closed.');
+
   }
 
   render() {
     return (
       <View style={[styles.AbdominalPushUpsExamContainer]}>
+
+        <Modal visible={this.state.showSignatureWindow} animationType="slide"
+          transparent={false}
+          onRequestClose={() => { this.onSignatureClose }}>
+          <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
+            <Text style={styles.formatText}>Assinatura do candidato</Text>
+            <View style={styles.signatureBox}>
+              <Signature ref='signature' onSave={this.onSave.bind(this)} />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
+              <View style={{ width: 20 }} />
+              <Button title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
+            </View>
+          </View>
+        </Modal>
         <View style={[styles.containers, styles.nameContainer]}>
           <Text style={styles.formatText}>{this.state.name}</Text>
         </View>
@@ -143,7 +182,18 @@ class AbdominalPushUpsComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-  containers: { },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signatureBox: {
+    marginTop:10,
+    borderWidth: 1,
+    borderRadius: 10,
+    width: 550,
+    height: 205,
+  },
   AbdominalPushUpsExamContainer: {
     flex: 1,
     width: '100%',

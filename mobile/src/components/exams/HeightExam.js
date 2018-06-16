@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Modal, View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Retest } from '../retest';
+import { Signature } from '../common';
 
 class HeightExam extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class HeightExam extends Component {
       evaluatedPersonNumber: '',
       heigthValue: '',
       retest: false,
+      showSignatureWindow: false,
     };
   }
 
@@ -50,9 +52,53 @@ class HeightExam extends Component {
     });
   }
 
+  saveCandidateData = () => {
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        showSignatureWindow: true,
+      }
+    });
+  }
+
+  onSave(result){
+    if(result != null)
+    {
+
+    }
+  }
+
+  onSignatureClose(){
+    this.setState((prevState) =>
+    {
+      return{
+        ...this.state,
+        showSignatureWindow:false,
+      }
+    }
+    );
+    alert('Modal has been closed.');
+
+  }
+
   render() {
     return (
       <View style={styles.heightExamContainer}>
+      <Modal visible={this.state.showSignatureWindow} animationType="slide"
+          transparent={false}
+          onRequestClose={() => { this.onSignatureClose }}>
+          <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
+            <Text style={styles.formatText}>Assinatura do candidato</Text>
+            <View style={styles.signatureBox}>
+              <Signature ref='signature' onSave={this.onSave.bind(this)} />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
+              <View style={{ width: 20 }} />
+              <Button title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
+            </View>
+          </View>
+        </Modal>
         <View style={styles.examNameContainer}>
           <Text style={styles.formatText}>Teste da altura</Text>
         </View>
@@ -64,7 +110,7 @@ class HeightExam extends Component {
             onChangeText={this.onChangeEvaluatedPersonNumber}
             keyboardType='numeric'>
           </TextInput>
-        </View>
+        </View>       
         <View style={styles.examDataContainer}>
           <TextInput
             style={[styles.formatHeightValue, styles.formatText]}
@@ -78,7 +124,7 @@ class HeightExam extends Component {
           <Text>Retest</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button color={'green'} title='Salvar' onPress={() => {return null;}}></Button>
+          <Button color={'green'} title='Salvar' onPress= {this.saveCandidateData }></Button>
           <View style={styles.marginBetweenButtons} />
           <Button title='Limpar' onPress={this.clearFields}></Button>
         </View>
@@ -88,6 +134,18 @@ class HeightExam extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signatureBox: {
+    marginTop:10,
+    borderWidth: 1,
+    borderRadius: 10,
+    width: 550,
+    height: 205,
+  },
   heightExamContainer: {
     flex: 1,
     width: '100%',
