@@ -12,24 +12,24 @@ angular
       })
     }
 
-    function getCandidates(date) {
+    function getCandidates(date,classNumber) {
       return $http({
           method: 'GET',
-          url: backendHost + '/candidates/' + date
+          url: backendHost + '/candidates/' + date + '/' + classNumber
       })
     }
 
-    function getCandidateDetail(date,number) {
+    function getCandidateDetail(date,classNumber,number) {
       return $http({
           method: 'GET',
-          url: backendHost + '/candidate/' + date + '/' + number
+          url: backendHost + '/candidate/' + date + '/' + classNumber + '/' + number
       })
     }
 
-    function getScore(date){
+    function getScore(date,classNumber){
       return $http({
         method: 'GET',
-        url: backendHost + '/score/' + date
+        url: backendHost + '/score/' + date + '/' + classNumber
       })
     }
 

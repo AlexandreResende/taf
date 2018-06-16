@@ -4,11 +4,15 @@ function candidateDetailController($scope, $stateParams, api) {
   var month = $stateParams.month;
   var year = $stateParams.year;
   var number = $stateParams.number;
+  var classNumber = $stateParams.classNumber;
 
   function splitArray(array) {
     var arraySplited = []
     var aux = [];
     for (var i = 0; i < array.length; i++) {
+      if(array[i].name == "Corrida de 50 metros"){
+        array[i].result = $scope.format(array[i].result)
+      }
       aux.push(array[i]);
       if ((i + 1) % 6 == 0) {
         arraySplited.push(aux);
@@ -20,10 +24,9 @@ function candidateDetailController($scope, $stateParams, api) {
     return arraySplited;
   }
 
-  api.getCandidateDetail((day + '/' + month + '/' + year), number).then(function (response) {
+  api.getCandidateDetail((day + '/' + month + '/' + year),classNumber, number).then(function (response) {
     $scope.candidate = response.data.result;
     $scope.exams = splitArray($scope.candidate.exams);
-    console.log($scope.exams)
   }, function (error) {
     console.log(error)
   });
@@ -57,6 +60,10 @@ function candidateDetailController($scope, $stateParams, api) {
       pdfMake.createPdf(docDefinition).download("resultados.pdf");
     }
 
+  }
+
+  $scope.format = function(value){
+    return value.substr(0,value.length -2) + "." + value.substr(value.length -2, value.length);
   }
 
 }

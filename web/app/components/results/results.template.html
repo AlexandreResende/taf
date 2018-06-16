@@ -2,10 +2,31 @@
   <div class="card-header">
     <i class="fa fa-area-chart"></i>Resultados</div>
   <div class="card-body">
-    <div layout="row" layout-align="center center">
+      
+    <div class="row">
+      <div class="offset-sm-3 col-sm-6">
+        <form name="tableForm" ng-submit="changeViewDate()">
+          <div layout="row">
+            <md-input-container flex="70">
+              <span>Data da prova:</span>
+              <md-datepicker name="viewDateTable" ng-model="formTable.viewDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </md-input-container>
+            <md-input-container flex="30">
+              <label>Turma</label>
+              <input required name="classNumberTable" ng-model="formTable.classNumber" type="number" step="1">
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary" type="submit">Atualizar</md-button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- <div layout="row" layout-align="center center">
       <span>Data da prova:</span>
       <md-datepicker ng-model="viewDate" ng-change="changeViewDate()" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
-    </div>
+    </div> -->
     <br>
     <br>
     <ap-mesa options="options" columns="columns" rows="rows" table-class="table table-bordered"></ap-mesa>

@@ -1,17 +1,20 @@
 function printResultsController($scope, api, date, $http) {
 
   //initializing date and getting the score to the actual date
-  $scope.viewDate = new Date();
-  getScore(date.formatDate($scope.viewDate));
+  $scope.formTable = { 
+    viewDate: new Date() 
+  }
+
+  // getScore(date.formatDate($scope.viewDate));
 
   //------------------------------------- Table -----------------------------------------------
   $scope.changeViewDate = function () {
-    getScore(date.formatDate($scope.viewDate))
+    getScore(date.formatDate($scope.formTable.viewDate),$scope.formTable.classNumber)
   }
 
   //get the score from APi
-  function getScore(date){
-    api.getScore(date).then(function(response){
+  function getScore(date,classNumber){
+    api.getScore(date,classNumber).then(function(response){
       response.data.result.candidatesArrayResponse.length > 0 ? splitArray(response.data.result.candidatesArrayResponse) : clearTable();
       $scope.statistics = response.data.result.statistics;
       buildCharts();
@@ -23,9 +26,10 @@ function printResultsController($scope, api, date, $http) {
 
   //Clear all arrays inside the $scope.rows
   function clearTable(){
-    for(var i = 0; i < 16 ; i++){
-      $scope.rows[i] = [];
-    }
+    if($scope.rows.length > 0)
+      for(var i = 0; i < 16 ; i++){
+        $scope.rows[i] = [];
+      }
   }
 
   //Split the response into multiples array of 35 elements
@@ -33,6 +37,8 @@ function printResultsController($scope, api, date, $http) {
     var arraySplited = []
     var aux = [];
     for(var i = 0; i < array.length; i ++){
+      if(array[i].punctuation.fiftyMetersRunning.result != "-")
+        array[i].punctuation.fiftyMetersRunning.result = $scope.format(array[i].punctuation.fiftyMetersRunning.result)
       aux.push(array[i]);
       if( (i + 1) % 30 == 0 ){
         arraySplited.push(aux);
@@ -92,8 +98,8 @@ function printResultsController($scope, api, date, $http) {
       key: 'height',
       label: 'Altura',
       width: '150px',
-      template: " {{ row.punctuation.height.result }} m <span class='badge badge-success'>{{ row.punctuation.height.candidateScore ? 'Aprovado' : '' }}</span>" 
-      + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore ? 'Reprovado' : '' }}</span>" 
+      template: " {{ row.punctuation.height.result }} m <span class='badge badge-success'>{{ row.punctuation.height.candidateScore != '-' ? 'Aprovado' : '' }}</span>" 
+      + " <span class='badge badge-danger'>{{ !row.punctuation.height.candidateScore == '-' ? 'Reprovado' : '' }}</span>" 
     },
     {
       id: 'pushups',

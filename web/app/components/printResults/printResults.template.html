@@ -2,287 +2,308 @@
   <div class="card-header">
     <i class="fa fa-area-chart"></i>Imprimir Resultados</div>
   <div class="card-body">
-    <div layout="row" layout-align="center center">
+    
+    <div class="offset-sm-3 col-sm-6">
+      <form name="tableForm" ng-submit="changeViewDate()">
+        <div layout="row">
+          <md-input-container flex="70">
+            <span>Data da prova:</span>
+            <md-datepicker name="viewDateTable" ng-model="formTable.viewDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+          </md-input-container>
+          <md-input-container flex="30">
+            <label>Turma</label>
+            <input required name="classNumberTable" ng-model="formTable.classNumber" type="number" step="1">
+          </md-input-container>
+        </div>
+        <div layout="row" layout-align="center center">
+          <md-button class="md-raised md-primary" type="submit">Atualizar</md-button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- <div layout="row" layout-align="center center">
       <span>Data da prova:</span>
       <md-datepicker ng-model="viewDate" ng-change="changeViewDate()" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
       <br>
-    </div>
-    <br>
+    </div> -->
+  <br>
 
-    <div layout="row" layout-align="center center">
-      <md-button ng-click="exportPDF()" class="md-raised md-primary">Gerar PDF</md-button>
-    </div>
-    <br>
-    <div id="exportthis">
-      <div class="row">
-        <!-- Men x women -->
-        <div class="offset-sm-1 col-sm-5">
-          <div class="card mb-3">
-            <div class="card-header">
-              Quantidade de inscritos por sexo
-            </div>
-            <div class="card-body">
-              <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataMenXWomen" chart-colors="colorsMenXWomen" chart-labels="labelsMenXWomen"
-                chart-options="chart"></canvas>
-            </div>
+  <div layout="row" layout-align="center center">
+    <md-button ng-click="exportPDF()" class="md-raised md-primary">Gerar PDF</md-button>
+  </div>
+  <br>
+  <div id="exportthis">
+    <div class="row">
+      <!-- Men x women -->
+      <div class="offset-sm-1 col-sm-5">
+        <div class="card mb-3">
+          <div class="card-header">
+            Quantidade de inscritos por sexo
+          </div>
+          <div class="card-body">
+            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataMenXWomen" chart-colors="colorsMenXWomen" chart-labels="labelsMenXWomen"
+              chart-options="chart"></canvas>
           </div>
         </div>
-        <div class="col-sm-5">
-          <div class="card mb-3">
-            <div class="card-header">
-              Altura ( Número de candidatos )
-            </div>
-            <div class="card-body">
-              <canvas id="bar" class="chart chart-bar" chart-colors="heightColors" chart-data="heightData" chart-labels="heightLabels"
-                chart-series="heightSeries" chart-options="heightOptions"></canvas>
-              <hr>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Aprovados</th>
-                    <th scope="col">Reprovados</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Homens</th>
-                    <td>{{ statistics.heightExam.male.approved }}</td>
-                    <td>{{ statistics.heightExam.male.reproved }}</td>
-                    <td>{{ statistics.heightExam.male.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Mulheres</th>
-                    <td>{{ statistics.heightExam.female.approved }}</td>
-                    <td>{{ statistics.heightExam.female.reproved }}</td>
-                    <td>{{ statistics.heightExam.female.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Total</th>
-                    <td colspan="2"></td>
-                    <td>{{ statistics.heightExam.female.total + statistics.heightExam.male.total }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="card mb-3">
+          <div class="card-header">
+            Altura ( Número de candidatos )
+          </div>
+          <div class="card-body">
+            <canvas id="bar" class="chart chart-bar" chart-colors="heightColors" chart-data="heightData" chart-labels="heightLabels"
+              chart-series="heightSeries" chart-options="heightOptions"></canvas>
+            <hr>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Aprovados</th>
+                  <th scope="col">Reprovados</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Homens</th>
+                  <td>{{ statistics.heightExam.male.approved }}</td>
+                  <td>{{ statistics.heightExam.male.reproved }}</td>
+                  <td>{{ statistics.heightExam.male.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mulheres</th>
+                  <td>{{ statistics.heightExam.female.approved }}</td>
+                  <td>{{ statistics.heightExam.female.reproved }}</td>
+                  <td>{{ statistics.heightExam.female.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td colspan="2"></td>
+                  <td>{{ statistics.heightExam.female.total + statistics.heightExam.male.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <!-- Abdominal -->
+      <div class="offset-sm-1 col-sm-5">
+        <div class="card mb-3">
+          <div class="card-header">
+            Abdominais ( Número de candidatos )
+          </div>
+          <div class="card-body">
+            <canvas id="bar" class="chart chart-bar" chart-colors="abdominalColors" chart-data="abdominalData" chart-labels="abdominalLabels"
+              chart-series="abdominalSeries" chart-options="abdominalOptions"></canvas>
+            <hr>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Aprovados</th>
+                  <th scope="col">Reprovados</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Homens</th>
+                  <td>{{ statistics.abdominalExam.male.approved }}</td>
+                  <td>{{ statistics.abdominalExam.male.reproved }}</td>
+                  <td>{{ statistics.abdominalExam.male.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mulheres</th>
+                  <td>{{ statistics.abdominalExam.female.approved }}</td>
+                  <td>{{ statistics.abdominalExam.female.reproved }}</td>
+                  <td>{{ statistics.abdominalExam.female.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td colspan="2"></td>
+                  <td>{{ statistics.abdominalExam.female.total + statistics.abdominalExam.male.total }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      
-      <div class="row">
-        <!-- Abdominal -->
-        <div class="offset-sm-1 col-sm-5">
-          <div class="card mb-3">
-            <div class="card-header">
-              Abdominais ( Número de candidatos )
-            </div>
-            <div class="card-body">
-              <canvas id="bar" class="chart chart-bar" chart-colors="abdominalColors" chart-data="abdominalData" chart-labels="abdominalLabels"
-                chart-series="abdominalSeries" chart-options="abdominalOptions"></canvas>
-              <hr>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Aprovados</th>
-                    <th scope="col">Reprovados</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Homens</th>
-                    <td>{{ statistics.abdominalExam.male.approved }}</td>
-                    <td>{{ statistics.abdominalExam.male.reproved }}</td>
-                    <td>{{ statistics.abdominalExam.male.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Mulheres</th>
-                    <td>{{ statistics.abdominalExam.female.approved }}</td>
-                    <td>{{ statistics.abdominalExam.female.reproved }}</td>
-                    <td>{{ statistics.abdominalExam.female.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Total</th>
-                    <td colspan="2"></td>
-                    <td>{{ statistics.abdominalExam.female.total + statistics.abdominalExam.male.total }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+      <!-- Push Ups -->
+      <div class="col-sm-5">
+        <div class="card mb-3">
+          <div class="card-header">
+            Flexões ( Número de candidatos )
           </div>
-        </div>
-
-        <!-- Push Ups -->
-        <div class="col-sm-5">
-          <div class="card mb-3">
-            <div class="card-header">
-              Flexões ( Número de candidatos )
-            </div>
-            <div class="card-body">
-              <canvas id="bar" class="chart chart-bar" chart-colors="pushUpsColors" chart-data="pushUpslData" chart-labels="pushUpsLabels"
-                chart-series="pushUpsSeries" chart-options="pushUpslOptions"></canvas>
-              <hr>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Aprovados</th>
-                    <th scope="col">Reprovados</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Homens</th>
-                    <td>{{ statistics.pushUpsExam.male.approved }}</td>
-                    <td>{{ statistics.pushUpsExam.male.reproved }}</td>
-                    <td>{{ statistics.pushUpsExam.male.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Mulheres</th>
-                    <td>{{ statistics.pushUpsExam.female.approved }}</td>
-                    <td>{{ statistics.pushUpsExam.female.reproved }}</td>
-                    <td>{{ statistics.pushUpsExam.female.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Total</th>
-                    <td colspan="2"></td>
-                    <td>{{ statistics.pushUpsExam.female.total + statistics.pushUpsExam.male.total }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="card-body">
+            <canvas id="bar" class="chart chart-bar" chart-colors="pushUpsColors" chart-data="pushUpslData" chart-labels="pushUpsLabels"
+              chart-series="pushUpsSeries" chart-options="pushUpslOptions"></canvas>
+            <hr>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Aprovados</th>
+                  <th scope="col">Reprovados</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Homens</th>
+                  <td>{{ statistics.pushUpsExam.male.approved }}</td>
+                  <td>{{ statistics.pushUpsExam.male.reproved }}</td>
+                  <td>{{ statistics.pushUpsExam.male.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mulheres</th>
+                  <td>{{ statistics.pushUpsExam.female.approved }}</td>
+                  <td>{{ statistics.pushUpsExam.female.reproved }}</td>
+                  <td>{{ statistics.pushUpsExam.female.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td colspan="2"></td>
+                  <td>{{ statistics.pushUpsExam.female.total + statistics.pushUpsExam.male.total }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
-      
-      <div class="row">
-        <!-- 50 Meters -->
-        <div class="offset-sm-1 col-sm-5">
-          <div class="card mb-3">
-            <div class="card-header">
-              50 Metros ( Número de candidatos )
-            </div>
-            <div class="card-body">
-              <canvas id="bar" class="chart chart-bar" chart-colors="fiftyMetersColors" chart-data="fiftyMetersData" chart-labels="fiftyMetersLabels"
-                chart-series="fiftyMetersSeries" chart-options="fiftyMetersOptions"></canvas>
-              <hr>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Aprovados</th>
-                    <th scope="col">Reprovados</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Homens</th>
-                    <td>{{ statistics.fiftyMetersExam.male.approved }}</td>
-                    <td>{{ statistics.fiftyMetersExam.male.reproved }}</td>
-                    <td>{{ statistics.fiftyMetersExam.male.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Mulheres</th>
-                    <td>{{ statistics.fiftyMetersExam.female.approved }}</td>
-                    <td>{{ statistics.fiftyMetersExam.female.reproved }}</td>
-                    <td>{{ statistics.fiftyMetersExam.female.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Total</th>
-                    <td colspan="2"></td>
-                    <td>{{ statistics.fiftyMetersExam.female.total + statistics.fiftyMetersExam.male.total }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- 12 Min -->
-        <div class="col-sm-5">
-          <div class="card mb-3">
-            <div class="card-header">
-              12 Minutos ( Número de candidatos )
-            </div>
-            <div class="card-body">
-              <canvas id="bar" class="chart chart-bar" chart-colors="twelveMinutesColors" chart-data="twelveMinutesData" chart-labels="twelveMinutesLabels"
-                chart-series="twelveMinutesSeries" chart-options="twelveMinutesOptions"></canvas>
-              <hr>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Aprovados</th>
-                    <th scope="col">Reprovados</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Homens</th>
-                    <td>{{ statistics.twelveMinutesRunning.male.approved }}</td>
-                    <td>{{ statistics.twelveMinutesRunning.male.reproved }}</td>
-                    <td>{{ statistics.twelveMinutesRunning.male.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Mulheres</th>
-                    <td>{{ statistics.twelveMinutesRunning.female.approved }}</td>
-                    <td>{{ statistics.twelveMinutesRunning.female.reproved }}</td>
-                    <td>{{ statistics.twelveMinutesRunning.female.total }}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Total</th>
-                    <td colspan="2"></td>
-                    <td>{{ statistics.twelveMinutesRunning.female.total + statistics.twelveMinutesRunning.male.total }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <br>
-    <ap-mesa options="options" id="row0" columns="columns" rows="rows[0]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row1" ng-show="rows[1].length > 0" columns="columns" rows="rows[1]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row2" ng-show="rows[2].length > 0" columns="columns" rows="rows[2]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row3" ng-show="rows[3].length > 0" columns="columns" rows="rows[3]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row4" ng-show="rows[4].length > 0" columns="columns" rows="rows[4]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row5" ng-show="rows[5].length > 0" columns="columns" rows="rows[5]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row6" ng-show="rows[6].length > 0" columns="columns" rows="rows[6]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row7" ng-show="rows[7].length > 0" columns="columns" rows="rows[7]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row8" ng-show="rows[8].length > 0" columns="columns" rows="rows[8]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row9" ng-show="rows[9].length > 0" columns="columns" rows="rows[9]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row10" ng-show="rows[10].length > 0" columns="columns" rows="rows[10]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row11" ng-show="rows[11].length > 0" columns="columns" rows="rows[11]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row12" ng-show="rows[12].length > 0" columns="columns" rows="rows[12]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row13" ng-show="rows[13].length > 0" columns="columns" rows="rows[13]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row14" ng-show="rows[14].length > 0" columns="columns" rows="rows[14]" table-class="table table-bordered"></ap-mesa>
-    <br>
-    <ap-mesa options="options" id="row15" ng-show="rows[15].length > 0" columns="columns" rows="rows[15]" table-class="table table-bordered"></ap-mesa>
+
+    <div class="row">
+      <!-- 50 Meters -->
+      <div class="offset-sm-1 col-sm-5">
+        <div class="card mb-3">
+          <div class="card-header">
+            50 Metros ( Número de candidatos )
+          </div>
+          <div class="card-body">
+            <canvas id="bar" class="chart chart-bar" chart-colors="fiftyMetersColors" chart-data="fiftyMetersData" chart-labels="fiftyMetersLabels"
+              chart-series="fiftyMetersSeries" chart-options="fiftyMetersOptions"></canvas>
+            <hr>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Aprovados</th>
+                  <th scope="col">Reprovados</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Homens</th>
+                  <td>{{ statistics.fiftyMetersExam.male.approved }}</td>
+                  <td>{{ statistics.fiftyMetersExam.male.reproved }}</td>
+                  <td>{{ statistics.fiftyMetersExam.male.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mulheres</th>
+                  <td>{{ statistics.fiftyMetersExam.female.approved }}</td>
+                  <td>{{ statistics.fiftyMetersExam.female.reproved }}</td>
+                  <td>{{ statistics.fiftyMetersExam.female.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td colspan="2"></td>
+                  <td>{{ statistics.fiftyMetersExam.female.total + statistics.fiftyMetersExam.male.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 Min -->
+      <div class="col-sm-5">
+        <div class="card mb-3">
+          <div class="card-header">
+            12 Minutos ( Número de candidatos )
+          </div>
+          <div class="card-body">
+            <canvas id="bar" class="chart chart-bar" chart-colors="twelveMinutesColors" chart-data="twelveMinutesData" chart-labels="twelveMinutesLabels"
+              chart-series="twelveMinutesSeries" chart-options="twelveMinutesOptions"></canvas>
+            <hr>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Aprovados</th>
+                  <th scope="col">Reprovados</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Homens</th>
+                  <td>{{ statistics.twelveMinutesRunning.male.approved }}</td>
+                  <td>{{ statistics.twelveMinutesRunning.male.reproved }}</td>
+                  <td>{{ statistics.twelveMinutesRunning.male.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mulheres</th>
+                  <td>{{ statistics.twelveMinutesRunning.female.approved }}</td>
+                  <td>{{ statistics.twelveMinutesRunning.female.reproved }}</td>
+                  <td>{{ statistics.twelveMinutesRunning.female.total }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td colspan="2"></td>
+                  <td>{{ statistics.twelveMinutesRunning.female.total + statistics.twelveMinutesRunning.male.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
+
+  <br>
+  <ap-mesa options="options" id="row0" columns="columns" rows="rows[0]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row1" ng-show="rows[1].length > 0" columns="columns" rows="rows[1]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row2" ng-show="rows[2].length > 0" columns="columns" rows="rows[2]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row3" ng-show="rows[3].length > 0" columns="columns" rows="rows[3]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row4" ng-show="rows[4].length > 0" columns="columns" rows="rows[4]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row5" ng-show="rows[5].length > 0" columns="columns" rows="rows[5]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row6" ng-show="rows[6].length > 0" columns="columns" rows="rows[6]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row7" ng-show="rows[7].length > 0" columns="columns" rows="rows[7]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row8" ng-show="rows[8].length > 0" columns="columns" rows="rows[8]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row9" ng-show="rows[9].length > 0" columns="columns" rows="rows[9]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row10" ng-show="rows[10].length > 0" columns="columns" rows="rows[10]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row11" ng-show="rows[11].length > 0" columns="columns" rows="rows[11]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row12" ng-show="rows[12].length > 0" columns="columns" rows="rows[12]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row13" ng-show="rows[13].length > 0" columns="columns" rows="rows[13]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row14" ng-show="rows[14].length > 0" columns="columns" rows="rows[14]" table-class="table table-bordered"></ap-mesa>
+  <br>
+  <ap-mesa options="options" id="row15" ng-show="rows[15].length > 0" columns="columns" rows="rows[15]" table-class="table table-bordered"></ap-mesa>
+
+</div>
 </div>
 </div>

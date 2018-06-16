@@ -18,8 +18,8 @@ class Candidates {
         }
       })
         .then((candidate) => {
-          const { id, name, cpf, number, gender, examDate, exams } = candidate.dataValues;
-          const candidateInformation = Object.assign({ }, { id, name, cpf, number, gender, examDate, exams });
+          const { id, name, cpf, number, gender, examDate, exams, classNumber } = candidate.dataValues;
+          const candidateInformation = Object.assign({ }, { id, name, cpf, number, gender, examDate, exams, classNumber });
           const height = exams.filter((exam) => exam.name === 'Altura');
           const pushups = exams.filter((exam) => exam.name === 'Flexão');
           const abdominal = exams.filter((exam) => exam.name === 'Abdominal');
@@ -65,8 +65,8 @@ class Candidates {
         .then((candidates) => {
           const candidatesArrayResponse = [];
           for (let candidate of candidates[0]) {
-            const { id, name, cpf, number, gender, examDate } = candidate.dataValues;
-            const candidateInformation = Object.assign({ }, { id, name, cpf, number, gender, examDate });
+            const { id, name, cpf, number, gender, examDate, classNumber } = candidate.dataValues;
+            const candidateInformation = Object.assign({ }, { id, name, cpf, number, gender, examDate, classNumber });
             const { exams } = candidate.dataValues;
             const height = exams.filter((exam) => exam.name === 'Altura');
             const pushups = exams.filter((exam) => exam.name === 'Flexão');

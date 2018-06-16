@@ -8,22 +8,28 @@
 
         <form name="newCandidateForm" ng-submit="submit()">
 
-          <md-input-container class="md-block">
-            <label>Nome do Candidato</label>
-            <input required tabindex="1" name="candidateName" focus-on="focusMe" ng-model="form.candidateName" ng-minlength="3" ng-maxlength="50" ng-pattern="/^[A-Za-z\u00C0-\u00FF\s]*$/"
-              autocomplete="off">
-            <div ng-messages="newCandidateForm.candidateName.$error">
-              <div ng-message="required">Nome deve ser preenchido</div>
-              <div ng-message="minlength">Nome deve ter pelo menos 3 caracteres</div>
-              <div ng-message="maxlength">Nome não deve exceder 50 caracteres</div>
-              <div ng-message="pattern">Nome não pode conter números</div>
-            </div>
-          </md-input-container>
+          <div layout="row">
+            <md-input-container flex="70">
+              <label>Nome do Candidato</label>
+              <input required tabindex="1" name="candidateName" focus-on="focusMe" ng-model="form.candidateName" ng-minlength="3" ng-maxlength="50"
+                ng-pattern="/^[A-Za-z\u00C0-\u00FF\s]*$/" autocomplete="off">
+              <div ng-messages="newCandidateForm.candidateName.$error">
+                <div ng-message="required">Nome deve ser preenchido</div>
+                <div ng-message="minlength">Nome deve ter pelo menos 3 caracteres</div>
+                <div ng-message="maxlength">Nome não deve exceder 50 caracteres</div>
+                <div ng-message="pattern">Nome não pode conter números</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="30">
+              <label>Turma</label>
+              <input required tabindex="2" name="classNumber" ng-model="form.classNumber" type="number" step="1">
+            </md-input-container>
+          </div>
 
           <div layout="row">
             <md-input-container flex="50">
               <label>CPF</label>
-              <input required tabindex="2" name="candidateCPF" ng-model="form.candidateCPF" model-view-value="true" ui-mask="999.999.999-99"
+              <input required tabindex="3" name="candidateCPF" ng-model="form.candidateCPF" model-view-value="true" ui-mask="999.999.999-99"
                 ng-pattern="/^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}))$/" autocomplete="off">
               <div ng-messages="newCandidateForm.candidateCPF.$error">
                 <div ng-message="required">CPF deve ser preenchido</div>
@@ -33,7 +39,7 @@
 
             <md-input-container flex="50">
               <label>Numero do Candidato</label>
-              <input required tabindex="3" name="candidateNumber" ng-model="form.candidateNumber" autocomplete="off" type="number" min="0"
+              <input required tabindex="4" name="candidateNumber" ng-model="form.candidateNumber" autocomplete="off" type="number" min="0"
                 max="999">
               <div ng-messages="newCandidateForm.candidateNumber.$error">
                 <div ng-message="required">Numero deve ser preenchido</div>
@@ -68,9 +74,25 @@
   <div class="card-header">
     <i class="fa fa-area-chart"></i> Candidatos Cadastrados</div>
   <div class="card-body">
-    <div layout="row" layout-align="center center">
-      <span>Data da prova:</span>
-      <md-datepicker ng-model="viewDate" ng-change="changeViewDate()" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+
+    <div class="row">
+      <div class="offset-sm-3 col-sm-6">
+        <form name="tableForm" ng-submit="changeViewDate()">
+          <div layout="row">
+            <md-input-container flex="70">
+              <span>Data da prova:</span>
+              <md-datepicker name="viewDateTable" ng-model="formTable.viewDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </md-input-container>
+            <md-input-container flex="30">
+              <label>Turma</label>
+              <input required name="classNumberTable" ng-model="formTable.classNumber" type="number" step="1">
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary" type="submit">Atualizar</md-button>
+          </div>
+        </form>
+      </div>
     </div>
     <br>
     <br>

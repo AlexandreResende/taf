@@ -24,7 +24,7 @@ angular
         component: "printResults"
       })
       .state('detail',{
-        url: "/detail/:day/:month/:year/:number",
+        url: "/detail/:day/:month/:year/:classNumber/:number",
         component: 'detail'
       })
   }

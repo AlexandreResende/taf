@@ -6,10 +6,12 @@ function registerController($scope, $mdToast, api, focus, date) {
     candidateSex:""
   }
 
-  $scope.viewDate = new Date();
+  $scope.formTable = {
+    viewDate: new Date()
+  }
 
   $scope.changeViewDate = function() {
-    $scope.updateTable(date.formatDate($scope.viewDate));
+    $scope.updateTable(date.formatDate($scope.formTable.viewDate),$scope.formTable.classNumber);
   }
 
   /*
@@ -25,8 +27,8 @@ function registerController($scope, $mdToast, api, focus, date) {
     $scope.newCandidateForm.$setUntouched();
   }
 
-  $scope.updateTable = function(date) {
-    api.getCandidates(date).then(function(response){
+  $scope.updateTable = function(date,lastClassNumber) {
+    api.getCandidates(date,lastClassNumber).then(function(response){
       $scope.rows = response.data.result;
     }, function(error){
       console.log(error)
@@ -37,6 +39,8 @@ function registerController($scope, $mdToast, api, focus, date) {
   *  On submit form
   */
   $scope.submit = function(){
+
+    var lastClassNumber = $scope.form.classNumber;
 
     // Validating the radio buttons, required or ng-required are not working on these buttons
     if($scope.form.candidateSex == ""){
@@ -49,6 +53,7 @@ function registerController($scope, $mdToast, api, focus, date) {
       gender: $scope.form.candidateSex,
       cpf: $scope.form.candidateCPF,
       number: $scope.form.candidateNumber,
+      classNumber: $scope.form.classNumber,
       examDate: date.formatDate($scope.form.examDate),
       exams: []
     }
@@ -56,7 +61,7 @@ function registerController($scope, $mdToast, api, focus, date) {
     api.addCandidate(data).then(function(response){
       $scope.toastMessage('success','Cadastro Realizado com sucesso');
       $scope.clearForm();
-      $scope.updateTable(date.formatDate($scope.viewDate));
+      $scope.updateTable(date.formatDate($scope.viewDate),lastClassNumber);
       focus('focusMe');
     }, function(error){
       $scope.toastMessage('error','Erro ao cadastrar candidato');
@@ -126,8 +131,6 @@ function registerController($scope, $mdToast, api, focus, date) {
       label: 'Dia do Exame'
     }
   ];
-
-  $scope.updateTable(date.formatDate($scope.viewDate));
 
 }
 

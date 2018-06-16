@@ -1,21 +1,23 @@
 function resultsController($scope, api, date, $http) {
 
     //initializing date and getting the score to the actual date
-    $scope.viewDate = new Date();
-    var selectedDate = date.formatDate($scope.viewDate);
-    var dateArray = selectedDate.split("/")
-    getScore(selectedDate);
+    $scope.formTable = {
+      viewDate : new Date()
+    }
   
     $scope.changeViewDate = function () {
-      selectedDate = date.formatDate($scope.viewDate);
-      dateArray = selectedDate.split("/")
-      getScore(selectedDate);
+      getScore(date.formatDate($scope.formTable.viewDate),$scope.formTable.classNumber);
     }
   
     //get the score from APi
-    function getScore(date){
-      api.getScore(date).then(function(response){
-        $scope.rows = response.data.result.candidatesArrayResponse;
+    function getScore(date,classNumber){
+      api.getScore(date,classNumber).then(function(response){
+        var temp = response.data.result.candidatesArrayResponse;
+        for(var i = 0 ; i < temp.length ; i ++){
+          if(temp[i].punctuation.fiftyMetersRunning.result != "-")
+            temp[i].punctuation.fiftyMetersRunning.result = $scope.format(temp[i].punctuation.fiftyMetersRunning.result)
+        }
+        $scope.rows = temp;
       }, function(error){
         $scope.rows = [];
         console.log(error)
@@ -55,7 +57,7 @@ function resultsController($scope, api, date, $http) {
       label: 'Nome',
       filter: 'like',
       filterPlaceholder: 'Digite um nome',
-      template: '<a href=\"#/detail/' + '{{row.examDate}}' + '/' + '{{row.number}}\">{{row.name}}</a> '
+      template: '<a href=\"#/detail/' + '{{row.examDate}}' + '/' + '{{row.classNumber}}' + '/' + '{{row.number}}\">{{row.name}}</a> '
     },
     {
       id: 'gender',
