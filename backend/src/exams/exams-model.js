@@ -12,14 +12,18 @@ class Exams {
         }
       })
         .then((candidate) => {
-          const exams = candidate.exams || [];
+          if (candidate !== null) {
+            const exams = candidate.exams || [];
 
-          candidate.exams = exams;
-          candidate.exams.push(candidateExam);
+            candidate.exams = exams;
+            candidate.exams.push(candidateExam);
 
-          candidate.save()
-            .then(resolve)
-            .catch(reject);
+            candidate.save()
+              .then(resolve)
+              .catch(reject);
+          } else {
+            reject('Candidate does not exist');
+          }
         })
         .catch(reject);
     });

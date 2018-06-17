@@ -10,12 +10,11 @@ class AbdominalPushUpsComponent extends Component {
     super(props);
     this.state = {
       name: this.props.examName,
-      classNumber: '',
-      number: '',
+      classNumber: 0,
+      number: 0,
       result: 0,
       retest: false,
       showSignatureWindow: false,
-      examDate: new Date().getTime()
     };
   }
 
@@ -78,14 +77,17 @@ class AbdominalPushUpsComponent extends Component {
   saveCandidateExamData = () => {
     const storage = new Storage();
     const { name, classNumber, number, result, retest } = this.state;
-    console.log({ name, classNumber, number, result, retest });
+    const day = ((new Date).getDate() > 9) ? (new Date).getDate() : '0' + (new Date).getDate().toString();
+    const month = ((new Date).getMonth() + 1 > 9) ? (new Date).getMonth() + 1 : '0' + ((new Date).getMonth() + 1).toString();
+    const year = (new Date).getFullYear();
+    console.log({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now() });
 
-    storage.saveOnLocalStorage({ name, classNumber, number, result, retest });
+    storage.saveOnLocalStorage({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now() });
     this.setState((prevState) => {
       return {
         ...this.state,
-        classNumber: '',
-        number: '',
+        classNumber: 0,
+        number: 0,
         result: 0,
         showSignatureWindow: true,
       }

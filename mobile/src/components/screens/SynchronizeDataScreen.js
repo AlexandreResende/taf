@@ -11,31 +11,29 @@ class SynchronizeDataScreen extends Component {
 
   synchronizeData =  async () => {
     const storage = new Storage();
+    //await storage.removeFromLocalStorage();
     const dataToBeSynchronized = await storage.loadFromLocalStorage();
 
     for (let exam of dataToBeSynchronized) {
-      try {
-        let { name, classNumber, number, result, retest } = exam;
-        classNumber = (classNumber) ? classNumber : 1;
-        await fetch('http://192.168.1.25:3000/exams', {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            classNumber,
-            number,
-            result,
-            retest,
-          }),
-        }).then(console.log);
-      } catch (error) {
-        console.log(error);
-      }
+      console.log(exam);
+      let { name, classNumber, number, result, retest, examDate, examTime } = exam;
+      await fetch('http://192.168.1.25:3000/exams', {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          examDate,
+          examTime,
+          classNumber,
+          number,
+          result,
+          retest,
+        }),
+      }).then(console.log);
     }
-
   }
 
   render (){
