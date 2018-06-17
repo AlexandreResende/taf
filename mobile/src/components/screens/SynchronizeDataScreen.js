@@ -19,7 +19,7 @@ class SynchronizeDataScreen extends Component {
       // console.log(this.props.navigation.getParam('appraiserSignature',''))
       let appraiserSignature = this.props.navigation.getParam('appraiserSignature','');
       let appraiserName = this.props.navigation.getParam('name', 'Invalid Name')
-      let { name, classNumber, number, result, retest, examDate, examTime } = exam;
+      let { name, classNumber, number, result, retest, examDate, examTime, candidateSignature } = exam;
       await fetch('http://192.168.0.36:3000/exams', {
         method: 'PUT',
         headers: {
@@ -34,6 +34,7 @@ class SynchronizeDataScreen extends Component {
           number,
           result,
           retest,
+          candidateSignature,
           appraiserSignature,
           appraiserName,
         }),
