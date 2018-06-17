@@ -2,7 +2,13 @@ angular
   .module('taf')
   .factory('api', function($http){
 
-    var backendHost = 'http://localhost:3000';
+    var backendHost = "";
+
+    $http.get('../../../config.json').then(function (result) {
+      backendHost = result.data.backendHost;
+    }, function (err) {
+      backendHost = 'http://localhost:3000';
+    })
 
     function addCandidate(data) {
       return $http({
