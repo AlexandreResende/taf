@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Table, Row } from 'react-native-table-component';
+import { Table, Row, Rows } from 'react-native-table-component';
 import { Logo } from '../common';
 import { Storage } from '../../helper/storage/localMongodb';
 const Datastore = require('react-native-local-mongodb');
@@ -10,7 +10,7 @@ class ListCandidatesInfoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableHead: ['Nome do Exame','Número do Candidato','Resultado'],
+      tableHead: ['Nome do Exame','Número do Candidato','Resultado', 'Reteste'],
       tableRows: [],
     };
   }
@@ -20,35 +20,25 @@ class ListCandidatesInfoScreen extends Component {
     headerRight: <Logo />
   });
 
-  renderRows = () => {
-    const result = db.find({}, (err, docs) => {
-      const docsArray = []
-      for (let doc of docs) {
-        console.log('aki');
-        console.log(doc);
-        const { name, number, result } = doc;
-        docsArray.concat(<Row data={[name, number, result]}></Row>)
-      }
-      return docsArray;
-    });
-    console.log(result);
-    return result;
-    /* const content = [];
-    const storage = new Storage();
-    const docs = storage.loadFromLocalStorage();
-    console.log(docs);
+  componentDidMount() {
+    this.renderRows();
+  }
 
-    return Promise
-      .all([docs])
-      .then((documents) => {
-        for (let doc of documents) {
-          this.setState({
-            ...this.state,
-            tableRows: this.state.tableRows.push([doc[0].name, doc[0].number, doc[0].result]),
-          });
-        }
-      })
-      .catch(console.log); */
+  renderRows = async () => {
+    const storage = new Storage();
+    const docs = await storage.loadFromLocalStorage();
+    const dataArray = [];
+
+    for (let doc of docs) {
+      console.log([doc.name, doc.number, doc.result, doc.retest.toString()]);
+      dataArray.push([doc.name, doc.number, doc.result, doc.retest.toString()]);
+    }
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        tableRows: dataArray,
+      };
+    });
   }
 
   render() {
@@ -57,13 +47,9 @@ class ListCandidatesInfoScreen extends Component {
         <View>
           <Table>
             <Row data={this.state.tableHead}></Row>
+            <Rows data={this.state.tableRows}></Rows>
           </Table>
         </View>
-        <ScrollView>
-          <Table>
-            {this.renderRows()}
-          </Table>
-        </ScrollView>
       </ScrollView>
     );
   }
