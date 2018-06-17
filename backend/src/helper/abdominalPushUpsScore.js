@@ -18,7 +18,7 @@ const pushUpsScore = (examName, candidateGender, testArray) => {
     } else if (result > scoreTableKeys[scoreTableKeys.length - 1]) {
       candidateScore = 100;
     } else {
-      candidateScore = scoreTableKeys[result];
+      candidateScore = scoreTable[result];
     }
 
     return noTestResponse(result, retest, candidateScore);
