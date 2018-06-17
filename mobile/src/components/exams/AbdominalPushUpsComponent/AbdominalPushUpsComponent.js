@@ -95,12 +95,15 @@ class AbdominalPushUpsComponent extends Component {
     });
   }
 
-  onSave(result){
+  onSave(result) {
     if(result != null){
       this.setState((prevState) => {
         return { showSignatureWindow: false }
       }, () => this.saveCandidateExamData(result) );
     } else {
+      this.setState((prevState) => {
+        return { showSignatureWindow: false }
+      });
       Alert.alert('Prova nao foi salva, candidato deve assinar');
     }
   }
