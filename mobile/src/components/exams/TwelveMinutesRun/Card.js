@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Modal } from 'react-native';
 import CardView from 'react-native-cardview';
 import { Signature } from '../../common';
 import { Button } from 'react-native-elements';
+import { globalStyles} from '../../common/GlobalStyles';
 
 class Card extends Component {
   constructor(props){
@@ -103,12 +104,12 @@ class Card extends Component {
             transparent={false}
             onRequestClose={() => { alert('Modal has been closed.'); }}>
             <View style={[styles.container, {marginTop:20, marginLeft:'auto', marginRight:'auto'}]}>
-              <Text style={styles.formatText}>Assinatura do candidato</Text>
+              <Text style={globalStyles.formatTitle}>Assinatura do candidato</Text>
               <View style={styles.signatureBox}> 
                 <Signature ref='signature' saveOnDrag={true} onSave={this.onSave.bind(this)} />
               </View>
               <View style={styles.buttonContainer}>
-                <Button title='Limpar' onPress={() => { 
+                <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { 
                   this.refs.signature.resetSign(); 
                   this.setState({
                     candidateSignature: "",
@@ -116,7 +117,7 @@ class Card extends Component {
                   }, () => this.saveData());
                 }}/>
                 <View style={{width:20}}/>
-                <Button title='Salvar' onPress={() => {
+                <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={() => {
                     this.setState((prevState) => { 
                       return { showModalWindow: false }
                     });

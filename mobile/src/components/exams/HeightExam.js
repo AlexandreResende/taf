@@ -90,14 +90,14 @@ class HeightExam extends Component {
           transparent={false}
           onRequestClose={() => { this.onSignatureClose }}>
           <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
-            <Text style={globalStyles.formatTextDark}>Assinatura do candidato</Text>
+            <Text style={globalStyles.formatTitle}>Assinatura do candidato</Text>
             <View style={styles.signatureBox}>
               <Signature ref='signature' onSave={this.onSave.bind(this)} />
             </View>
             <View style={styles.buttonContainer}>
-              <Button title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
+              <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
               <View style={{ width: 20 }} />
-              <Button title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
+              <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
             </View>
           </View>
         </Modal>
