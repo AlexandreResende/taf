@@ -1,8 +1,10 @@
 
 import React, { Component } from 'react';
-import { Modal, View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Modal, View, Text, StyleSheet, TextInput } from 'react-native';
 import { Retest } from '../retest';
-import { Signature } from '../common';
+import { Signature, GlobalStyles } from '../common';
+import { globalStyles } from '../common/GlobalStyles';
+import { Button } from 'react-native-elements';
 
 class HeightExam extends Component {
   constructor(props) {
@@ -99,8 +101,8 @@ class HeightExam extends Component {
             </View>
           </View>
         </Modal>
-        <View style={styles.examNameContainer}>
-          <Text style={styles.formatText}>Teste da altura</Text>
+        <View style={globalStyles.examNameContainer}>
+          <Text style={globalStyles.formatTitle}>Teste da altura</Text>
         </View>
         <View style={styles.evaluatedPersonContainer}>
           <Text style={styles.formatText}>Número do Avaliado:</Text>
@@ -124,9 +126,9 @@ class HeightExam extends Component {
           <Text>Retest</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button color={'green'} title='Salvar' onPress= {this.saveCandidateData }></Button>
+          <Button buttonStyle={[globalStyles.formatButtonMedium, globalStyles.backgroundGreen]} title='Salvar' onPress= {this.saveCandidateData }></Button>
           <View style={styles.marginBetweenButtons} />
-          <Button title='Limpar' onPress={this.clearFields}></Button>
+          <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={this.clearFields}></Button>
         </View>
       </View>
     );
@@ -139,6 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   signatureBox: {
     marginTop:10,
     borderWidth: 1,
@@ -151,34 +154,27 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'column',
   },
-  examNameContainer: {
-    flex: 1,
-    marginTop: -20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   evaluatedPersonContainer: {
     flex: 1,
-    marginTop: -50,
+    marginTop: -10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   evaluatedPersonNumber: {
-    width: '5%',
+    width: '15%',
     justifyContent: 'center',
     textAlign: 'center',
   },
   examDataContainer: {
-    marginTop: -100,
+    marginTop: -10,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   formatHeightValue: {
-    width: '7%',
+    width: '15%',
     borderColor: 'black',
     textAlign: 'center',
   },
@@ -202,7 +198,7 @@ const styles = StyleSheet.create({
   },
   formatText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 25,
   }
 });
 

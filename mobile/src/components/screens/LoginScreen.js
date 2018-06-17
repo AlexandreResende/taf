@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Text, View, StyleSheet, TextInput, Alert, Image } from 'react-native';
 import { Signature } from '../common';
 import { Button } from 'react-native-elements';
+import { globalStyles } from '../common/GlobalStyles';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -49,14 +50,14 @@ class LoginScreen extends Component {
           transparent={false}
           onRequestClose={() => { this.onSignatureClose }}>
           <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
-            <Text style={styles.formatText}>Assinatura do avaliador</Text>
+            <Text style={globalStyles.formatTextDark}>Assinatura do avaliador</Text>
             <View style={styles.signatureBox}>
               <Signature ref='signature' onSave={this.onSave.bind(this)} />
             </View>
             <View style={styles.buttonContainer}>
-              <Button title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
+              <Button title='Limpar' buttonStyle={globalStyles.formatButtonMedium} onPress={() => { this.refs.signature.resetSign();}} />
               <View style={{ width: 20 }} />
-              <Button title='Confirmar' onPress={ this.saveImage.bind(this) } />
+              <Button title='Confirmar' buttonStyle={globalStyles.formatButtonMedium} onPress={ this.saveImage.bind(this) } />
             </View>
           </View>
         </Modal>
@@ -67,6 +68,7 @@ class LoginScreen extends Component {
         />
         <View style={styles.centerBox}>
           <TextInput
+          style={globalStyles.formatTextDark}
             placeholder="Nome"
             onChangeText={(text) => { this.setState({ name: text }); }}
           />          
@@ -75,9 +77,10 @@ class LoginScreen extends Component {
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
             <Button
+              buttonStyle={ globalStyles.formatButtonLarge }
+              fontSize={25}
+              raised={true}
               title="Entrar"
-              borderRadius={15}
-              backgroundColor='blue'
               onPress={() => {
                 this.setState((prevState) => {
                   return { showSignatureWindow: true }
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     width: 550,
-    height: 250,
+    height: 205,
   },
   centerBox: {
     borderWidth: 2,
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     width: 100
   },
   buttonContainer: {
-    height: 40,
+    height: 70,
     margin: 5
   },
   buttonContainer: {

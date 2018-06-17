@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { Signature } from '../common';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Retest} from '../retest';
+import { globalStyles } from '../common/GlobalStyles';
+import { Button } from 'react-native-elements';
 
 class FiftyMetersRun extends Component {
 
@@ -136,15 +138,15 @@ class FiftyMetersRun extends Component {
   {
     return (
       <View style={styles.container}>
-        <View style={styles.examNameContainer}>
-          <Text style={styles.formatText}>Prova dos 50 metros</Text>
+        <View style={globalStyles.examNameContainer}>
+          <Text style={globalStyles.formatTitle}>Teste dos 50 metros</Text>
         </View>
         <View style={[styles.container, {flexDirection:'row', marginTop:-20}]}>
-          <Text>
+          <Text style={globalStyles.formatTextDark}>
               Numero do candidato:
           </Text>
           <TextInput 
-            style={[styles.inputCandidateNumber, styles.formatText]} 
+            style={[globalStyles.inputCandidateNumber, globalStyles.formatTextDark]} 
             value={this.state.evaluatedPersonNumber} 
             onChangeText={this.onChangeEvaluatedPersonNumber}
             keyboardType='numeric'>
@@ -155,7 +157,7 @@ class FiftyMetersRun extends Component {
           transparent={false}
           onRequestClose={() => { this.onSignatureClose }}>
           <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
-            <Text style={styles.formatText}>Assinatura do candidato</Text>
+            <Text style={globalStyles.formatTextDark}>Assinatura do candidato</Text>
             <View style={styles.signatureBox}>
               <Signature ref='signature' onSave={this.onSave.bind(this)} />
             </View>
@@ -167,30 +169,38 @@ class FiftyMetersRun extends Component {
           </View>
         </Modal>
         </View>
-        <Text> Tempo da corrida</Text>
+        <Text style={globalStyles.formatTextDark}> Tempo da corrida</Text>
         <Text> (SEGUNDOS : MILISSEGUNDOS)</Text>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flexDirection: 'column' }}>
-            <Button title=' + ' onPress={() => { this.incrementCounter(2) }} />
-            <TextInput value={this.state.seconds} style={{ width: 50, textAlign: 'center' }} keyboardType='numeric'
+            {/* <Button title=' + ' onPress={() => { this.incrementCounter(2) }} /> */}
+            <TextInput 
+              value={this.state.seconds} 
+              style={ globalStyles.inputCandidateNumber } 
+              keyboardType='numeric'
               onChangeText={this.onChangeSecondsValue} />
-            <Button title=' - ' onPress={() => { this.decrementCounter(2) }} />
+            {/* <Button title=' - ' onPress={() => { this.decrementCounter(2) }} /> */}
           </View>
           <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.formatText}> : </Text>
           </View>
           <View style={{ flexDirection: 'column' }}>
-            <Button title=' + ' onPress={() => { this.incrementCounter(3) }} />
-            <TextInput value={this.state.miliseconds} style={{ width: 50, textAlign: 'center' }} keyboardType='numeric'
+            {/* <Button title=' + ' onPress={() => { this.incrementCounter(3) }} /> */}
+            <TextInput 
+              value={this.state.miliseconds}
+              style={globalStyles.inputCandidateNumber} 
+              keyboardType='numeric'
               onChangeText={this.onChangeMilisecondsValue} />
-            <Button title=' - ' onPress={() => { this.decrementCounter(3) }} />
+            {/* <Button title=' - ' onPress={() => { this.decrementCounter(3) }} /> */}
           </View>
         </View>
         <View style={[styles.retestContainer]}>
           <Retest></Retest>
           <Text>Reteste</Text>
           <View style={{ width: 20 }} />
-          <Button title='Salvar'
+          <Button 
+            title='Salvar'
+            buttonStyle={[ globalStyles.formatButtonMedium, globalStyles.backgroundGreen]}
             onPress={() => { this.setState((prevState) => { return { showSignatureWindow: true } }) }} />
         </View>
       </View>
@@ -210,13 +220,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 550,
     height: 205,
-  },
-  examNameContainer: {
-    flex: 1,
-    marginTop: -20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   retestContainer: {
     flex: 1,

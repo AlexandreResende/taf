@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card } from './TwelveMinutesRun/index';
+import { globalStyles } from '../common/GlobalStyles';
 
 class TwelveMinutesRun extends Component {
 
@@ -71,6 +72,9 @@ class TwelveMinutesRun extends Component {
     })
     return (
       <ScrollView style={styles.container}>
+        <View style={globalStyles.examNameContainer}>
+          <Text style={globalStyles.formatTitle}>Corrida dos 12 minutos</Text>
+        </View>
         <View style={styles.finishButtonContainer}>
           <View style={styles.finishButton}>
             <Button
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   card: {
-    backgroundColor: 'green',
+    backgroundColor: '#02bc76',
     margin: 10,
     width: 300,
     height: 220,

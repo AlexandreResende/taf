@@ -1,9 +1,11 @@
 
 import React, { Component } from 'react';
-import { Modal, View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Modal, View, Text, StyleSheet, TextInput } from 'react-native';
+import { Button } from 'react-native-elements';
 import { Retest } from '../../retest';
 import { Storage } from '../../../helper/storage/localMongodb';
-import { Signature } from '../../common';
+import { Signature, GlobalStyles } from '../../common';
+import { globalStyles } from '../../common/GlobalStyles';
 
 class AbdominalPushUpsComponent extends Component {
   constructor(props) {
@@ -140,41 +142,42 @@ class AbdominalPushUpsComponent extends Component {
           </View>
         </Modal>
         <View style={[styles.containers, styles.nameContainer]}>
-          <Text style={styles.formatText}>{this.state.name}</Text>
+          <Text style={globalStyles.formatTitle}>{'Teste de ' + this.props.examName}</Text>
         </View>
         <View style={[styles.containers, styles.evaluatedPersonContainer]}>
-          <Text style={styles.formatText}>Turma do Avaliado:</Text>
+          <Text style={globalStyles.formatTextDark}>Turma do Avaliado:</Text>
           <TextInput 
-            style={[styles.number, styles.formatText]} 
+            style={[globalStyles.inputCandidateNumber, globalStyles.formatTextDark]} 
             value={this.state.classNumber} 
             onChangeText={this.onChangeClassNumber}
             keyboardType='numeric'>
           </TextInput>
-          <Text style={styles.formatText}>Número do Avaliado:</Text>
+          <Text style={globalStyles.formatTextDark}>Número do Avaliado:</Text>
           <TextInput 
-            style={[styles.number, styles.formatText]} 
+            style={[globalStyles.inputCandidateNumber, globalStyles.formatTextDark]} 
             value={this.state.number} 
             onChangeText={this.onChangenumber}
             keyboardType='numeric'>
           </TextInput>
         </View>
         <View style={[styles.containers, styles.examDataContainer]}>
-        <Button color={'red'} title='-' onPress={this.decrementResult}></Button>
+        <Button buttonStyle={[globalStyles.formatButton, { backgroundColor: 'red'}]} title='-' onPress={this.decrementResult}/>
           <View style={styles.marginBetweenButtons} />
           <Text
             style={[styles.formatHeightValue, styles.formatText]}
-            >{this.state.result}</Text>
+            >{this.state.result}
+          </Text>
           <View style={styles.marginBetweenButtons} />
-          <Button color={'green'} title='+' onPress={this.incrementResult}></Button>
+          <Button buttonStyle={[globalStyles.formatButton,{backgroundColor: 'green'}]} title='+' onPress={this.incrementResult} />
         </View>
         <View style={[styles.containers, styles.retestContainer]}>
           <Retest changeRestestValue={this.setRetestValue}></Retest>
           <Text>Reteste</Text>
         </View>
         <View style={[styles.containers, styles.buttonContainer]}>
-          <Button color={'green'} title='Salvar' onPress={this.saveCandidateExamData}></Button>
+          <Button buttonStyle={[globalStyles.formatButtonMedium , globalStyles.backgroundGreen] } title='Salvar' onPress={this.saveCandidateExamData} />
           <View style={styles.marginBetweenButtons} />
-          <Button title='Limpar' onPress={this.clearFields}></Button>
+          <Button buttonStyle={ globalStyles.formatButtonMedium } title='Limpar' onPress={this.clearFields} />
         </View>
       </View>
     );

@@ -40,7 +40,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
-              <Text style={styles.title}>Prova de Altura</Text>
+              <Text style={styles.title}>Prova de altura</Text>
             </View>
           </TouchableOpacity>
 
@@ -53,7 +53,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
-              <Text style={styles.title}>Prova das Flexões</Text>
+              <Text style={styles.title}>Prova dos abdominais</Text>
             </View>
           </TouchableOpacity>
 
@@ -66,7 +66,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
-              <Text style={styles.title}>Prova dos Abdominais</Text>
+              <Text style={styles.title}>Prova das flexões</Text>
             </View>
           </TouchableOpacity>
 

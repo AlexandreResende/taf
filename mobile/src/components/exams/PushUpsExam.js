@@ -6,15 +6,12 @@ import { AbdominalPushUpsComponent } from './AbdominalPushUpsComponent/Abdominal
 class PushUpsExam extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      examName: 'Abdominal',
-    };
   }
 
   render() {
     return (
       <AbdominalPushUpsComponent 
-        examName={this.state.examName}
+        examName='Flexão'
       />
     );
   }
