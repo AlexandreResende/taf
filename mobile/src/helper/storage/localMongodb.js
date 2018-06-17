@@ -8,7 +8,7 @@ class Storage {
   saveOnLocalStorage(candidateExam) {
     db.insert(candidateExam, (err, newDoc) => {
       console.log('done');
-      //console.log(newDoc);
+      console.log(newDoc);
     });
   }
 

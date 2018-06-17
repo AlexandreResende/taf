@@ -16,8 +16,11 @@ class SynchronizeDataScreen extends Component {
 
     for (let exam of dataToBeSynchronized) {
       console.log(exam);
+      // console.log(this.props.navigation.getParam('appraiserSignature',''))
+      let appraiserSignature = this.props.navigation.getParam('appraiserSignature','');
+      let appraiserName = this.props.navigation.getParam('name', 'Invalid Name')
       let { name, classNumber, number, result, retest, examDate, examTime } = exam;
-      await fetch('http://192.168.1.25:3000/exams', {
+      await fetch('http://192.168.0.36:3000/exams', {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -31,9 +34,12 @@ class SynchronizeDataScreen extends Component {
           number,
           result,
           retest,
+          appraiserSignature,
+          appraiserName,
         }),
       }).then(console.log);
     }
+    storage.removeFromLocalStorage()
   }
 
   render (){

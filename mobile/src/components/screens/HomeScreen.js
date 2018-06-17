@@ -102,6 +102,7 @@ class HomeScreen extends Component {
             onPress={ () => {
               this.props.navigation.navigate('SynchronizeData',{
                 name: this.props.navigation.getParam('name', 'Invalid Name'),
+                appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
               })
             }}
           >

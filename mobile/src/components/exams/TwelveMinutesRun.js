@@ -72,14 +72,12 @@ class TwelveMinutesRun extends Component {
     }
   }
 
-  saveData(number,laps,meters,candidateSignature,appraiserSignature,appraiserName){
+  saveData(number,laps,meters,candidateSignature){
     let exam = {
       name: "Corrida de 12 minutos",
       number: parseInt(number),
       result: (parseInt(laps) * 400) + parseInt(meters),
       candidateSignature: candidateSignature,
-      appraiserSignature: appraiserSignature,
-      appraiserName: appraiserName,
       retest: false,
       classNumber: parseInt(this.state.classNumber),
       examDate: this.state.examDate,

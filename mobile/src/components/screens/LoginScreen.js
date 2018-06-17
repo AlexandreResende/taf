@@ -31,12 +31,10 @@ class LoginScreen extends Component {
       return { showSignatureWindow: false }
     });
     this.loginValidator(result);
-    
   }
 
   saveImage() {
     this.refs.signature.saveSign();
-    
   }
 
   resetImage(){

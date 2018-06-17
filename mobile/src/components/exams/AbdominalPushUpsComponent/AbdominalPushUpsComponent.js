@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Modal, View, Text, StyleSheet, TextInput } from 'react-native';
+import { Modal, View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Retest } from '../../retest';
 import { Storage } from '../../../helper/storage/localMongodb';
@@ -12,8 +12,8 @@ class AbdominalPushUpsComponent extends Component {
     super(props);
     this.state = {
       name: this.props.examName,
-      classNumber: 0,
-      number: 0,
+      classNumber: "",
+      number: "",
       result: 0,
       retest: false,
       showSignatureWindow: false,
@@ -42,8 +42,8 @@ class AbdominalPushUpsComponent extends Component {
     this.setState((prevState) => {
       return {
         ...this.state,
-        classNumber: '',
-        number: '',
+        classNumber: "",
+        number: "",
         result: 0,
       }
     });
@@ -76,44 +76,46 @@ class AbdominalPushUpsComponent extends Component {
     });
   }
 
-  saveCandidateExamData = () => {
+  saveCandidateExamData = (image) => {
     const storage = new Storage();
     const { name, classNumber, number, result, retest } = this.state;
     const day = ((new Date).getDate() > 9) ? (new Date).getDate() : '0' + (new Date).getDate().toString();
     const month = ((new Date).getMonth() + 1 > 9) ? (new Date).getMonth() + 1 : '0' + ((new Date).getMonth() + 1).toString();
     const year = (new Date).getFullYear();
-    console.log({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now() });
+    console.log({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now(), candidateSignature: image.encoded });
 
-    storage.saveOnLocalStorage({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now() });
+    storage.saveOnLocalStorage({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now(), candidateSignature: image.encoded });
     this.setState((prevState) => {
       return {
         ...this.state,
-        classNumber: 0,
-        number: 0,
-        result: 0,
-        showSignatureWindow: true,
+        classNumber: "",
+        number: "",
+        result: 0
       }
     });
   }
 
   onSave(result){
-    if(result != null)
-    {
-
+    if(result != null){
+      this.setState((prevState) => {
+        return { showSignatureWindow: false }
+      }, () => this.saveCandidateExamData(result) );
+    } else {
+      Alert.alert('Prova nao foi salva, candidato deve assinar');
     }
   }
 
-  onSignatureClose(){
-    this.setState((prevState) =>
-    {
-      return{
+  getSignature = () => {
+    this.setState((prevState) => {
+      return {
         ...this.state,
-        showSignatureWindow:false,
+        showSignatureWindow: true,
       }
-    }
-    );
-    alert('Modal has been closed.');
+    });
+  }
 
+  saveImage() {
+    this.refs.signature.saveSign();
   }
 
   render() {
@@ -131,7 +133,7 @@ class AbdominalPushUpsComponent extends Component {
             <View style={styles.buttonContainer}>
               <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
               <View style={{ width: 20 }} />
-              <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
+              <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={ this.saveImage.bind(this) } />
             </View>
           </View>
         </Modal>
@@ -169,7 +171,7 @@ class AbdominalPushUpsComponent extends Component {
           <Text>Reteste</Text>
         </View>
         <View style={[styles.containers, styles.buttonContainer]}>
-          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium , globalStyles.backgroundGreen] } title='Salvar' onPress={this.saveCandidateExamData} />
+          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium , globalStyles.backgroundGreen] } title='Salvar' onPress={this.getSignature} />
           <View style={styles.marginBetweenButtons} />
           <Button fontSize={22} buttonStyle={[ globalStyles.formatButtonMedium ]} title='Limpar' onPress={this.clearFields} />
         </View>
