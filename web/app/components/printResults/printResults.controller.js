@@ -265,8 +265,12 @@ function printResultsController($scope, api, date, $http) {
     
     // create the PDF
     function uploadPDF(){
+      var day = $scope.formTable.viewDate.getDate();
+      var month = $scope.formTable.viewDate.getMonth() + 1;
+      var year = $scope.formTable.viewDate.getFullYear();
+      var name = day + "-" + month + "-" + year + "-Turma_" + $scope.formTable.classNumber + ".pdf";
       if(docDefinition.content.length == ($scope.rows.length + 1))
-        pdfMake.createPdf(docDefinition).download("resultados.pdf");
+        pdfMake.createPdf(docDefinition).download(name);
     }
     
   }

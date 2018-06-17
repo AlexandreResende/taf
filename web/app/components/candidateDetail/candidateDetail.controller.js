@@ -57,7 +57,8 @@ function candidateDetailController($scope, $stateParams, api) {
 
     // create the PDF
     function uploadPDF() {
-      pdfMake.createPdf(docDefinition).download("resultados.pdf");
+      var name = $scope.candidate.name.replace(/\s/g, '') + ".pdf";
+      pdfMake.createPdf(docDefinition).download(name);
     }
 
   }
