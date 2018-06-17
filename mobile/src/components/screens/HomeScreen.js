@@ -26,7 +26,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
-              <Image style={{ width: 150, height: 150, resizeMode: 'contain' }} source={require('../../images/peopleRunning.png')}/>
+              <Image style={{ width: 96, height: 114, resizeMode: 'contain' }} source={require('../../images/12min.png')}/>
               <Text style={styles.title}>Prova dos 12 Minutos</Text>
             </View>
           </TouchableOpacity>
@@ -40,6 +40,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
+              <Image style={{ width: 105, height: 131, resizeMode: 'contain' }} source={require('../../images/alt.png')}/>
               <Text style={styles.title}>Prova de altura</Text>
             </View>
           </TouchableOpacity>
@@ -53,6 +54,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
+              <Image style={{ width: 158, height: 135, resizeMode: 'contain' }} source={require('../../images/abdom.png')}/>
               <Text style={styles.title}>Prova dos abdominais</Text>
             </View>
           </TouchableOpacity>
@@ -77,6 +79,7 @@ class HomeScreen extends Component {
             })        
           }}>
             <View style={styles.container}>
+              <Image style={{ width: 104, height: 106, resizeMode: 'contain' }} source={require('../../images/50met.png')}/>
               <Text style={styles.title}>Prova dos 50 metros</Text>
             </View>
           </TouchableOpacity>
@@ -103,6 +106,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
+              <Image style={{ width: 166, height: 118, resizeMode: 'contain' }} source={require('../../images/sync.png')}/>
               <Text style={styles.title}>Sincronizar</Text>
             </View>
           </TouchableOpacity>

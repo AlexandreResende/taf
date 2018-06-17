@@ -102,7 +102,7 @@ class HeightExam extends Component {
           </View>
         </Modal>
         <View style={globalStyles.examNameContainer}>
-          <Text style={globalStyles.formatTitle}>Teste da altura</Text>
+          <Text style={globalStyles.formatTitle}>Teste de altura</Text>
         </View>
         <View style={styles.evaluatedPersonContainer}>
           <Text style={globalStyles.formatTextDark}>Número do Avaliado:</Text>
@@ -121,7 +121,7 @@ class HeightExam extends Component {
             keyboardType='numeric'></TextInput>
           <Text style={globalStyles.formatTextDark} >centímetros</Text>
         </View>
-        <View style={[styles.retestContainer]}>
+        <View style={[globalStyles.retestContainer]}>
           <Retest changeRestestValue={this.setRetestValue} />
           <Text>Retest</Text>
         </View>
