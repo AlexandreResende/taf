@@ -146,7 +146,7 @@ class FiftyMetersRun extends Component {
               Numero do candidato:
           </Text>
           <TextInput 
-            style={[globalStyles.inputCandidateNumber, globalStyles.formatTextDark]} 
+            style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
             value={this.state.evaluatedPersonNumber} 
             onChangeText={this.onChangeEvaluatedPersonNumber}
             keyboardType='numeric'>
@@ -176,7 +176,7 @@ class FiftyMetersRun extends Component {
             {/* <Button title=' + ' onPress={() => { this.incrementCounter(2) }} /> */}
             <TextInput 
               value={this.state.seconds} 
-              style={ globalStyles.inputCandidateNumber } 
+              style={ globalStyles.inputNumber } 
               keyboardType='numeric'
               onChangeText={this.onChangeSecondsValue} />
             {/* <Button title=' - ' onPress={() => { this.decrementCounter(2) }} /> */}
@@ -188,7 +188,7 @@ class FiftyMetersRun extends Component {
             {/* <Button title=' + ' onPress={() => { this.incrementCounter(3) }} /> */}
             <TextInput 
               value={this.state.miliseconds}
-              style={globalStyles.inputCandidateNumber} 
+              style={globalStyles.inputNumber} 
               keyboardType='numeric'
               onChangeText={this.onChangeMilisecondsValue} />
             {/* <Button title=' - ' onPress={() => { this.decrementCounter(3) }} /> */}
@@ -200,6 +200,7 @@ class FiftyMetersRun extends Component {
           <View style={{ width: 20 }} />
           <Button 
             title='Salvar'
+            fontSize={22}
             buttonStyle={[ globalStyles.formatButtonMedium, globalStyles.backgroundGreen]}
             onPress={() => { this.setState((prevState) => { return { showSignatureWindow: true } }) }} />
         </View>

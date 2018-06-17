@@ -84,7 +84,7 @@ class TwelveMinutesRun extends Component {
             >
             <Text style={styles.formatText}>Número do Avaliado:</Text>
               <TextInput
-                style={styles.inputCandidateNumber}
+                style={[globalStyles.inputCard, globalStyles.formatTextDark]}
                 onChangeText={(text) => this.setState({ number : text}) }
                 maxLength={3}
                 keyboardType='numeric'
@@ -92,7 +92,7 @@ class TwelveMinutesRun extends Component {
               />
             <Text style={styles.formatText}>Turma do Avaliado:</Text>
               <TextInput
-                style={styles.inputCandidateNumber}
+                style={[globalStyles.inputCard, globalStyles.formatTextDark]}
                 onChangeText={(text) => this.setState({ classNumber : text}) }
                 keyboardType='numeric'
                 value={this.state.classNumber}

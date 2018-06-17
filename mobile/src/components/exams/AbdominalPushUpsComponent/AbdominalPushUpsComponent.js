@@ -141,37 +141,37 @@ class AbdominalPushUpsComponent extends Component {
         <View style={[styles.containers, styles.evaluatedPersonContainer]}>
           <Text style={globalStyles.formatTextDark}>Turma do Avaliado:</Text>
           <TextInput 
-            style={[globalStyles.inputCandidateNumber, globalStyles.formatTextDark]} 
+            style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
             value={this.state.classNumber} 
             onChangeText={this.onChangeClassNumber}
             keyboardType='numeric'>
           </TextInput>
           <Text style={globalStyles.formatTextDark}>Número do Avaliado:</Text>
           <TextInput 
-            style={[globalStyles.inputCandidateNumber, globalStyles.formatTextDark]} 
+            style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
             value={this.state.number} 
             onChangeText={this.onChangenumber}
             keyboardType='numeric'>
           </TextInput>
         </View>
         <View style={[styles.containers, styles.examDataContainer]}>
-        <Button buttonStyle={[globalStyles.formatButton, { backgroundColor: 'red'}]} title='-' onPress={this.decrementResult}/>
+        <Button fontSize={22} buttonStyle={[globalStyles.formatButton, { backgroundColor: 'red'}]} title='-' onPress={this.decrementResult}/>
           <View style={styles.marginBetweenButtons} />
           <Text
             style={[styles.formatHeightValue, styles.formatText]}
             >{this.state.result}
           </Text>
           <View style={styles.marginBetweenButtons} />
-          <Button buttonStyle={[globalStyles.formatButton,{backgroundColor: 'green'}]} title='+' onPress={this.incrementResult} />
+          <Button fontSize={22} buttonStyle={[globalStyles.formatButton,globalStyles.backgroundGreen]} title='+' onPress={this.incrementResult} />
         </View>
         <View style={[styles.containers, styles.retestContainer]}>
           <Retest changeRestestValue={this.setRetestValue}></Retest>
           <Text>Reteste</Text>
         </View>
         <View style={[styles.containers, styles.buttonContainer]}>
-          <Button buttonStyle={[globalStyles.formatButtonMedium , globalStyles.backgroundGreen] } title='Salvar' onPress={this.saveCandidateExamData} />
+          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium , globalStyles.backgroundGreen] } title='Salvar' onPress={this.saveCandidateExamData} />
           <View style={styles.marginBetweenButtons} />
-          <Button buttonStyle={ globalStyles.formatButtonMedium } title='Limpar' onPress={this.clearFields} />
+          <Button fontSize={22} buttonStyle={[ globalStyles.formatButtonMedium ]} title='Limpar' onPress={this.clearFields} />
         </View>
       </View>
     );

@@ -90,7 +90,7 @@ class HeightExam extends Component {
           transparent={false}
           onRequestClose={() => { this.onSignatureClose }}>
           <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
-            <Text style={styles.formatText}>Assinatura do candidato</Text>
+            <Text style={globalStyles.formatTextDark}>Assinatura do candidato</Text>
             <View style={styles.signatureBox}>
               <Signature ref='signature' onSave={this.onSave.bind(this)} />
             </View>
@@ -105,9 +105,9 @@ class HeightExam extends Component {
           <Text style={globalStyles.formatTitle}>Teste da altura</Text>
         </View>
         <View style={styles.evaluatedPersonContainer}>
-          <Text style={styles.formatText}>Número do Avaliado:</Text>
+          <Text style={globalStyles.formatTextDark}>Número do Avaliado:</Text>
           <TextInput 
-            style={[styles.evaluatedPersonNumber, styles.formatText]} 
+            style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
             value={this.state.evaluatedPersonNumber} 
             onChangeText={this.onChangeEvaluatedPersonNumber}
             keyboardType='numeric'>
@@ -115,20 +115,20 @@ class HeightExam extends Component {
         </View>       
         <View style={styles.examDataContainer}>
           <TextInput
-            style={[styles.formatHeightValue, styles.formatText]}
+            style={[globalStyles.inputNumber, globalStyles.formatTextDark]}
             value={this.state.heigthValue}
             onChangeText={this.onChangeHeightValue}
             keyboardType='numeric'></TextInput>
-          <Text style={styles.formatText} >centímetros</Text>
+          <Text style={globalStyles.formatTextDark} >centímetros</Text>
         </View>
         <View style={[styles.retestContainer]}>
           <Retest changeRestestValue={this.setRetestValue} />
           <Text>Retest</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button buttonStyle={[globalStyles.formatButtonMedium, globalStyles.backgroundGreen]} title='Salvar' onPress= {this.saveCandidateData }></Button>
+          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium, globalStyles.backgroundGreen]} title='Salvar' onPress= {this.saveCandidateData }></Button>
           <View style={styles.marginBetweenButtons} />
-          <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={this.clearFields}></Button>
+          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium]} title='Limpar' onPress={this.clearFields}></Button>
         </View>
       </View>
     );
@@ -161,11 +161,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  evaluatedPersonNumber: {
-    width: '15%',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
   examDataContainer: {
     marginTop: -10,
     flex: 1,
@@ -186,20 +181,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingRight: 10,
   },
-  retestContainer: {
-    flex: 1,
-    //marginBottom: 140,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   marginBetweenButtons: {
     flex: 0.2,
   },
-  formatText: {
-    color: 'black',
-    fontSize: 25,
-  }
 });
 
 export { HeightExam };

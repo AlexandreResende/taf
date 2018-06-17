@@ -14,8 +14,13 @@ const globalStyles = StyleSheet.create({
     fontSize: 25,
     color:'white',
   },
-  inputCandidateNumber:{
-    width: '11%',
+  inputNumber:{
+    width: 75,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  inputCard: {
+    width: 75,
     justifyContent: 'center',
     textAlign: 'center',
   },
@@ -53,6 +58,12 @@ const globalStyles = StyleSheet.create({
   },
   backgroundGreen: {
     backgroundColor: '#1fbd82'
+  },
+  retestContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
