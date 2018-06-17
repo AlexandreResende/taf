@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView, TextInput, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card } from './TwelveMinutesRun/index';
 import { globalStyles } from '../common/GlobalStyles';
+import { Storage } from '../../helper/storage/localMongodb';
 
 class TwelveMinutesRun extends Component {
 
@@ -11,8 +12,17 @@ class TwelveMinutesRun extends Component {
       arr: [],
       number: '',
       results: [],
-      examDate: new Date().getTime()
+      classNumber: '',
+      examDate: this.getDate()
     })
+  }
+
+  getDate =() =>{
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
   }
 
   addToArr() {
@@ -30,19 +40,50 @@ class TwelveMinutesRun extends Component {
   }
 
   endExam(){
-    console.log(this.state)
+    Alert.alert(
+      'Confirmação',
+      'Você deseja finalizar a prova?',
+      [
+        {text: 'Não', onPress: () => {}},
+        {text: 'Sim!', onPress: () => this.saveToDb()},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  saveToDb(){  
+    let arr = this.state.results
+    let allSigned = true
+    for(let i = 0 ; i < arr.length ; i++){
+      if(arr[i].candidateSignature.length == 0)
+        allSigned = false
+    }
+
+    if(allSigned){
+      const storage = new Storage();
+      storage.saveOnLocalStorage(this.state.results);
+      Alert.alert("Prova finalizada");
+      this.props.navigation.navigate('Home', {
+        name: this.props.navigation.getParam('name', ''),
+        appraiserSignature: this.props.navigation.getParam('appraiserSignature', '')
+      })
+    } else {
+      Alert.alert("Todos candidatos devem assinar a prova");
+    }
   }
 
   saveData(number,laps,meters,candidateSignature,appraiserSignature,appraiserName){
     let exam = {
       name: "Corrida de 12 minutos",
-      number: number,
+      number: parseInt(number),
       result: (parseInt(laps) * 400) + parseInt(meters),
       candidateSignature: candidateSignature,
       appraiserSignature: appraiserSignature,
       appraiserName: appraiserName,
       retest: false,
-      examDate: this.state.examDate
+      classNumber: parseInt(this.state.classNumber),
+      examDate: this.state.examDate,
+      examTime: Date.now()
     }
     let replaced = false;
     for(var index = 0 ; index < this.state.results.length ; index++){
