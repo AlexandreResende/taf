@@ -5,23 +5,35 @@ import { Retest } from '../retest';
 import { Signature, GlobalStyles } from '../common';
 import { globalStyles } from '../common/GlobalStyles';
 import { Button } from 'react-native-elements';
+import { Storage } from '../../helper/storage/localMongodb';
 
 class HeightExam extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      evaluatedPersonNumber: '',
-      heigthValue: '',
+      name: "Altura",
+      number: '',
+      classNumber: '',
+      result: '',
       retest: false,
       showSignatureWindow: false,
     };
   }
 
-  onChangeEvaluatedPersonNumber = (val) => {
+  onChangenumber = (val) => {
     this.setState((prevState) => {
       return {
         ...this.state,
-        evaluatedPersonNumber: val,
+        number: val,
+      }
+    });
+  }
+
+  onChangeClassNumber = (val) => {
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        classNumber: val,
       }
     });
   }
@@ -30,7 +42,7 @@ class HeightExam extends Component {
     this.setState((prevState) => {
       return {
         ...this.state,
-        heigthValue: val,
+        result: val,
       }
     });
   }
@@ -40,7 +52,7 @@ class HeightExam extends Component {
       return {
         ...this.state,
         evaluatedPersonNumber: '',
-        heigthValue: '',
+        result: '',
       }
     });
   }
@@ -54,7 +66,39 @@ class HeightExam extends Component {
     });
   }
 
-  saveCandidateData = () => {
+  saveCandidateData = (image) => {
+    const storage = new Storage();
+    const { name, classNumber, number, result, retest } = this.state;
+    const day = ((new Date).getDate() > 9) ? (new Date).getDate() : '0' + (new Date).getDate().toString();
+    const month = ((new Date).getMonth() + 1 > 9) ? (new Date).getMonth() + 1 : '0' + ((new Date).getMonth() + 1).toString();
+    const year = (new Date).getFullYear();
+    console.log({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now(), candidateSignature: image.encoded });
+
+    storage.saveOnLocalStorage({ name, classNumber: parseInt(classNumber), number: parseInt(number), result: parseInt(result), retest, examDate: `${day}/${month}/${year}`, examTime: Date.now(), candidateSignature: image.encoded });
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        classNumber: "",
+        number: "",
+        result: ""
+      }
+    });
+  }
+
+  onSave(result) {
+    if(result != null){
+      this.setState((prevState) => {
+        return { showSignatureWindow: false }
+      }, () => this.saveCandidateData(result) );
+    } else {
+      this.setState((prevState) => {
+        return { showSignatureWindow: false }
+      });
+      Alert.alert('Prova nao foi salva, candidato deve assinar');
+    }
+  }
+
+  getSignature = () => {
     this.setState((prevState) => {
       return {
         ...this.state,
@@ -63,24 +107,8 @@ class HeightExam extends Component {
     });
   }
 
-  onSave(result){
-    if(result != null)
-    {
-
-    }
-  }
-
-  onSignatureClose(){
-    this.setState((prevState) =>
-    {
-      return{
-        ...this.state,
-        showSignatureWindow:false,
-      }
-    }
-    );
-    alert('Modal has been closed.');
-
+  saveImage() {
+    this.refs.signature.saveSign();
   }
 
   render() {
@@ -97,26 +125,33 @@ class HeightExam extends Component {
             <View style={styles.buttonContainer}>
               <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
               <View style={{ width: 20 }} />
-              <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
+              <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={ this.saveImage.bind(this) } />
             </View>
           </View>
         </Modal>
         <View style={globalStyles.examNameContainer}>
           <Text style={globalStyles.formatTitle}>Teste de altura</Text>
         </View>
-        <View style={styles.evaluatedPersonContainer}>
+        <View style={[styles.containers, styles.evaluatedPersonContainer]}>
+          <Text style={globalStyles.formatTextDark}>Turma do Avaliado:</Text>
+          <TextInput 
+            style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
+            value={this.state.classNumber} 
+            onChangeText={this.onChangeClassNumber}
+            keyboardType='numeric'>
+          </TextInput>
           <Text style={globalStyles.formatTextDark}>Número do Avaliado:</Text>
           <TextInput 
             style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
-            value={this.state.evaluatedPersonNumber} 
-            onChangeText={this.onChangeEvaluatedPersonNumber}
+            value={this.state.number} 
+            onChangeText={this.onChangenumber}
             keyboardType='numeric'>
           </TextInput>
-        </View>       
+        </View>      
         <View style={styles.examDataContainer}>
           <TextInput
             style={[globalStyles.inputNumber, globalStyles.formatTextDark]}
-            value={this.state.heigthValue}
+            value={this.state.result}
             onChangeText={this.onChangeHeightValue}
             keyboardType='numeric'></TextInput>
           <Text style={globalStyles.formatTextDark} >centímetros</Text>
@@ -126,7 +161,7 @@ class HeightExam extends Component {
           <Text>Retest</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium, globalStyles.backgroundGreen]} title='Salvar' onPress= {this.saveCandidateData }></Button>
+          <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium, globalStyles.backgroundGreen]} title='Salvar' onPress= {this.getSignature }></Button>
           <View style={styles.marginBetweenButtons} />
           <Button fontSize={22} buttonStyle={[globalStyles.formatButtonMedium]} title='Limpar' onPress={this.clearFields}></Button>
         </View>
