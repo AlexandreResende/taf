@@ -87,7 +87,7 @@ class Card extends Component {
                   Adicional: 
               </Text>
               <TextInput
-                style={{ width: 40 }}
+                style={{ width: 40, justifyContent: 'center',textAlign: 'center',}}
                 onChangeText={(text) => this.changeText(text) }
                 maxLength={4}
                 keyboardType='numeric'
@@ -130,7 +130,7 @@ class Card extends Component {
             <View style={styles.buttonContainer}>
               <Button 
                 title="Assinar" 
-                backgroundColor='blue'
+                backgroundColor='#1AA9E2'
                 borderRadius={15}
                 onPress={() => { this.setState((prevState) => { return { showModalWindow: true } } ) }}
               />

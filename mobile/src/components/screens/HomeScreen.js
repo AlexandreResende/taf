@@ -40,7 +40,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
-              <Image style={{ width: 105, height: 131, resizeMode: 'contain' }} source={require('../../images/alt.png')}/>
+              <Image style={{ width: 143, height: 129, resizeMode: 'contain' }} source={require('../../images/alt.png')}/>
               <Text style={styles.title}>Prova de altura</Text>
             </View>
           </TouchableOpacity>
@@ -68,16 +68,19 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
+              <Image style={{ width: 134, height: 106, resizeMode: 'contain' }} source={require('../../images/pushup.png')}/>
               <Text style={styles.title}>Prova das flexões</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.child, {backgroundColor: '#669933'} ]} 
-            onPress={() => { this.props.navigation.navigate('FiftyMetersRun', { 
+            onPress={() => 
+            { 
+              this.props.navigation.navigate('FiftyMetersRun', { 
               name: this.props.navigation.getParam('name', 'Invalid Name'),
               appraiserSignature: this.props.navigation.getParam('appraiserSignature','')
             })        
-          }}>
+            }}>
             <View style={styles.container}>
               <Image style={{ width: 104, height: 106, resizeMode: 'contain' }} source={require('../../images/50met.png')}/>
               <Text style={styles.title}>Prova dos 50 metros</Text>
@@ -93,6 +96,7 @@ class HomeScreen extends Component {
             }}
           >
             <View style={styles.container}>
+              <Image style={{ width: 94, height: 94, resizeMode: 'contain' }} source={require('../../images/verdados.png')}/>
               <Text style={styles.title}>Ver Dados</Text>
             </View>
           </TouchableOpacity>

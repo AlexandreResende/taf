@@ -48,7 +48,7 @@ class LoginScreen extends Component {
           transparent={false}
           onRequestClose={() => { this.onSignatureClose }}>
           <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
-            <Text style={globalStyles.formatTextDark}>Assinatura do avaliador</Text>
+            <Text style={globalStyles.formatTitle}>Assinatura do avaliador</Text>
             <View style={styles.signatureBox}>
               <Signature ref='signature' onSave={this.onSave.bind(this)} />
             </View>

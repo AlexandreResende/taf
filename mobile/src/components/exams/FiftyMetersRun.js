@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native';
-import { Signature } from '../common';
+import { Alert, Modal, View, Button, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Retest} from '../retest';
 import { globalStyles } from '../common/GlobalStyles';
-import { Button } from 'react-native-elements';
+import { FiftyMetersRunCard } from '../cards/FiftyMetersRunCard';
+import { Storage } from '../../helper/storage/localMongodb';
 
 class FiftyMetersRun extends Component {
 
@@ -14,9 +15,11 @@ class FiftyMetersRun extends Component {
     this.state = {
       isDateTimePickerVisible: false,
       evaluatedPersonNumber: '',
-      seconds: '0',
-      miliseconds: '0',
       showSignatureWindow: false,
+      arr: [],
+      results: [],
+      classNumber: '',
+      examDate: new Date().getTime()
     };
   }
 
@@ -30,59 +33,14 @@ class FiftyMetersRun extends Component {
   //   return number + ""; // always return a string
   // }
 
-  incrementCounter(type)
-  {
-    var timerCounter = Object.freeze({"seconds":2, "miliseconds":3});
-    switch(type)
-    {
-      case timerCounter.seconds:
-      this.setState((prevState) => {
-        return {
-          ...this.state,
-          seconds: (Number(this.state.seconds) + 1).toString(),
-        }
-      });
-      break;
-      case timerCounter.miliseconds:
-      this.setState((prevState) => {
-        return {
-          ...this.state,
-          miliseconds: (Number(this.state.miliseconds) + 1).toString(),
-        }
-      });
-      break;
-      default:
-      console.log('erro');
-      break;
-    }
-  }
-
-  decrementCounter(type)
-  {
-    var timerCounter = Object.freeze({"seconds":2, "miliseconds":3});
-    switch(type)
-    {
-      case timerCounter.seconds:
-      this.setState((prevState) => {
-        return {
-          ...this.state,
-          seconds: ((Number(this.state.seconds) - 1) < 0 ? 0 : Number(this.state.seconds) - 1).toString(),
-        }
-
-      });
-      break;
-      case timerCounter.miliseconds:
-      this.setState((prevState) => {
-        return {
-          ...this.state,
-          miliseconds: ((Number(this.state.miliseconds) - 1) <= 0 ? 0 : Number(this.state.miliseconds) - 1).toString(),
-        }
-      });
-      break;
-      default:
-      console.log('erro');
-      break;
-    }
+  addToArr() {
+    if(!this.state.evaluatedPersonNumber || this.state.evaluatedPersonNumber.length == 0 || !this.state.classNumber || this.state.classNumber == 0 || this.state.arr.indexOf(this.state.evaluatedPersonNumber) != -1)
+      return;
+    this.state.arr.push(this.state.evaluatedPersonNumber)
+    this.setState({
+        arr: this.state.arr,
+        evaluatedPersonNumber: ''
+    })
   }
 
   onChangeEvaluatedPersonNumber = (val) => {
@@ -90,26 +48,6 @@ class FiftyMetersRun extends Component {
       return {
         ...this.state,
         evaluatedPersonNumber: val,
-      }
-    });
-  } 
-
-  onChangeSecondsValue = (val) => {
-    this.setState((prevState) =>
-    {
-      return{
-        ...this.state,
-        seconds: val,
-      }
-    });
-  }  
-
-  onChangeMilisecondsValue = (val) => {
-    this.setState((prevState) =>
-    {
-      return{
-        ...this.state,
-        miliseconds: val,
       }
     });
   } 
@@ -130,81 +68,84 @@ class FiftyMetersRun extends Component {
       }
     }
     );
-    alert('Modal has been closed.');
 
+  }
+
+  endExam(){
+    Alert.alert(
+      'Confirmação',
+      'Você deseja finalizar a prova?',
+      [
+        {text: 'Não', onPress: () => {}},
+        {text: 'Sim!', onPress: () => {}/*this.saveToDb()*/},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  saveData(number,candidateSignature){
+    let exam = {
+      name: "Corrida de 12 minutos",
+      number: parseInt(number),
+      //result: (parseInt(laps) * 400) + parseInt(meters),
+      candidateSignature: candidateSignature,
+      retest: false,
+      classNumber: parseInt(this.state.classNumber),
+      examDate: this.state.examDate,
+      examTime: Date.now()
+    }
   }
 
   render()
   {
+    let Arr = this.state.arr.map((element, i) => {
+      return <FiftyMetersRunCard 
+                candidateNumber={element}
+                // appraiserSignature={this.props.navigation.getParam('appraiserSignature', '')} 
+                // appraiserName={this.props.navigation.getParam('name', '')} 
+                key={i} saveData={() => {}}
+              />                            
+    })
     return (
-      <View style={styles.container}>
+      <ScrollView style={{flex: 1}}>
         <View style={globalStyles.examNameContainer}>
-          <Text style={globalStyles.formatTitle}>Teste dos 50 metros</Text>
+          <Text style={globalStyles.formatTitle}>Corrida dos 50 metros</Text>
         </View>
-        <View style={[styles.container, {flexDirection:'row', marginTop:-20}]}>
-          <Text style={globalStyles.formatTextDark}>
-              Numero do candidato:
-          </Text>
-          <TextInput 
-            style={[globalStyles.inputNumber, globalStyles.formatTextDark]} 
-            value={this.state.evaluatedPersonNumber} 
-            onChangeText={this.onChangeEvaluatedPersonNumber}
-            keyboardType='numeric'>
-          </TextInput>            
-        </View>
-        <View>
-        <Modal visible={this.state.showSignatureWindow} animationType="slide"
-          transparent={false}
-          onRequestClose={() => { this.onSignatureClose }}>
-          <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
-            <Text style={globalStyles.formatTitle}>Assinatura do candidato</Text>
-            <View style={styles.signatureBox}>
-              <Signature ref='signature' onSave={this.onSave.bind(this)} />
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
-              <View style={{ width: 20 }} />
-              <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
-            </View>
-          </View>
-        </Modal>
-        </View>
-        <Text style={globalStyles.formatTextDark}> Tempo da corrida</Text>
-        <Text> (SEGUNDOS : MILISSEGUNDOS)</Text>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flexDirection: 'column' }}>
-            {/* <Button title=' + ' onPress={() => { this.incrementCounter(2) }} /> */}
-            <TextInput 
-              value={this.state.seconds} 
-              style={ globalStyles.inputNumber } 
-              keyboardType='numeric'
-              onChangeText={this.onChangeSecondsValue} />
-            {/* <Button title=' - ' onPress={() => { this.decrementCounter(2) }} /> */}
-          </View>
-          <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.formatText}> : </Text>
-          </View>
-          <View style={{ flexDirection: 'column' }}>
-            {/* <Button title=' + ' onPress={() => { this.incrementCounter(3) }} /> */}
-            <TextInput 
-              value={this.state.miliseconds}
-              style={globalStyles.inputNumber} 
-              keyboardType='numeric'
-              onChangeText={this.onChangeMilisecondsValue} />
-            {/* <Button title=' - ' onPress={() => { this.decrementCounter(3) }} /> */}
+        <View style={styles.finishButtonContainer}>
+          <View style={styles.finishButton}>
+            <Button
+              title="Finalizar Prova"
+              onPress={ this.endExam.bind(this) }
+            />
           </View>
         </View>
-        <View style={[styles.retestContainer]}>
-          <Retest></Retest>
-          <Text>Reteste</Text>
-          <View style={{ width: 20 }} />
-          <Button 
-            title='Salvar'
-            fontSize={22}
-            buttonStyle={[ globalStyles.formatButtonMedium, globalStyles.backgroundGreen]}
-            onPress={() => { this.setState((prevState) => { return { showSignatureWindow: true } }) }} />
+        <View style={styles.buttonContainer}>
+          { Arr }
+          <View style={styles.card}>
+            <TouchableOpacity  
+              style={styles.addButton}
+              onPress={  () => this.addToArr() }
+            >
+            <Text style={[globalStyles.formatTextLight, { marginTop: 10 }]}>Número do Avaliado:</Text>
+              <TextInput
+                style={[globalStyles.inputCard, globalStyles.formatTextDark]}
+                onChangeText={(text) => this.setState({ evaluatedPersonNumber : text}) }
+                maxLength={3}
+                keyboardType='numeric'
+                value={this.state.evaluatedPersonNumber}
+              />
+            <Text style={globalStyles.formatTextLight}>Turma do Avaliado:</Text>
+              <TextInput
+                style={[globalStyles.inputCard, globalStyles.formatTextDark]}
+                onChangeText={(text) => this.setState({ classNumber : text}) }
+                keyboardType='numeric'
+                value={this.state.classNumber}
+              />
+              <Icon name="plus-circle" size={70} color="white" />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -222,6 +163,15 @@ const styles = StyleSheet.create({
     width: 550,
     height: 205,
   },
+  card: {
+    backgroundColor: '#02bc76',
+    margin: 10,
+    width: 300,
+    height: 260,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15
+  },
   retestContainer: {
     flex: 1,
     //marginBottom: 140,
@@ -236,7 +186,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection:'row',
     flexWrap: 'wrap',
-    marginTop: 10,
+    marginTop: 0,
   },
   addButton: {
     height: '100%',
@@ -247,6 +197,13 @@ const styles = StyleSheet.create({
   inputCandidateNumber: {
     color: 'black',
     width: 65
+  },
+  finishButtonContainer:{
+    alignItems: 'center',
+    margin: 5
+  },
+  finishButton: {
+    width: 200
   }
 });
 

@@ -26,7 +26,7 @@ class TwelveMinutesRun extends Component {
   }
 
   addToArr() {
-    if(!this.state.number || this.state.number.length == 0 || this.state.arr.indexOf(this.state.number) != -1)
+    if(!this.state.number || this.state.number.length == 0 || this.state.classNumber == 0 || this.state.arr.indexOf(this.state.number) != -1)
       return;
     this.state.arr.push(this.state.number)
     this.setState({
@@ -121,7 +121,7 @@ class TwelveMinutesRun extends Component {
               style={styles.addButton}
               onPress={  () => this.addToArr() }
             >
-            <Text style={styles.formatText}>Número do Avaliado:</Text>
+            <Text style={globalStyles.formatTextLight}>Número do Avaliado:</Text>
               <TextInput
                 style={[globalStyles.inputCard, globalStyles.formatTextDark]}
                 onChangeText={(text) => this.setState({ number : text}) }
@@ -129,7 +129,7 @@ class TwelveMinutesRun extends Component {
                 keyboardType='numeric'
                 value={this.state.number}
               />
-            <Text style={styles.formatText}>Turma do Avaliado:</Text>
+            <Text style={globalStyles.formatTextLight}>Turma do Avaliado:</Text>
               <TextInput
                 style={[globalStyles.inputCard, globalStyles.formatTextDark]}
                 onChangeText={(text) => this.setState({ classNumber : text}) }
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#02bc76',
     margin: 10,
     width: 300,
-    height: 220,
+    height: 260,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15
