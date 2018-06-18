@@ -46,13 +46,21 @@ class ListCandidatesInfoScreen extends Component {
       <ScrollView>
         <View>
           <Table>
-            <Row data={this.state.tableHead}></Row>
-            <Rows data={this.state.tableRows}></Rows>
+            <Row data={this.state.tableHead} textStyle={[styles.text]}></Row>
+            <Rows data={this.state.tableRows} textStyle={[styles.text]}></Rows>
           </Table>
         </View>
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 20,
+  }
+});
 
 export { ListCandidatesInfoScreen };
