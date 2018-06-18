@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Modal, View, Text, StyleSheet, TextInput } from 'react-native';
+import { Modal, View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import { Retest } from '../retest';
 import { Signature, GlobalStyles } from '../common';
 import { globalStyles } from '../common/GlobalStyles';
