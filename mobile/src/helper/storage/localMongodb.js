@@ -6,9 +6,13 @@ class Storage {
   constructor() { }
 
   saveOnLocalStorage(candidateExam) {
-    db.insert(candidateExam, (err, newDoc) => {
-      console.log('done');
-      console.log(newDoc);
+    return new Promise((resolve, reject) => {
+      db.insert(candidateExam, (err, newDoc) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(newDoc);
+      });
     });
   }
 
