@@ -97,8 +97,7 @@ class TwelveMinutesRun extends Component {
   render() {
     let Arr = this.state.arr.map((element, i) => {
       return <Card candidateNumber={element} 
-                   appraiserSignature={this.props.navigation.getParam('appraiserSignature', '')} 
-                   appraiserName={this.props.navigation.getParam('name', '')}  key={i} saveData={this.saveData.bind(this)}
+                 key={i} saveData={this.saveData.bind(this)}
               />                            
     })
     return (

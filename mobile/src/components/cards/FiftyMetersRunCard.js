@@ -22,34 +22,61 @@ class FiftyMetersRunCard extends Component {
       showSignatureWindow: false,
       candidateSignature: "",
       signed: "Não",
-      appraiserSignature: this.props.appraiserSignature,
-      appraiserName: this.props.appraiserName,
-    }/*, () => this.saveData()*/ );
+      retest: false,
+      result: "0"
+    }, () => this.saveData() );
   }
 
   onChangeSecondsValue = (val) => {
+    (val.length == 0) ? val = "00": val;
     this.setState((prevState) =>
     {
       return{
         ...this.state,
         seconds: val,
       }
-    });
+    }, () => this.saveData() );
   }  
 
   onChangeMilisecondsValue = (val) => {
+    (val.length == 0) ? val = "00": val;
     this.setState((prevState) =>
     {
       return{
         ...this.state,
         miliseconds: val,
       }
-    });
+    }, () => this.saveData() );
   } 
 
   setRetestValue = (val) => 
   {
-    
+    this.setState((prevState) => {
+      return {
+        ...this.state,
+        retest: val,
+      };
+    }, () => this.saveData());
+  }
+
+  saveData() {
+    let milli = (this.state.miliseconds.length == 1) ? "0" + this.state.miliseconds : this.state.miliseconds;
+    milli = (milli == "") ? "00" : milli; 
+    this.props.saveData(this.props.candidateNumber,(this.state.seconds + milli),this.state.retest,this.state.candidateSignature);
+  }
+
+  onSave(result){
+    if(result != null) {
+      this.setState({
+        candidateSignature: result.encoded,
+        signed: "Sim"
+      }, () => this.saveData());
+    } else {
+      this.setState({
+        candidateSignature: "",
+        signed: "Não"
+      }, () => this.saveData());
+    }
   }
 
   render() {
@@ -65,10 +92,16 @@ class FiftyMetersRunCard extends Component {
           <View style={[styles.container, { marginTop: 20, marginLeft: 'auto', marginRight: 'auto' }]}>
             <Text style={globalStyles.formatTitle}>Assinatura do candidato</Text>
             <View style={styles.signatureBox}>
-              <Signature ref='signature' saveOnDrag={true} onSave={() => {}} />
+              <Signature ref='signature' saveOnDrag={true} onSave={this.onSave.bind(this)} />
             </View>
             <View style={[styles.buttonContainer,{justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}]}>
-              <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { this.refs.signature.resetSign(); }} />
+              <Button buttonStyle={globalStyles.formatButtonMedium} title='Limpar' onPress={() => { 
+                  this.refs.signature.resetSign(); 
+                  this.setState({
+                    candidateSignature: "",
+                    signed: "Não"
+                  }, () => this.saveData());
+                }}/>
               <View style={{ width: 20 }} />
               <Button buttonStyle={globalStyles.formatButtonMedium} title='Salvar' onPress={() => { this.setState((prevState) => { return { showSignatureWindow: false } }); }} />
             </View>
@@ -78,6 +111,9 @@ class FiftyMetersRunCard extends Component {
           <View>
             <Text style={styles.text}>
               Numero do candidato: <Text style={styles.number}>{this.props.candidateNumber}</Text>
+            </Text>
+            <Text style={styles.text}>
+                Assinado: <Text >{this.state.signed}</Text>
             </Text>
             <View style={{marginTop: 20}}/>
             <View style={{ flexDirection: 'row' }}>
