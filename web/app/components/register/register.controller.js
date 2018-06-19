@@ -61,7 +61,7 @@ function registerController($scope, $mdToast, api, focus, date) {
     api.addCandidate(data).then(function(response){
       $scope.toastMessage('success','Cadastro Realizado com sucesso');
       $scope.clearForm();
-      $scope.updateTable(date.formatDate($scope.viewDate),lastClassNumber);
+      $scope.updateTable(date.formatDate($scope.formTable.viewDate),lastClassNumber);
       focus('focusMe');
     }, function(error){
       $scope.toastMessage('error','Erro ao cadastrar candidato');
