@@ -78,7 +78,6 @@ class HeightExam extends Component {
     this.setState((prevState) => {
       return {
         ...this.state,
-        classNumber: "",
         number: "",
         result: ""
       }

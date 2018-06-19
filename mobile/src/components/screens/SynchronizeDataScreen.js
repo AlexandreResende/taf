@@ -30,7 +30,7 @@ class SynchronizeDataScreen extends Component {
       let appraiserSignature = this.props.navigation.getParam('appraiserSignature','');
       let appraiserName = this.props.navigation.getParam('name', 'Invalid Name')
       let { name, classNumber, number, result, retest, examDate, examTime, candidateSignature } = exam;
-      await fetch('http://192.168.0.36:3000/exams', {
+      await fetch(`http://${this.state.ipAddress}:3000/exams`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',

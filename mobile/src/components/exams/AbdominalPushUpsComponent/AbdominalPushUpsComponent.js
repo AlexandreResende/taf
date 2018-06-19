@@ -88,7 +88,6 @@ class AbdominalPushUpsComponent extends Component {
     this.setState((prevState) => {
       return {
         ...this.state,
-        classNumber: "",
         number: "",
         result: 0
       }
