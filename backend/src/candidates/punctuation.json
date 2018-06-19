@@ -1,6 +1,6 @@
 {
   "feminino": {
-    "altura": 1.55,
+    "altura": 155,
     "flexao": {
       "16": 10,
       "17": 15,
@@ -69,7 +69,7 @@
     }
   },
   "masculino": {
-    "altura": 1.60,
+    "altura": 160,
     "flexao": {
       "14": 10,
       "15": 15,

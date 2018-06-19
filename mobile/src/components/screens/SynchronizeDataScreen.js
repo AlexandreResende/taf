@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import { Logo } from '../common';
-import { View, Text, Easing, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Storage } from '../../helper/storage/localMongodb';
+import { globalStyles } from '../common/GlobalStyles';
+import { Button } from 'react-native-elements';
+
 
 class SynchronizeDataScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ipAddress: '',
+    };
+  }
+
   static navigationOptions = ({ navigation }) => ({
     title: ("Avaliador: " + navigation.getParam('name', 'Invalid Name')),
     headerRight: <Logo />
@@ -43,16 +53,68 @@ class SynchronizeDataScreen extends Component {
     storage.removeFromLocalStorage()
   }
 
+  onChangeIpAddress = (val) => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        ipAddress: val
+      };
+    });
+  }
+
   render (){
     return (
-      <View>
-        <Button
-          title={'Sincronizar'}
-          onPress={this.synchronizeData}
-        />
+      <View style={[styles.container]}>
+        <View style={[styles.container2, styles.resultContainer]}>
+          <Text style={[globalStyles.formatTextDark]}>Digite o endereço de IP:</Text>
+          <TextInput
+            style={[styles.formatTextInput]}
+            value={this.state.ipAddress}
+            onChangeText={this.onChangeIpAddress}
+          />
+        </View>
+        <View style={[styles.container2, styles.resultContainer]}>
+          <Button
+            title={'Sincronizar'}
+            onPress={this.synchronizeData}
+            style={[globalStyles.formatButtonMedium]}
+          />
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '70%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    height: 40,
+    margin: 5,
+    flexDirection:'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultContainer: {
+    flex: 1,
+    paddingRight: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  formatTextInput: {
+    width: 200,
+    fontSize: 30,
+  }
+});
 
 export { SynchronizeDataScreen };
