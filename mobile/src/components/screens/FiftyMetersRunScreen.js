@@ -11,7 +11,7 @@ class FiftyMetersRunScreen extends Component {
 
   render (){
     return (
-      <FiftyMetersRun/>
+      <FiftyMetersRun navigation={this.props.navigation}/>
     );
   }
 }

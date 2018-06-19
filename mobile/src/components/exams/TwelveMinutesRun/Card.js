@@ -17,8 +17,6 @@ class Card extends Component {
       showModalWindow: false,
       candidateSignature: "",
       signed: "Não",
-      appraiserSignature: this.props.appraiserSignature,
-      appraiserName: this.props.appraiserName,
     }, () => this.saveData() );
   }
 

@@ -19,21 +19,20 @@ class FiftyMetersRun extends Component {
       arr: [],
       results: [],
       classNumber: '',
-      examDate: new Date().getTime()
+      examDate: this.getDate()
     };
   }
 
-  // zeroFill( number, width )
-  // {
-  //   width -= number.toString().length;
-  //   if ( width > 0 )
-  //   {
-  //     return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-  //   }
-  //   return number + ""; // always return a string
-  // }
+  getDate =() =>{
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+  }
 
   addToArr() {
+    console.log("adding")
     if(!this.state.evaluatedPersonNumber || this.state.evaluatedPersonNumber.length == 0 || !this.state.classNumber || this.state.classNumber == 0 || this.state.arr.indexOf(this.state.evaluatedPersonNumber) != -1)
       return;
     this.state.arr.push(this.state.evaluatedPersonNumber)
@@ -43,57 +42,60 @@ class FiftyMetersRun extends Component {
     })
   }
 
-  onChangeEvaluatedPersonNumber = (val) => {
-    this.setState((prevState) => {
-      return {
-        ...this.state,
-        evaluatedPersonNumber: val,
-      }
-    });
-  } 
-
-  onSave(result){
-    if(result != null)
-    {
-
-    }
-  }
-
-  onSignatureClose(){
-    this.setState((prevState) =>
-    {
-      return{
-        ...this.state,
-        showSignatureWindow:false,
-      }
-    }
-    );
-
-  }
-
   endExam(){
     Alert.alert(
       'Confirmação',
       'Você deseja finalizar a prova?',
       [
         {text: 'Não', onPress: () => {}},
-        {text: 'Sim!', onPress: () => {}/*this.saveToDb()*/},
+        {text: 'Sim!', onPress: () => {this.saveToDb()}},
       ],
       { cancelable: false }
     )
   }
 
-  saveData(number,candidateSignature){
+  saveToDb(){  
+    let arr = this.state.results
+    let allSigned = true
+    for(let i = 0 ; i < arr.length ; i++){
+      if(arr[i].candidateSignature.length == 0)
+        allSigned = false
+    }
+
+    if(allSigned){
+      const storage = new Storage();
+      storage.saveOnLocalStorage(this.state.results);
+      Alert.alert("Prova finalizada");
+      this.props.navigation.navigate('Home', {
+        name: this.props.navigation.getParam('name', ''),
+        appraiserSignature: this.props.navigation.getParam('appraiserSignature', '')
+      })
+    } else {
+      Alert.alert("Todos candidatos devem assinar a prova");
+    }
+  }
+
+  saveData(number,result,retest,candidateSignature){
     let exam = {
-      name: "Corrida de 12 minutos",
+      name: "Corrida de 50 metros",
       number: parseInt(number),
-      //result: (parseInt(laps) * 400) + parseInt(meters),
+      result: parseInt(result),
       candidateSignature: candidateSignature,
-      retest: false,
+      retest: retest,
       classNumber: parseInt(this.state.classNumber),
       examDate: this.state.examDate,
       examTime: Date.now()
     }
+    console.log(exam);
+    let replaced = false;
+    for(var index = 0 ; index < this.state.results.length ; index++){
+      if(this.state.results[index].number == number){
+        this.state.results[index] = exam;
+        replaced = true;
+      }
+    }
+    if( !replaced ) 
+      this.state.results.push(exam);
   }
 
   render()
@@ -101,9 +103,7 @@ class FiftyMetersRun extends Component {
     let Arr = this.state.arr.map((element, i) => {
       return <FiftyMetersRunCard 
                 candidateNumber={element}
-                // appraiserSignature={this.props.navigation.getParam('appraiserSignature', '')} 
-                // appraiserName={this.props.navigation.getParam('name', '')} 
-                key={i} saveData={() => {}}
+                key={i} saveData={this.saveData.bind(this)}
               />                            
     })
     return (
